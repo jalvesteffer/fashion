@@ -61,42 +61,42 @@
 </nav> -->
 
 
-<!-- Product grid -->
-<div class="w3-row w3-grayscale">
+<!-- Product grid OLD Way-->
+<!-- <div class="w3-row w3-grayscale">
 
 
   <!-- Column 1, 2 results -->
-  <div class="w3-col l3 s6">
+  <!-- <div class="w3-col l3 s6">
     <div class="w3-container" *ngFor="let p of products; let i = index">
       <div *ngIf="i>=0 && i<2">
         <img src="assets/images/thumbnails/jeans1.jpg" style="width:100%">
         <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- Column 2, 2 results -->
-  <div class="w3-col l3 s6">
+  <!-- <div class="w3-col l3 s6">
     <div class="w3-container" *ngFor="let p of products; let i = index">
       <div *ngIf="i>=2 && i<4">
         <img src="assets/images/thumbnails/jeans2.jpg" style="width:100%">
         <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- Column 3, 2 results -->
-  <div class="w3-col l3 s6">
+  <!-- <div class="w3-col l3 s6">
     <div class="w3-container" *ngFor="let p of products; let i = index">
       <div *ngIf="i>=4 && i<6">
         <img src="assets/images/thumbnails/jeans3.jpg" style="width:100%">
         <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- Column 4, 2 results -->
-  <div class="w3-col l3 s6">
+  <!-- <div class="w3-col l3 s6">
     <div class="w3-container" *ngFor="let p of products; let i = index">
       <div *ngIf="i>=6 && i<8">
         <img src="assets/images/thumbnails/jeans4.jpg" style="width:100%">
@@ -104,7 +104,41 @@
       </div>
     </div>
   </div>
+</div>  END of odd grid-->
 
+<!-- <div class="w3-col l3 s6"> -->
+  <div class="w3-row w3-grayscale">
+<ng-container *ngFor="let p of products; let i = index">
+  <div class="w3-col l3 s6"  *ngIf="i % 4 == 0 && i != 0" >
+      <div class="w3-container" >
+        <img src="assets/images/thumbnails/jeans3.jpg" style="width:100%">
+        <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
+      </div>
+  </div>
+  
+  <div class="w3-col l3 s6"  *ngIf="i % 3 == 0 && i % 4 != 0 && i != 0">
+    <div class="w3-container" >
+      <img src="assets/images/thumbnails/jeans3.jpg" style="width:100%">
+      <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
+    </div>
+  </div>
+
+  <div class="w3-col l3 s6"  *ngIf="i % 2 == 0 && i % 3 != 0 && i % 4 != 0 && i != 0">
+    <div class="w3-container">
+      <img src="assets/images/thumbnails/jeans3.jpg" style="width:100%">
+      <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
+    </div>
+  </div>
+
+  <div class="w3-col l3 s6"  *ngIf= "i % 4 != 0 && i % 3 != 0 && i % 2 != 0 || i == 0">
+    <div class="w3-container">
+      <img src="assets/images/thumbnails/jeans3.jpg" style="width:100%">
+      <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
+    </div>
+  </div>
+</ng-container>
+</div>
+<!-- </div> -->
   <!-- <div class="w3-col l3 s6">
     <div class="w3-container">
       <div class="w3-display-container">
@@ -151,7 +185,7 @@
   </div> -->
 
 
-</div>
+
 
 <!-- Subscribe section -->
 <div class="w3-container w3-black w3-padding-32">
