@@ -69,7 +69,7 @@
   <div class="w3-col l3 s6">
     <div class="w3-container" *ngFor="let p of products; let i = index">
       <div *ngIf="i>=0 && i<2">
-        <img src="assets/images/thumbnails/jeans1.jpg" style="width:100%">
+        <img src="assets/images/thumbnails/{{p.productId}}.jpg" style="width:100%">
         <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
       </div>
     </div>
@@ -79,7 +79,7 @@
   <div class="w3-col l3 s6">
     <div class="w3-container" *ngFor="let p of products; let i = index">
       <div *ngIf="i>=2 && i<4">
-        <img src="assets/images/thumbnails/jeans2.jpg" style="width:100%">
+        <img src="assets/images/thumbnails/{{p.productId}}.jpg" style="width:100%">
         <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
       </div>
     </div>
@@ -89,7 +89,7 @@
   <div class="w3-col l3 s6">
     <div class="w3-container" *ngFor="let p of products; let i = index">
       <div *ngIf="i>=4 && i<6">
-        <img src="assets/images/thumbnails/jeans3.jpg" style="width:100%">
+        <img src="assets/images/thumbnails/{{p.productId}}.jpg" style="width:100%">
         <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
       </div>
     </div>
@@ -99,7 +99,7 @@
   <div class="w3-col l3 s6">
     <div class="w3-container" *ngFor="let p of products; let i = index">
       <div *ngIf="i>=6 && i<8">
-        <img src="assets/images/thumbnails/jeans4.jpg" style="width:100%">
+        <img src="assets/images/thumbnails/{{p.productId}}.jpg" style="width:100%">
         <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
       </div>
     </div>
