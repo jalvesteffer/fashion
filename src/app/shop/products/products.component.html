@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:250px">
 </div>
@@ -28,7 +29,6 @@
 <div class="w3-container w3-text-grey" id="jeans">
   <p>{{ totalProducts }} items</p>
 </div>
-
 
 <!-- Sidebar/menu -->
 <!-- <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
@@ -106,17 +106,9 @@
   </div>
 </div>  END of odd grid-->
 
- 
-
-
-
 
 <!-- show products -->
 <div class="w3-row w3-grayscale">
-
-  <!-- pagination -->
-
-
   <ng-container *ngFor="let p of pagedProduct; let i = index">
     <div class="w3-col l3 s6" *ngIf="i % 4 == 0 && i != 0">
       <div class="w3-container" >
@@ -145,24 +137,17 @@
         <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
       </div>
     </div>
-
-    <div class="ds-l-row ds-u-margin-top--3">
-      <div class="pagination justify-content-center">
-        <ngb-pagination [collectionSize]="totalProducts" [(page)]="pager.currentPage" [maxSize]="5" [boundaryLinks]="true"
-            (pageChange)="setPage($event)"></ngb-pagination>
-      </div>
-    </div>
-  </ng-container>
-
-  <div class="ds-l-row ds-u-margin-top--3">
-    <div class="pagination justify-content-center">
-      <ngb-pagination [collectionSize]="totalProducts" [(page)]="pager.currentPage" [maxSize]="5" [boundaryLinks]="true"
-        (pageChange)="setPage($event)"></ngb-pagination>
-    </div>
-  </div>
-
+  </ng-container> 
 </div>
 
+
+<!-- pagination -->
+<div class="ds-l-row ds-u-margin-top--3">
+  <div class="pagination justify-content-center">
+    <ngb-pagination [collectionSize]="totalProducts" [(page)]="pager.currentPage" [maxSize]="5" [boundaryLinks]="true"
+      (pageChange)="setPage($event)"></ngb-pagination>
+  </div>
+</div>
 
 <!-- </div> -->
 <!-- <div class="w3-col l3 s6">

@@ -16,7 +16,7 @@ export class ProductsComponent implements OnInit {
   //pagnation
   pager: any = {};
   pagedProduct: any[];
-  pageSize: number = 8;
+  pageSize: number = 12;
 
   constructor(
     private shopService: ShopService,
