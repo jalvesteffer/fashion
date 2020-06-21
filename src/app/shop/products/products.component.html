@@ -1,10 +1,11 @@
-  <!-- Sidebar/menu -->
-  <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
+ <!-- old menu -->
+ <!-- Sidebar/menu -->
+  <!-- <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
     <div class="w3-container w3-display-container w3-padding-16">
       <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
       <h3 class="w3-wide"><b>GC Fashion</b></h3>
     </div>
-    <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
+    <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold" >
       <a href="#" class="w3-bar-item w3-button">Shirts</a>
       <a href="#" class="w3-bar-item w3-button">Dresses</a>
       <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
@@ -26,7 +27,24 @@
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding"
       onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a>
     <a href="#footer" class="w3-bar-item w3-button w3-padding">Subscribe</a>
-  </nav>
+  </nav> -->
+  <!-- old menu -->
+
+  <!-- Sidebar/menu -->
+  <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
+    <div class="w3-container w3-display-container w3-padding-16">
+      <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
+      <h3 class="w3-wide"><b>GC Fashion</b></h3>
+    </div>
+    <div class="w3-padding-30 w3-large w3-text-grey" style="font-weight:bold" *ngFor="let c of categories">
+      <a href="#" class="w3-bar-item w3-button">{{c.catName}}</a>
+    </div><br><br>
+
+    <a href="#footer" class="w3-bar-item w3-button w3-padding-80">Contact</a>
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding"
+      onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a>
+    <a href="#footer" class="w3-bar-item w3-button w3-padding">Subscribe</a>
+  </nav><br>
 
   <!-- Top menu on small screens -->
   <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
@@ -68,7 +86,7 @@
     </div>
 
     <div class="w3-container w3-text-grey" id="jeans">
-      <p>{{ totalProducts }} items</p>
+      <p>{{ totalProducts }} total items</p>
     </div>
 
     <!-- show products -->
@@ -155,9 +173,9 @@
 
         <div class="w3-col s4 w3-justify">
           <h4>Store</h4>
-          <p><i class="fa fa-fw fa-map-marker"></i> Company Name</p>
+          <p><i class="fa fa-fw fa-map-marker"></i> GC Fashion</p>
           <p><i class="fa fa-fw fa-phone"></i> 0044123123</p>
-          <p><i class="fa fa-fw fa-envelope"></i> ex@mail.com</p>
+          <p><i class="fa fa-fw fa-envelope"></i> ShopGC@gcfashion.com</p>
           <h4>We accept</h4>
           <p><i class="fa fa-fw fa-cc-amex"></i> Amex</p>
           <p><i class="fa fa-fw fa-credit-card"></i> Credit Card</p>

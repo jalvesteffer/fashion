@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   shopUrl: 'http://localhost:8085/gcfashions/shop',
   getProductsURI: '/products',
+  getCategoriesURI: '/categories',
 };
 
 /*
