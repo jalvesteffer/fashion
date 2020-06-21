@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ShopService } from "../../common/services/shop.service";
 import { PagerService } from "../../common/services/pager.service";
 import { environment } from "../../../environments/environment";
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-products',
@@ -10,14 +12,23 @@ import { environment } from "../../../environments/environment";
 })
 export class ProductsComponent implements OnInit {
 
+  // product data
   noProduct: number = 0;
   products: any;
   totalProducts: number;
 
+  // category data
   categories: any;
   totalCategories: number;
 
-  //pagnation
+  // product details modal
+  private modalRef: NgbModalRef;
+  productDetailsForm: FormGroup;
+  productName: string;
+  errMsg: any;
+  closeResult: any;
+
+  // pagnation
   pager: any = {};
   pagedProduct: any[];
   pageSize: number = 12;
@@ -25,11 +36,22 @@ export class ProductsComponent implements OnInit {
   constructor(
     private shopService: ShopService,
     private pagerService: PagerService,
+    private modalService: NgbModal,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
     this.loadAllProducts();
     this.loadAllCategories();
+    this.initializeFormGroup();
+  }
+
+  initializeFormGroup() {
+    this.productDetailsForm = new FormGroup({
+      productName: new FormControl(this.productName),
+      // authorId: new FormControl(this.authorId),
+      // books: new FormControl(this.books),
+    });
   }
 
   loadAllProducts() {
@@ -57,7 +79,7 @@ export class ProductsComponent implements OnInit {
       );
   }
 
-  loadProductsByCategory(catId:number) {
+  loadProductsByCategory(catId: number) {
     this.shopService.getAll(`${environment.shopUrl}${environment.getCategoryURI}${catId}${environment.getProductsURI}`)
       .subscribe((res) => {
         this.products = res;
@@ -73,6 +95,39 @@ export class ProductsComponent implements OnInit {
           console.log("no items found");
         }
       );
+  }
+
+  open(content, obj) {
+
+    console.log("open called");
+
+    // this.loadAllBooks();
+
+    if (obj !== null) {
+      this.productDetailsForm = this.fb.group({
+        productName: obj.productName
+        // authorId: obj.authorId,
+        // authorName: [obj.authorName, [Validators.required, Validators.minLength(3), Validators.maxLength(45)]]
+      })
+      // } else {
+      //   this.updateAuthorForm = this.fb.group({
+      //     books: null,
+      //     authorId: null,
+      //     authorName: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(45)]]
+      //   })
+    }
+
+    this.modalRef = this.modalService.open(content);
+    this.modalRef.result.then(
+      (result) => {
+        this.errMsg = "";
+        this.closeResult = `Closed with ${result}`;
+      },
+      (reason) => {
+        this.errMsg = "";
+        this.closeResult = `Dismissed`;
+      }
+    );
   }
 
   setPage(page: number) {

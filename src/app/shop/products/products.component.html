@@ -107,31 +107,75 @@
      <ng-container *ngFor="let p of pagedProduct; let i = index">
        <div class="w3-col l3 s6" *ngIf="i % 4 == 0 && i != 0">
          <div class="w3-container">
-           <img src="assets/images/thumbnails/{{p.photo}}.jpg" style="width:100%">
-           <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
-         </div>
+           <div class="w3-display-container">
+
+             <img src="assets/images/thumbnails/{{p.photo}}.jpg" style="width:100%">
+             <!-- <span class="w3-tag w3-display-topleft">Sale</span> -->
+
+             <div class="w3-display-middle w3-display-hover">
+               <button class="w3-button w3-black" (click)="open(productDetailsModal, p)">Buy now <i
+                   class="fa fa-shopping-cart"></i></button>
+             </div> <!-- end div hover button -->
+
+             <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
+
+           </div> <!-- end div display container -->
+         </div> <!-- end container -->
        </div>
 
        <div class="w3-col l3 s6" *ngIf="i % 3 == 0 && i % 4 != 0 && i != 0">
          <div class="w3-container">
-           <img src="assets/images/thumbnails/{{p.photo}}.jpg" style="width:100%">
-           <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
-         </div>
+           <div class="w3-display-container">
+
+             <img src="assets/images/thumbnails/{{p.photo}}.jpg" style="width:100%">
+             <!-- <span class="w3-tag w3-display-topleft">New</span> -->
+
+             <div class="w3-display-middle w3-display-hover">
+               <button class="w3-button w3-black" (click)="open(productDetailsModal, p)">Buy now <i
+                   class="fa fa-shopping-cart"></i></button>
+             </div> <!-- end div hover button -->
+
+             <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
+
+           </div> <!-- end div display container -->
+         </div> <!-- end container -->
        </div>
 
        <div class="w3-col l3 s6" *ngIf="i % 2 == 0 && i % 3 != 0 && i % 4 != 0 && i != 0">
          <div class="w3-container">
-           <img src="assets/images/thumbnails/{{p.photo}}.jpg" style="width:100%">
-           <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
-         </div>
+           <div class="w3-display-container">
+
+             <img src="assets/images/thumbnails/{{p.photo}}.jpg" style="width:100%">
+
+             <div class="w3-display-middle w3-display-hover">
+               <button class="w3-button w3-black" (click)="open(productDetailsModal, p)">Buy now <i
+                   class="fa fa-shopping-cart"></i></button>
+             </div> <!-- end div hover button -->
+
+             <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
+
+           </div> <!-- end div display container -->
+         </div> <!-- end container -->
        </div>
 
        <div class="w3-col l3 s6" *ngIf="i % 4 != 0 && i % 3 != 0 && i % 2 != 0 || i == 0">
          <div class="w3-container">
-           <img src="assets/images/thumbnails/{{p.photo}}.jpg" style="width:100%">
-           <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
-         </div>
+           <div class="w3-display-container">
+
+             <img src="assets/images/thumbnails/{{p.photo}}.jpg" style="width:100%">
+
+             <div class="w3-display-middle w3-display-hover">
+               <button class="w3-button w3-black" (click)="open(productDetailsModal, p)">Buy now <i
+                   class="fa fa-shopping-cart"></i></button>
+             </div> <!-- end div hover button -->
+
+             <p>{{p.productName}}<br><b>{{p.price | currency: $}}</b></p>
+
+           </div> <!-- end div display container -->
+         </div> <!-- end container -->
        </div>
+
+
      </ng-container>
    </div>
 
@@ -157,7 +201,7 @@
    </div>
 
    <!-- Footer -->
-   <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer">
+   <!-- <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer">
      <div class="w3-row-padding">
        <div class="w3-col s4">
          <h4>Contact</h4>
@@ -205,7 +249,7 @@
      <p>
        Copyright &copy; 2020 by Smoothstack, Inc. All Rights Reserved.
      </p>
-   </footer>
+   </footer> -->
 
 
  </div>
@@ -252,3 +296,52 @@
    }
 
  </script>
+
+
+ <ng-template #productDetailsModal let-c="close" let-d="dismiss">
+   <form [formGroup]="productDetailsForm">
+     <div class="modal-dialog" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalLabel">{{ productDetailsForm.controls['productName'].value }}</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="c()">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+         <div class="modal-body">
+           <div class="form-group">
+             <p>Details</p>
+             <!-- <input class="form-control" id="authorName" formControlName="authorName" [ngClass]="{
+                'is-invalid': updateAuthorForm.controls['authorName'].errors
+              }" /></p> -->
+
+             <!-- <div *ngIf="updateAuthorForm.controls['authorName'].errors" class="error-msg">
+              <div [hidden]="
+                  !updateAuthorForm.controls['authorName'].errors.required
+                ">
+                Author Name is required
+              </div>
+              <div [hidden]="
+                  updateAuthorForm.controls['authorName'].errors.maxLength ||
+                  updateAuthorForm.controls['authorName'].errors.minLength
+                ">
+                Author Name should be between 3-45 chars in length
+              </div>
+            </div> -->
+
+             <!-- <p>Books Written:
+              <ng-multiselect-dropdown [placeholder]="'Select Books(s)'" [data]="totalBooks" formControlName="books"
+                [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+              </ng-multiselect-dropdown>
+            </p> -->
+           </div>
+         </div>
+         <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="c()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="updateAuthor()"
+            [disabled]="updateAuthorForm.invalid">Save changes</button>
+        </div> -->
+       </div>
+     </div>
+   </form>
+ </ng-template>
