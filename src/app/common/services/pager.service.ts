@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+// @Injectable({
+//   providedIn: 'root'
+// })
 export class PagerService {
 
-  constructor() {}
+  constructor() { }
 
   getPager(totalItems: number, currentPage: number = 1, pageSize: number) {
     // calculate total pages
