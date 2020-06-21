@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { ShopComponent } from './shop/shop.component';
 import { ProductsComponent } from './shop/products/products.component';
 import { ShopService } from './common/services/shop.service';
+import { PagerService } from './common/services/pager.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { ShopService } from './common/services/shop.service';
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [ShopService],
+  providers: [ShopService, PagerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
