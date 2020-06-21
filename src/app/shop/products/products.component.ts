@@ -10,8 +10,12 @@ import { environment } from "../../../environments/environment";
 })
 export class ProductsComponent implements OnInit {
 
+  noProduct: number = 0;
   products: any;
   totalProducts: number;
+
+  categories: any;
+  totalCategories: number;
 
   //pagnation
   pager: any = {};
@@ -25,6 +29,7 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
     this.loadAllProducts();
+    this.loadAllCategories();
   }
 
   loadAllProducts() {
@@ -33,10 +38,39 @@ export class ProductsComponent implements OnInit {
         this.products = res;
         this.totalProducts = this.products.length;
         this.setPage(1);
-        console.log(this.products);
       },
         (error) => {
           throw new Error("Error in loadAllProducts().");
+        }
+      );
+  }
+
+  loadAllCategories() {
+    this.shopService.getAll(`${environment.shopUrl}${environment.getCategoriesURI}`)
+      .subscribe((res) => {
+        this.categories = res;
+        this.totalCategories = this.categories.length;
+      },
+        (error) => {
+          throw new Error("Error in loadAllCategories().");
+        }
+      );
+  }
+
+  loadProductsByCategory(catId:number) {
+    this.shopService.getAll(`${environment.shopUrl}${environment.getCategoryURI}${catId}${environment.getProductsURI}`)
+      .subscribe((res) => {
+        this.products = res;
+        this.totalProducts = this.products.length;
+        this.setPage(1);
+        console.log(this.products);
+      },
+        (error) => {
+          this.products = [];
+          this.totalProducts = 0;
+          this.noProduct = 1;
+          this.setPage(1);
+          console.log("no items found");
         }
       );
   }
