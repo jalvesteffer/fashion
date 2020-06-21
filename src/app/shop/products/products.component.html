@@ -37,7 +37,7 @@
       <h3 class="w3-wide"><b>GC Fashion</b></h3>
     </div>
     <div class="w3-padding-30 w3-large w3-text-grey" style="font-weight:bold" *ngFor="let c of categories">
-      <a href="#" class="w3-bar-item w3-button">{{c.catName}}</a>
+      <a  (click) = "loadProductsByCategory(c.catId)" class="w3-bar-item w3-button">{{c.catName}}</a>
     </div><br><br>
 
     <a href="#footer" class="w3-bar-item w3-button w3-padding-80">Contact</a>
@@ -91,6 +91,13 @@
 
     <!-- show products -->
     <div class="w3-row w3-grayscale">
+
+      <!-- if no products -->
+      <div class="w3-col l6 s12" *ngIf= "totalProducts == 0">
+        <h1 class="w3-large w3-hide-medium">Sorry No Products Found</h1>
+        <img src="assets/images/thumbnails/noProduct.PNG" style="width:100%">
+      </div>
+
       <ng-container *ngFor="let p of pagedProduct; let i = index">
         <div class="w3-col l3 s6" *ngIf="i % 4 == 0 && i != 0">
           <div class="w3-container">

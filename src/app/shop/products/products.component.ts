@@ -10,6 +10,7 @@ import { environment } from "../../../environments/environment";
 })
 export class ProductsComponent implements OnInit {
 
+  noProduct: number = 0;
   products: any;
   totalProducts: number;
 
@@ -49,10 +50,27 @@ export class ProductsComponent implements OnInit {
       .subscribe((res) => {
         this.categories = res;
         this.totalCategories = this.categories.length;
-        console.log(this.categories);
       },
         (error) => {
-          throw new Error("Error in loadAllProducts().");
+          throw new Error("Error in loadAllCategories().");
+        }
+      );
+  }
+
+  loadProductsByCategory(catId:number) {
+    this.shopService.getAll(`${environment.shopUrl}${environment.getCategoryURI}${catId}${environment.getProductsURI}`)
+      .subscribe((res) => {
+        this.products = res;
+        this.totalProducts = this.products.length;
+        this.setPage(1);
+        console.log(this.products);
+      },
+        (error) => {
+          this.products = [];
+          this.totalProducts = 0;
+          this.noProduct = 1;
+          this.setPage(1);
+          console.log("no items found");
         }
       );
   }
