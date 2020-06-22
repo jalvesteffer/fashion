@@ -36,6 +36,10 @@ export class ProductsComponent implements OnInit {
   errMsg: any;
   closeResult: any;
 
+   //sort
+   searchProductForm: FormGroup;
+   searchString: string;
+
   // pagination
   pager: any = {};
   pagedProduct: any[];
@@ -57,11 +61,17 @@ export class ProductsComponent implements OnInit {
   initializeFormGroup() {
     this.productDetailsForm = new FormGroup({
       productName: new FormControl(this.productName),
+
       description: new FormControl(this.description),
       photo: new FormControl(this.photo),
       price: new FormControl(this.price),
       inventory: new FormControl([this.inventory]),
       sizeChoice: new FormControl([this.sizeChoice]),
+
+    });
+    
+    this.searchProductForm = new FormGroup({
+      searchString: new FormControl(this.searchString),
     });
   }
 
@@ -96,7 +106,6 @@ export class ProductsComponent implements OnInit {
         this.products = res;
         this.totalProducts = this.products.length;
         this.setPage(1);
-        console.log(this.products);
         this.selectedCategory = cat.catName;
       },
         (error) => {
@@ -104,13 +113,54 @@ export class ProductsComponent implements OnInit {
           this.totalProducts = 0;
           this.noProduct = 1;
           this.setPage(1);
-          console.log("no items found");
         }
       );
   }
 
   addToCart() {
     console.log("Add to cart function called");
+  }
+
+  loadProductsBySubCategory(catId: number,subcatId: number) {
+    this.shopService.getAll(`${environment.shopUrl}${environment.getCategoryURI}${catId}${environment.getSubcategoryURI}${subcatId}`)
+      .subscribe((res) => {
+        this.products = res;
+        this.totalProducts = this.products.length;
+        this.setPage(1);
+      },
+        (error) => {
+          this.products = [];
+          this.totalProducts = 0;
+          this.noProduct = 1;
+          this.setPage(1);
+        }
+      );
+  }
+
+  searchProducts() {
+    let searchString = this.searchProductForm.value.searchString;
+    console.log(searchString);
+    let dash = "/";
+    if(searchString.length != ""){ 
+      this.shopService
+        .getAll(
+          `${environment.shopUrl}${environment.getProductsLikeURI}${searchString}`
+        )
+        .subscribe(
+          (res) => {
+            this.products= res;
+            this.totalProducts = this.products.length;
+            this.searchString = "";
+            this.setPage(1);
+          },
+          (error) => {
+            this.searchString = "";
+          }
+        );
+      }else{
+        this.searchString = "";
+        this.loadAllProducts();
+      }
   }
 
   open(content, obj) {
