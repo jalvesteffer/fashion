@@ -12,6 +12,9 @@ import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms"
 })
 export class ProductsComponent implements OnInit {
 
+  // header
+  selectedCategory: string = "All Products";
+
   // product data
   noProduct: number = 0;
   products: any;
@@ -25,10 +28,15 @@ export class ProductsComponent implements OnInit {
   private modalRef: NgbModalRef;
   productDetailsForm: FormGroup;
   productName: string;
+  description: string;
+  photo: string;
+  price: number;
+  inventory: any[];
+  sizeChoice: string;
   errMsg: any;
   closeResult: any;
 
-  // pagnation
+  // pagination
   pager: any = {};
   pagedProduct: any[];
   pageSize: number = 12;
@@ -49,8 +57,11 @@ export class ProductsComponent implements OnInit {
   initializeFormGroup() {
     this.productDetailsForm = new FormGroup({
       productName: new FormControl(this.productName),
-      // authorId: new FormControl(this.authorId),
-      // books: new FormControl(this.books),
+      description: new FormControl(this.description),
+      photo: new FormControl(this.photo),
+      price: new FormControl(this.price),
+      inventory: new FormControl([this.inventory]),
+      sizeChoice: new FormControl([this.sizeChoice]),
     });
   }
 
@@ -79,13 +90,14 @@ export class ProductsComponent implements OnInit {
       );
   }
 
-  loadProductsByCategory(catId: number) {
-    this.shopService.getAll(`${environment.shopUrl}${environment.getCategoryURI}${catId}${environment.getProductsURI}`)
+  loadProductsByCategory(cat) {
+    this.shopService.getAll(`${environment.shopUrl}${environment.getCategoryURI}${cat.catId}${environment.getProductsURI}`)
       .subscribe((res) => {
         this.products = res;
         this.totalProducts = this.products.length;
         this.setPage(1);
         console.log(this.products);
+        this.selectedCategory = cat.catName;
       },
         (error) => {
           this.products = [];
@@ -97,24 +109,23 @@ export class ProductsComponent implements OnInit {
       );
   }
 
-  open(content, obj) {
+  addToCart() {
+    console.log("Add to cart function called");
+  }
 
-    console.log("open called");
+  open(content, obj) {
 
     // this.loadAllBooks();
 
     if (obj !== null) {
       this.productDetailsForm = this.fb.group({
-        productName: obj.productName
-        // authorId: obj.authorId,
-        // authorName: [obj.authorName, [Validators.required, Validators.minLength(3), Validators.maxLength(45)]]
+        productName: obj.productName,
+        description: obj.description,
+        photo: obj.photo,
+        price: obj.price,
+        inventory: [obj.inventory],
+        sizeChoice: [[obj.sizeChoice], [Validators.maxLength(1)]],
       })
-      // } else {
-      //   this.updateAuthorForm = this.fb.group({
-      //     books: null,
-      //     authorId: null,
-      //     authorName: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(45)]]
-      //   })
     }
 
     this.modalRef = this.modalService.open(content);
