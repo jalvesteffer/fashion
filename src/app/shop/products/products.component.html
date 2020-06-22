@@ -41,7 +41,7 @@
      <a (click)="loadProductsByCategory(c.catId)" class="w3-bar-item w3-button">{{c.catName}}</a>
      <div *ngFor="let sc of c.subcategories">
        <!-- *ngIf="sc.products.length"  -->
-       <a class="small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{sc.subcatName}}</a>
+       <a class="small w3-button" (click)="loadProductsBySubCategory(sc.catId, sc.subcatId)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{sc.subcatName}}</a>
      </div>
 
    </div><br><br>

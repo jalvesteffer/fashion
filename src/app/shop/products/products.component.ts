@@ -85,14 +85,28 @@ export class ProductsComponent implements OnInit {
         this.products = res;
         this.totalProducts = this.products.length;
         this.setPage(1);
-        console.log(this.products);
       },
         (error) => {
           this.products = [];
           this.totalProducts = 0;
           this.noProduct = 1;
           this.setPage(1);
-          console.log("no items found");
+        }
+      );
+  }
+
+  loadProductsBySubCategory(catId: number,subcatId: number) {
+    this.shopService.getAll(`${environment.shopUrl}${environment.getCategoryURI}${catId}${environment.getSubcategoryURI}${subcatId}`)
+      .subscribe((res) => {
+        this.products = res;
+        this.totalProducts = this.products.length;
+        this.setPage(1);
+      },
+        (error) => {
+          this.products = [];
+          this.totalProducts = 0;
+          this.noProduct = 1;
+          this.setPage(1);
         }
       );
   }
