@@ -15,6 +15,7 @@ import { ProductsComponent } from './shop/products/products.component';
 import { ShopService } from './common/services/shop.service';
 import { PagerService } from './common/services/pager.service';
 import { ProductSortPipe } from './common/product-sort.pipe';
+import { CustomerComponent } from './shop/customer/customer.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ProductSortPipe } from './common/product-sort.pipe';
     HomeComponent,
     ShopComponent,
     ProductsComponent,
-    ProductSortPipe
+    ProductSortPipe,
+    CustomerComponent
   ],
   imports: [
     BrowserModule,

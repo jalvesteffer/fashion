@@ -155,6 +155,10 @@ export class ProductsComponent implements OnInit {
           },
           (error) => {
             this.searchString = "";
+            this.products= [];
+            this.totalProducts = 0;
+            this.setPage(1);
+            console.log("mistake");
           }
         );
       }else{
