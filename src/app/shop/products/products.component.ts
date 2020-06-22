@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms"
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
 
@@ -23,6 +23,12 @@ export class ProductsComponent implements OnInit {
   // category data
   categories: any;
   totalCategories: number;
+
+  // cart data
+  cartDetailsForm: FormGroup;
+  cartTotal: number = 0;
+  totalItems: number = 0;
+  cartproducts: any[];
 
   // product details modal
   private modalRef: NgbModalRef;
@@ -67,6 +73,12 @@ export class ProductsComponent implements OnInit {
       price: new FormControl(this.price),
       inventory: new FormControl([this.inventory]),
       sizeChoice: new FormControl([this.sizeChoice]),
+
+    });
+
+    this.cartDetailsForm = new FormGroup({
+      totalItems: new FormControl(this.totalItems),
+      cartproducts: new FormControl(this.cartproducts),
 
     });
     
@@ -117,8 +129,11 @@ export class ProductsComponent implements OnInit {
       );
   }
 
-  addToCart() {
+  addToCart(name) {
     console.log("Add to cart function called");
+    this.cartproducts.push(name);
+    this.totalItems += 1;
+    // this.cartTotal += p.controls['price'].value;
   }
 
   loadProductsBySubCategory(catId: number,subcatId: number) {
@@ -182,6 +197,20 @@ export class ProductsComponent implements OnInit {
       })
     }
 
+    this.modalRef = this.modalService.open(content);
+    this.modalRef.result.then(
+      (result) => {
+        this.errMsg = "";
+        this.closeResult = `Closed with ${result}`;
+      },
+      (reason) => {
+        this.errMsg = "";
+        this.closeResult = `Dismissed`;
+      }
+    );
+  }
+
+  showCart(content) {
     this.modalRef = this.modalService.open(content);
     this.modalRef.result.then(
       (result) => {
