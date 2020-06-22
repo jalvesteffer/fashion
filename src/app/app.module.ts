@@ -14,6 +14,7 @@ import { ShopComponent } from './shop/shop.component';
 import { ProductsComponent } from './shop/products/products.component';
 import { ShopService } from './common/services/shop.service';
 import { PagerService } from './common/services/pager.service';
+import { ProductSortPipe } from './common/product-sort.pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PagerService } from './common/services/pager.service';
     FooterComponent,
     HomeComponent,
     ShopComponent,
-    ProductsComponent
+    ProductsComponent,
+    ProductSortPipe
   ],
   imports: [
     BrowserModule,
