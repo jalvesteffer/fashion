@@ -6,7 +6,7 @@
    </div>
    <div class="w3-padding-30 w3-large w3-text-grey" style="font-weight:bold" *ngFor="let c of categories">
      <!-- *ngIf="c.products.length"  -->
-     <a (click)="loadProductsByCategory(c.catId)" class="w3-bar-item w3-button">{{c.catName}}</a>
+     <a (click)="loadProductsByCategory(c)" class="w3-bar-item w3-button">{{c.catName}}</a>
      <div *ngFor="let sc of c.subcategories">
        <!-- *ngIf="sc.products.length"  -->
        <a class="small w3-button" (click)="loadProductsBySubCategory(sc.catId, sc.subcatId)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{sc.subcatName}}</a>
@@ -41,7 +41,7 @@
 
    <!-- Top header -->
    <header class="w3-container w3-xlarge">
-     <p class="w3-left">Products</p>
+     <p class="w3-left">{{ selectedCategory | titlecase}}</p>
      <p class="w3-right">
        <i class="fa fa-shopping-cart w3-margin-right"></i>
        <!-- search bar -->
@@ -56,7 +56,7 @@
        <h1 class="w3-jumbo w3-hide-small">New arrivals</h1>
        <h1 class="w3-hide-large w3-hide-medium">New arrivals</h1>
        <h1 class="w3-hide-small">COLLECTION 2020</h1>
-       <p><a href="#jeans" class="w3-button w3-black w3-padding-large w3-large">SHOP NOW</a></p>
+       <p><a href="/gcfashions/shop/products" class="w3-button w3-black w3-padding-large w3-large">SHOP NOW</a></p>
      </div>
    </div><br>
 
@@ -290,14 +290,31 @@
      <div class="modal-dialog" role="document">
        <div class="modal-content">
          <div class="modal-header">
-           <h5 class="modal-title" id="exampleModalLabel">{{ productDetailsForm.controls['productName'].value }}</h5>
+           <h4 class="modal-title" id="exampleModalLabel">{{ productDetailsForm.controls['productName'].value }}</h4>
            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="c()">
              <span aria-hidden="true">&times;</span>
            </button>
          </div>
          <div class="modal-body">
            <div class="form-group">
-             <p>Details</p>
+             <p><img src="assets/images/thumbnails/{{ productDetailsForm.controls['photo'].value }}.jpg"
+                 style="width:100%"></p>
+             <p>{{ productDetailsForm.controls['description'].value }}</p>
+             <h6 class="mt-5">Price: {{ productDetailsForm.controls['price'].value | currency: $ }}</h6>
+
+             <h6 class="mt-4">
+               Size:
+               <select class="custom-select" formControlName="sizeChoice">
+                 <option value="" disabled>Available sizes:</option>
+                 <option *ngFor="let inv of productDetailsForm.controls['inventory'].value" [ngValue]="inv.size">
+                   {{inv.size | uppercase}}</option>
+               </select>
+               <button type="button" class="btn btn-dark mt-4 pull-right" (click)="addToCart()"
+                 [disabled]="productDetailsForm.controls.sizeChoice.value == 0">Add to
+                 Cart</button>
+             </h6>
+
+
              <!-- <input class="form-control" id="authorName" formControlName="authorName" [ngClass]="{
                 'is-invalid': updateAuthorForm.controls['authorName'].errors
               }" /></p> -->
