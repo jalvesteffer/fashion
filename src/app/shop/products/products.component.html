@@ -317,15 +317,13 @@
 
              <h6 class="mt-4">
                Size:
-               <select class="custom-select" formControlName="sizeChoice" [ngClass]="{
-                'is-invalid': productDetailsForm.controls['sizeChoice'].errors
-              }">
+               <select class="custom-select" formControlName="sizeChoice">
                  <option value="" disabled>Available sizes:</option>
                  <option *ngFor="let inv of productDetailsForm.controls['inventory'].value" [ngValue]="inv.size">
                    {{inv.size | uppercase}}</option>
                </select>
                <button type="button" class="btn btn-dark mt-4 pull-right" (click)="addToCart()"
-                 [disabled]="productDetailsForm.invalid">Add to
+                 [disabled]="productDetailsForm.controls.sizeChoice.value == 0">Add to
                  Cart</button>
              </h6>
 

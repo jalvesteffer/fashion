@@ -124,7 +124,7 @@ export class ProductsComponent implements OnInit {
         photo: obj.photo,
         price: obj.price,
         inventory: [obj.inventory],
-        sizeChoice: [[obj.sizeChoice], [Validators.maxLength(1)]],
+        sizeChoice: [[obj.sizeChoice], [Validators.required]],
       })
     }
 
