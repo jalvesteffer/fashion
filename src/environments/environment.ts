@@ -7,7 +7,8 @@ export const environment = {
   shopUrl: 'http://localhost:8085/gcfashions/shop',
   getProductsURI: '/products',
   getCategoriesURI: '/categories',
-  getCategoryURI:'/categories/'
+  getCategoryURI:'/categories/',
+  getSubcategoryURI:'/subcategories/'
 };
 
 /*
