@@ -28,7 +28,8 @@ export class ProductsComponent implements OnInit {
   cartDetailsForm: FormGroup;
   cartTotal: number = 0;
   totalItems: number = 0;
-  cartproducts: any[];
+  cartproducts: any = [];
+  currentItem : any;
 
   // product details modal
   private modalRef: NgbModalRef;
@@ -79,6 +80,7 @@ export class ProductsComponent implements OnInit {
     this.cartDetailsForm = new FormGroup({
       totalItems: new FormControl(this.totalItems),
       cartproducts: new FormControl(this.cartproducts),
+      sizeChoice: new FormControl([this.sizeChoice]),
 
     });
     
@@ -129,11 +131,17 @@ export class ProductsComponent implements OnInit {
       );
   }
 
-  addToCart(name) {
+  addToCart() {
     console.log("Add to cart function called");
-    this.cartproducts.push(name);
+    console.log(this.currentItem);
+    console.log(this.cartproducts);
+    //set size
+    //get product id
+    //qty
+    //[product:{size,qty}] check if productis is in cart if not ad if so update qty or add new size
+    this.cartproducts.push(this.currentItem);
     this.totalItems += 1;
-    // this.cartTotal += p.controls['price'].value;
+    this.cartTotal += this.currentItem.price;
   }
 
   loadProductsBySubCategory(catId: number,subcatId: number) {
@@ -184,7 +192,7 @@ export class ProductsComponent implements OnInit {
 
   open(content, obj) {
 
-    // this.loadAllBooks();
+    this.currentItem = obj;
 
     if (obj !== null) {
       this.productDetailsForm = this.fb.group({
