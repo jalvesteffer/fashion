@@ -28,7 +28,7 @@ export class ShopService {
     //     return this.http.put(url, obj);
     //   }
 
-    //   postObj(url, obj) {
-    //     return this.http.post(url, obj);
-    //   }
+    postObj(url, obj) {
+        return this.http.post(url, obj);
+    }
 }
