@@ -33,6 +33,7 @@ export class ProductsComponent implements OnInit {
   // product details modal
   private modalRef: NgbModalRef;
   productDetailsForm: FormGroup;
+  productId: number;
   productName: string;
   description: string;
   photo: string;
@@ -42,9 +43,9 @@ export class ProductsComponent implements OnInit {
   errMsg: any;
   closeResult: any;
 
-   //sort
-   searchProductForm: FormGroup;
-   searchString: string;
+  //sort
+  searchProductForm: FormGroup;
+  searchString: string;
 
   // pagination
   pager: any = {};
@@ -73,9 +74,10 @@ export class ProductsComponent implements OnInit {
       price: new FormControl(this.price),
       inventory: new FormControl([this.inventory]),
       sizeChoice: new FormControl([this.sizeChoice]),
+      productId: new FormControl([this.productId]),
 
     });
-
+    
     this.cartDetailsForm = new FormGroup({
       totalItems: new FormControl(this.totalItems),
       cartproducts: new FormControl(this.cartproducts),
@@ -129,14 +131,34 @@ export class ProductsComponent implements OnInit {
       );
   }
 
-  addToCart(name) {
-    console.log("Add to cart function called");
-    this.cartproducts.push(name);
-    this.totalItems += 1;
-    // this.cartTotal += p.controls['price'].value;
+  addToCart(itemSku: number) {
+    // create a new transaction with item user added to cart
+    const transaction = {
+      storeId: 1,
+      paymentId: 123,
+      userId: 1,
+      status: "open",
+      inventory: [{
+        sku: itemSku
+      }]
+    }
+
+    // call sales service to create the transaction if no open transaction already exists;
+    // otherwise, the existing open transaction will be updated
+    this.shopService.postObj(`${environment.salesUrl}${environment.postTransactionURI}`, transaction)
+      .subscribe((res) => {
+        this.modalService.dismissAll();
+//       addToCart(name) {
+  //  this.cartproducts.push(name);
+      this.totalItems += 1;
+      },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
-  loadProductsBySubCategory(catId: number,subcatId: number) {
+  loadProductsBySubCategory(catId: number, subcatId: number) {
     this.shopService.getAll(`${environment.shopUrl}${environment.getCategoryURI}${catId}${environment.getSubcategoryURI}${subcatId}`)
       .subscribe((res) => {
         this.products = res;
@@ -156,14 +178,14 @@ export class ProductsComponent implements OnInit {
     let searchString = this.searchProductForm.value.searchString;
     console.log(searchString);
     let dash = "/";
-    if(searchString.length != ""){ 
+    if (searchString.length != "") {
       this.shopService
         .getAll(
           `${environment.shopUrl}${environment.getProductsLikeURI}${searchString}`
         )
         .subscribe(
           (res) => {
-            this.products= res;
+            this.products = res;
             this.totalProducts = this.products.length;
             this.searchString = "";
             this.setPage(1);
@@ -176,10 +198,10 @@ export class ProductsComponent implements OnInit {
             console.log("mistake");
           }
         );
-      }else{
-        this.searchString = "";
-        this.loadAllProducts();
-      }
+    } else {
+      this.searchString = "";
+      this.loadAllProducts();
+    }
   }
 
   open(content, obj) {
@@ -194,6 +216,7 @@ export class ProductsComponent implements OnInit {
         price: obj.price,
         inventory: [obj.inventory],
         sizeChoice: [[obj.sizeChoice], [Validators.required]],
+        productId: obj.productId,
       })
     }
 
