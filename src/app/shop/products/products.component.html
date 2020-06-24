@@ -9,7 +9,8 @@
      <a (click)="loadProductsByCategory(c)" class="w3-bar-item w3-button">{{c.catName}}</a>
      <div *ngFor="let sc of c.subcategories">
        <!-- *ngIf="sc.products.length"  -->
-       <a class="small w3-button" (click)="loadProductsBySubCategory(sc.catId, sc.subcatId)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{sc.subcatName}}</a>
+       <a class="small w3-button"
+         (click)="loadProductsBySubCategory(sc.catId, sc.subcatId)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{sc.subcatName}}</a>
      </div>
 
    </div><br><br>
@@ -64,26 +65,20 @@
    </div><br>
 
    <div class="w3-container w3-text-grey" id="jeans">
-    <div class="w3-left col-lg-4"> 
-      <p>{{ totalProducts }} total items</p>
-    </div>
+     <div class="w3-left col-lg-4">
+       <p>{{ totalProducts }} total items</p>
+     </div>
      <!-- search bar -->
-    <div class="w3-right col-lg-4">
-      <form [formGroup]="searchProductForm" class="form-inline d-flex justify-content-center md-form form-sm mt-0">
-        <i class="fa fa-search"></i>
-        <input
-          type="text"
-          class="form-control form-control-sm ml-3 w-75" 
-          formControlName="searchString"
-          (input)="searchProducts()"
-          placeholder="Search"
-          aria-label="Search"
-        />
-      </form>
-    </div>
-  </div>
+     <div class="w3-right col-lg-4">
+       <form [formGroup]="searchProductForm" class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+         <i class="fa fa-search"></i>
+         <input type="text" class="form-control form-control-sm ml-3 w-75" formControlName="searchString"
+           (input)="searchProducts()" placeholder="Search" aria-label="Search" />
+       </form>
+     </div>
+   </div>
 
-   
+
 
    <!-- show products -->
    <div class="w3-row w3-grayscale">
@@ -358,38 +353,16 @@
                Size:
                <select class="custom-select" formControlName="sizeChoice">
                  <option value="" disabled>Available sizes:</option>
-                 <option *ngFor="let inv of productDetailsForm.controls['inventory'].value" [ngValue]="inv.size">
+                 <option *ngFor="let inv of productDetailsForm.controls['inventory'].value" [ngValue]="inv.sku">
                    {{inv.size | uppercase}}</option>
                </select>
-               <button type="button" class="btn btn-dark mt-4 pull-right" (click)="addToCart()"
+               <button type="button" class="btn btn-dark mt-4 pull-right"
+                 (click)="addToCart(productDetailsForm.controls.sizeChoice.value)"
                  [disabled]="productDetailsForm.controls.sizeChoice.value == 0">Add to
                  Cart</button>
              </h6>
 
 
-             <!-- <input class="form-control" id="authorName" formControlName="authorName" [ngClass]="{
-                'is-invalid': updateAuthorForm.controls['authorName'].errors
-              }" /></p> -->
-
-             <!-- <div *ngIf="updateAuthorForm.controls['authorName'].errors" class="error-msg">
-              <div [hidden]="
-                  !updateAuthorForm.controls['authorName'].errors.required
-                ">
-                Author Name is required
-              </div>
-              <div [hidden]="
-                  updateAuthorForm.controls['authorName'].errors.maxLength ||
-                  updateAuthorForm.controls['authorName'].errors.minLength
-                ">
-                Author Name should be between 3-45 chars in length
-              </div>
-            </div> -->
-
-             <!-- <p>Books Written:
-              <ng-multiselect-dropdown [placeholder]="'Select Books(s)'" [data]="totalBooks" formControlName="books"
-                [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-              </ng-multiselect-dropdown>
-            </p> -->
            </div>
          </div>
          <!-- <div class="modal-footer">
