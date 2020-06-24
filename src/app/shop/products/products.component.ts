@@ -28,7 +28,8 @@ export class ProductsComponent implements OnInit {
   cartDetailsForm: FormGroup;
   cartTotal: number = 0;
   totalItems: number = 0;
-  cartproducts: any[];
+  cartproducts: any = [];
+  currentItem : any;
 
   // product details modal
   private modalRef: NgbModalRef;
@@ -81,6 +82,7 @@ export class ProductsComponent implements OnInit {
     this.cartDetailsForm = new FormGroup({
       totalItems: new FormControl(this.totalItems),
       cartproducts: new FormControl(this.cartproducts),
+      sizeChoice: new FormControl([this.sizeChoice]),
 
     });
     
@@ -132,6 +134,10 @@ export class ProductsComponent implements OnInit {
   }
 
   addToCart(itemSku: number) {
+    console.log("Add to cart function called");
+    console.log(this.currentItem);
+    console.log(this.cartproducts);
+  
     // create a new transaction with item user added to cart
     const transaction = {
       storeId: 1,
@@ -148,9 +154,13 @@ export class ProductsComponent implements OnInit {
     this.shopService.postObj(`${environment.salesUrl}${environment.postTransactionURI}`, transaction)
       .subscribe((res) => {
         this.modalService.dismissAll();
-//       addToCart(name) {
-  //  this.cartproducts.push(name);
-      this.totalItems += 1;
+
+    //[product:{size,qty}] check if productis is in cart if not ad if so update qty or add new size
+//    this.cartproducts.push(this.currentItem);
+  //  this.totalItems += 1;
+    //this.cartTotal += this.currentItem.price;
+      
+      
       },
         (error) => {
           console.log(error);
@@ -206,7 +216,7 @@ export class ProductsComponent implements OnInit {
 
   open(content, obj) {
 
-    // this.loadAllBooks();
+    this.currentItem = obj;
 
     if (obj !== null) {
       this.productDetailsForm = this.fb.group({
