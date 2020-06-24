@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms"
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
 
@@ -23,6 +23,12 @@ export class ProductsComponent implements OnInit {
   // category data
   categories: any;
   totalCategories: number;
+
+  // cart data
+  cartDetailsForm: FormGroup;
+  cartTotal: number = 0;
+  totalItems: number = 0;
+  cartproducts: any[];
 
   // product details modal
   private modalRef: NgbModalRef;
@@ -71,7 +77,13 @@ export class ProductsComponent implements OnInit {
       productId: new FormControl([this.productId]),
 
     });
+    
+    this.cartDetailsForm = new FormGroup({
+      totalItems: new FormControl(this.totalItems),
+      cartproducts: new FormControl(this.cartproducts),
 
+    });
+    
     this.searchProductForm = new FormGroup({
       searchString: new FormControl(this.searchString),
     });
@@ -136,6 +148,9 @@ export class ProductsComponent implements OnInit {
     this.shopService.postObj(`${environment.salesUrl}${environment.postTransactionURI}`, transaction)
       .subscribe((res) => {
         this.modalService.dismissAll();
+//       addToCart(name) {
+  //  this.cartproducts.push(name);
+      this.totalItems += 1;
       },
         (error) => {
           console.log(error);
@@ -177,6 +192,10 @@ export class ProductsComponent implements OnInit {
           },
           (error) => {
             this.searchString = "";
+            this.products= [];
+            this.totalProducts = 0;
+            this.setPage(1);
+            console.log("mistake");
           }
         );
     } else {
@@ -201,6 +220,20 @@ export class ProductsComponent implements OnInit {
       })
     }
 
+    this.modalRef = this.modalService.open(content);
+    this.modalRef.result.then(
+      (result) => {
+        this.errMsg = "";
+        this.closeResult = `Closed with ${result}`;
+      },
+      (reason) => {
+        this.errMsg = "";
+        this.closeResult = `Dismissed`;
+      }
+    );
+  }
+
+  showCart(content) {
     this.modalRef = this.modalService.open(content);
     this.modalRef.result.then(
       (result) => {

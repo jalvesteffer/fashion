@@ -12,6 +12,7 @@ export const environment = {
   getCategoryURI: '/categories/',
   getSubcategoryURI: '/subcategories/',
   postTransactionURI: '/transactions',
+  getUserURI: '/account/users/',
 };
 
 /*
