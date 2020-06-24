@@ -9,7 +9,8 @@ export const environment = {
   getProductsLikeURI: '/products/like/',
   getCategoriesURI: '/categories',
   getCategoryURI:'/categories/',
-  getSubcategoryURI:'/subcategories/'
+  getSubcategoryURI:'/subcategories/',
+  getUserURI:'/account/users/',
 };
 
 /*

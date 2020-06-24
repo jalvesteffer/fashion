@@ -1,8 +1,47 @@
-<h2>Products</h2>
+<!-- <h2>Products</h2>
 <div>
   <div *ngFor="let p of products">
     <p>{{ p.productName }}</p>
     <p>Description: {{ p.description }}</p>
     <br><br>
+  </div>
+</div> -->
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main">
+
+
+  <!-- Push down content on small screens -->
+  <div class="w3-hide-large" style="margin-top:83px"></div>
+
+  <!-- Top header -->
+  <header class="w3-container w3-large">
+    <p class="w3-left">{{ selectedCategory | titlecase}}</p>
+  </header>
+
+  <!-- Image header -->
+  <div class="w3-display-container w3-container">
+    <img src="assets/images/thumbnails/jeans.jpg" alt="Jeans" style="width:100%">
+    <div class="w3-display-topleft w3-text-white" style="padding:24px 48px">
+      <h1 class="w3-jumbo w3-hide-small">New arrivals</h1>
+      <h1 class="w3-hide-large w3-hide-medium">New arrivals</h1>
+      <h1 class="w3-hide-small">COLLECTION 2020</h1>
+      <p><a href="/gcfashions/shop/products" class="w3-button w3-black w3-padding-large w3-large">SHOP NOW</a></p>
+    </div>
+  </div><br>
+
+  <div class="row w3-container w3-text-grey" id="jeans">
+    <br>
+    <div class="col-lg-6"> 
+      <h1>Weclome to GC Fashion </h1>
+      <p>Our mission is to offer quality, name brands in an assortment of sizes and styles
+         to accommodate all varying body styles and shapes while not hurting our 
+         environment.We use the greenest fabrics, which are made from renewable fibers that are easy to 
+         grow or produce. They require limited water and energy to produce, and many are recyclable.</p>
+    </div>
+
+    <div class="col-lg-6"> 
+      <i class="fa fa-globe" aria-hidden="true" style="padding-left: 10%;"></i>
+    </div>
   </div>
 </div>

@@ -4,6 +4,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './home/home.component';
 import { ShopComponent } from './shop/shop.component';
 import { ProductsComponent } from './shop/products/products.component';
+import { CustomerComponent } from './shop/customer/customer.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: "gcfashions/shop/products",
         component: ProductsComponent,
+      },
+      {
+        path: "gcfashions/shop/myaccount",
+        component: CustomerComponent,
       },
       // {
       //   path: "**",
