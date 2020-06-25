@@ -37,6 +37,7 @@ export class AuthService {
         password: user.password
       }, {observe:'response'}).subscribe((response: any) => {
         console.log(response);
+        // need to update this part to pull token from header
         if (response.auth === true && response.token !== undefined) {
           this.token = response.token;
           this.server.setLoggedIn(true, this.token);
