@@ -8,10 +8,15 @@ export const environment = {
   salesUrl: 'http://localhost:8085/gcfashions/sales',
   getProductsURI: '/products',
   getProductsLikeURI: '/products/like/',
+  getCartItemsURI: '/transactions/open/',
   getCategoriesURI: '/categories',
   getCategoryURI: '/categories/',
   getSubcategoryURI: '/subcategories/',
+  getTransactionURI: '/transactions/',
+  getCouponURI: '/transactions/open/coupon/userid/',
   postTransactionURI: '/transactions',
+  postCouponURI: '/transactions/open/coupon',
+  deleteTransactionURI: '/transactions/open/userid/',
   getUserURI: '/account/users/',
 };
 

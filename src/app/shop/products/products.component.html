@@ -18,7 +18,7 @@
    <a href="#footer" class="w3-bar-item w3-button w3-padding-80">Contact</a>
    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding"
      onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a>
-   <a  routerLink="../../../gcfashions/shop/myaccount" class="w3-bar-item w3-button w3-padding">My Account</a>
+   <a routerLink="../../../gcfashions/shop/myaccount" class="w3-bar-item w3-button w3-padding">My Account</a>
  </nav><br>
 
  <!-- Top menu on small screens -->
@@ -44,13 +44,13 @@
    <header class="w3-container w3-xlarge">
      <p class="w3-left">{{ selectedCategory | titlecase}}</p>
 
-    <!-- shopping cart -->
-    <a class="w3-right"  id="cart" (click)="showCart(cartDetailsModal)"> Cart({{ totalItems }})
-      <em  click={}>&nbsp;</em>
-      <span class="p1 fa-stack fa-1x has-badge">
-        <i  type = "button" class="p3 fa fa-shopping-cart fa-stack-1x xfa-inverse"></i>
-      </span>
-      </a>
+     <!-- shopping cart -->
+     <a class="w3-right" id="cart" (click)="showCart(cartDetailsModal)"> Cart({{ cartNumItems }})
+       <em click={}>&nbsp;</em>
+       <span class="p1 fa-stack fa-1x has-badge">
+         <i type="button" class="p3 fa fa-shopping-cart fa-stack-1x xfa-inverse"></i>
+       </span>
+     </a>
    </header>
 
    <!-- Image header -->
@@ -282,55 +282,81 @@
 
  </script>
  <ng-template #cartDetailsModal let-c="close" let-d="dismiss">
-  <form [formGroup]="cartDetailsForm">
-    <div class="modal-dialog" style="padding:32px" role="document">
-      <div class="modal-content w3-white w3-center">
-        <div class="modal-header">
-          <h2 class="modal-title w3-center  w3-wide">YOUR CART</h2>
-          <i button type="button" class="close w3-right" data-dismiss="modal" aria-label="Close" (click)="c()"
-          class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
-        </div>
-        <div class="modal-body">
-          <div class="form-group" >
-            <h3 *ngIf="totalItems > 0">Merchandise Subtotal : $ {{ cartTotal}}</h3>
-            <p *ngIf="totalItems > 0">Total Items: {{ totalItems}}</p>
-            <button type="button" class="w3-center w3-wide w3-button w3-red w3-margin-bottom"
-          onclick="document.getElementById('newsletter').style.display='none'"> CHECK OUT</button>
-            <div class="w3-row" *ngFor="let p of cartproducts">
-              <!-- <div class="col-lg-5" > -->
-                <img class="w3-left" src="assets/images/thumbnails/{{p.photo}}.jpg" style="height: 10%; width:20%">
-                <div class="row">
-                  <div class="col">
-                    <h5 class="w3-left">{{p.productName}}</h5><br>
-                  </div>
-                </div>
-                
-                <div class="row">
-                  <div class="col">
-                    <p class="w3-left">Size: {{currentItem.sizeChoice}}</p>
-                  </div>
-                  <div class="col">
-                    <p class="w3-left">Qty: </p>
-                  </div>
-                
-                </div>
-                <h4 class="w3-center"><b>{{p.price | currency: $}}</b></h4>
-              <!-- </div> -->
-              <!-- <div class="col-lg-2" ></div>
+   <form [formGroup]="cartDetailsForm">
+     <div class="modal-dialog" style="padding:32px" role="document">
+       <div class="modal-content w3-white w3-center">
+         <div class="modal-header">
+           <h2 class="modal-title w3-center  w3-wide">YOUR CART</h2>
+           <i button type="button" class="close w3-right" data-dismiss="modal" aria-label="Close" (click)="c()"
+             class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
+         </div>
+         <div class="modal-body">
+           <div class="form-group">
+
+             <div class="w3-row" *ngFor="let p of cartProducts">
+               <!-- <div class="col-lg-5" > -->
+               <img class="w3-left" src="assets/images/thumbnails/{{p.photo}}.jpg" style="height: 10%; width:20%">
+               <div class="row">
+                 <div class="col">
+                   <h5 class="w3-left">{{p.productName}}</h5><br>
+                 </div>
+               </div>
+
+               <div class="row">
+                 <div class="col">
+                   <p class="w3-left">Size: {{p.inventory[0].size | uppercase}}</p>
+                 </div>
+                 <div class="col">
+                   <p class="w3-left"><button type="button" class="btn btn-warning btn-sm"
+                       (click)="removeItem(p.inventory[0].sku)">Remove</button></p>
+                 </div>
+
+               </div>
+               <h4 class="w3-center"><b>{{p.price | currency: $}}</b></h4>
+               <!-- </div> -->
+               <!-- <div class="col-lg-2" ></div>
               <div class="col-lg-5" >
                 <h4 class="w3-left">{{p.productName}}</h4><br><br>
                 <h1 class="w3-left">Size: {{p.sizeChoice}}</h1><br>
                 <h3 class="w3-center"><b>{{p.price | currency: $}}</b></h3>
               </div> -->
-              <hr>
-            </div>
-            
-        </div>
-        </div>
-      </div>
-    </div>
-  </form>
-</ng-template>
+               <hr>
+
+
+             </div>
+             <p *ngIf="cartNumItems > 0">Total Items: {{ cartNumItems }}</p>
+             <hr>
+
+             <!-- Coupon code section -->
+             Enter a coupon code:
+             <input class="form-control" id="couponCode" formControlName="couponCode"><button type="button"
+               class="btn btn-danger btn-sm"
+               (click)="addCouponCode(cartDetailsForm.controls.couponCode.value)">Submit</button>
+             <p *ngIf="couponCode && couponDiscount > 0" class="mt-3 text-success">Coupon code '{{couponCode}}'
+               applied<br>{{couponDescription}}</p>
+             <p *ngIf="couponCode == 0" class="mt-3 text-danger">Coupon code is not valid</p>
+             <hr>
+
+             <!-- Price calculations -->
+             <h5 class="text-right mr-5" *ngIf="cartNumItems > 0">Subtotal : {{ cartTotal | currency: $ }}
+             </h5>
+             <h5 *ngIf="couponCode && cartNumItems > 0" class="text-right mr-5 text-success">Discount :
+               ({{couponDiscount * cartTotal | currency: $}})</h5>
+             <h6 class="text-right mr-5" *ngIf="cartNumItems > 0">Tax :
+               {{ (cartTotal - (couponDiscount * cartTotal)) * taxRate | currency: $ }}</h6>
+             <h5 class="text-right mr-5" *ngIf="cartNumItems > 0">Total :
+               {{ ((cartTotal - (couponDiscount * cartTotal)) + ((cartTotal - (couponDiscount * cartTotal)) * taxRate)) | currency: $ }}
+             </h5>
+             <hr>
+             <button type="button" class="w3-center w3-wide w3-button w3-red w3-margin-bottom"
+               onclick="document.getElementById('newsletter').style.display='none'"> CHECK OUT</button>
+
+           </div>
+         </div>
+       </div>
+     </div>
+   </form>
+ </ng-template>
 
  <ng-template #productDetailsModal let-c="close" let-d="dismiss">
    <form [formGroup]="productDetailsForm">

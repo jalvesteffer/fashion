@@ -27,9 +27,14 @@ export class ProductsComponent implements OnInit {
   // cart data
   cartDetailsForm: FormGroup;
   cartTotal: number = 0;
-  totalItems: number = 0;
-  cartproducts: any = [];
-  currentItem : any;
+  cartNumItems: number = 0;
+  cartProducts: any = [];
+  currentItem: any;
+  taxRate: number = 0.06;
+  couponCode: number;
+  couponApplied: any;
+  couponDiscount: number = 0;
+  couponDescription: string;
 
   // product details modal
   private modalRef: NgbModalRef;
@@ -63,6 +68,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.loadAllProducts();
     this.loadAllCategories();
+    this.loadCart(1);
     this.initializeFormGroup();
   }
 
@@ -78,14 +84,14 @@ export class ProductsComponent implements OnInit {
       productId: new FormControl([this.productId]),
 
     });
-    
-    this.cartDetailsForm = new FormGroup({
-      totalItems: new FormControl(this.totalItems),
-      cartproducts: new FormControl(this.cartproducts),
-      sizeChoice: new FormControl([this.sizeChoice]),
 
+    this.cartDetailsForm = new FormGroup({
+      cartNumItems: new FormControl(this.cartNumItems),
+      cartProducts: new FormControl(this.cartProducts),
+      sizeChoice: new FormControl([this.sizeChoice]),
+      couponCode: new FormControl([this.couponCode]),
     });
-    
+
     this.searchProductForm = new FormGroup({
       searchString: new FormControl(this.searchString),
     });
@@ -133,11 +139,44 @@ export class ProductsComponent implements OnInit {
       );
   }
 
+  loadCart(userId: number) {
+    console.log("inside load cart");
+    this.shopService.getAll(`${environment.salesUrl}${environment.getCartItemsURI}${userId}`)
+      .subscribe((res) => {
+        this.cartProducts = res;
+        this.cartNumItems = this.cartProducts.length;
+
+        this.cartTotal = 0;
+        let p = null;
+        for (p of this.cartProducts) {
+          this.cartTotal += p.price;
+        }
+      },
+        (error) => {
+          throw new Error("Error in loadCart()");
+        }
+      );
+  }
+
+  loadCoupon(userId: number) {
+    this.shopService.getAll(`${environment.salesUrl}${environment.getCouponURI}${userId}`)
+      .subscribe((res) => {
+        this.couponApplied = res;
+        if (this.couponApplied) {
+          this.couponCode = this.couponApplied.couponId;
+          this.couponDescription = this.couponApplied.couponDesc;
+          this.couponDiscount = this.couponApplied.discount;
+        }
+
+      },
+        (error) => {
+          throw new Error("Error in loadCoupon()");
+        }
+      );
+  }
+
   addToCart(itemSku: number) {
-    console.log("Add to cart function called");
-    console.log(this.currentItem);
-    console.log(this.cartproducts);
-  
+
     // create a new transaction with item user added to cart
     const transaction = {
       storeId: 1,
@@ -155,15 +194,46 @@ export class ProductsComponent implements OnInit {
       .subscribe((res) => {
         this.modalService.dismissAll();
 
-    //[product:{size,qty}] check if productis is in cart if not ad if so update qty or add new size
-//    this.cartproducts.push(this.currentItem);
-  //  this.totalItems += 1;
-    //this.cartTotal += this.currentItem.price;
-      
-      
+        this.loadCart(1);
       },
         (error) => {
           console.log(error);
+        }
+      );
+  }
+
+  removeItem(sku: number) {
+
+    this.shopService.deleteObj(`${environment.salesUrl}${environment.deleteTransactionURI}1/sku/${sku}`)
+      .subscribe((res) => {
+        this.loadCart(1);
+      },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
+  addCouponCode(couponCode: number) {
+    // create a new transaction with user's coupon code
+    const transaction = {
+      userId: 1,
+      coupons: [{
+        couponId: couponCode
+      }]
+    }
+
+    // call sales service to create the transaction if no open transaction already exists;
+    // otherwise, the existing open transaction will be updated
+    this.shopService.postObj(`${environment.salesUrl}${environment.postCouponURI}`, transaction)
+      .subscribe((res) => {
+
+        this.loadCoupon(1);
+      },
+        (error) => {
+          this.couponCode = 0;
+          this.couponDiscount = 0;
+          this.loadCoupon(1);
         }
       );
   }
@@ -202,7 +272,7 @@ export class ProductsComponent implements OnInit {
           },
           (error) => {
             this.searchString = "";
-            this.products= [];
+            this.products = [];
             this.totalProducts = 0;
             this.setPage(1);
             console.log("mistake");
@@ -244,6 +314,7 @@ export class ProductsComponent implements OnInit {
   }
 
   showCart(content) {
+    this.loadCoupon(1);
     this.modalRef = this.modalService.open(content);
     this.modalRef.result.then(
       (result) => {
