@@ -32,21 +32,16 @@ export class AuthService {
   login(user) {
     console.log(user, user.username)
     if (user.username !== '' && user.password !== '' ) {
-      return this.http.post(baseUrl+'/login', {
-        username: user.email,
-        password: user.password
-      }, {observe:'response'}).subscribe((response: any) => {
-        console.log(response);
-        // need to update this part to pull token from header
-        if (response.auth === true && response.token !== undefined) {
-          this.token = response.token;
+      return this.http.post(baseUrl+'/login', user, {observe:'response'}).subscribe((response: any) => {
+        if (response.headers.get("Authorization")) {
+          this.token = response.headers.get("Authorization");
           this.server.setLoggedIn(true, this.token);
           this.loggedIn.next(true);
           const userData = {
             token: this.token,
           };
           localStorage.setItem('user', JSON.stringify(userData));
-          this.router.navigateByUrl('/profile');
+          //this.router.navigateByUrl('/profile');
         }
       });
     }

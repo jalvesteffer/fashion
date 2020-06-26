@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { ServerService } from './server.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ShopService {
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: ServerService) { }
 
     getAll(url) {
-        return this.http.get(url);
+        return this.http.request('GET', url);
     }
 
     //   deleteObj(url, id: number) {
@@ -29,6 +30,6 @@ export class ShopService {
     //   }
 
     postObj(url, obj) {
-        return this.http.post(url, obj);
+        return this.http.request('POST', url, obj);
     }
 }
