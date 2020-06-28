@@ -4,6 +4,8 @@ import { PagerService } from "../../common/services/pager.service";
 import { environment } from "../../../environments/environment";
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
+import { errorHandler } from '@angular/platform-browser/src/browser';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -14,6 +16,7 @@ export class ProductsComponent implements OnInit {
 
   // header
   selectedCategory: string = "All Products";
+  selectedCategoryInfo: string;
 
   // product data
   noProduct: number = 0;
@@ -105,7 +108,10 @@ export class ProductsComponent implements OnInit {
         this.setPage(1);
       },
         (error) => {
-          throw new Error("Error in loadAllProducts().");
+          // throw new Error("Error in loadAllProducts().");
+          let details = error.json().error;
+            console.log(details);
+            return Observable.throw(new Error(details));
         }
       );
   }
@@ -117,20 +123,25 @@ export class ProductsComponent implements OnInit {
         this.totalCategories = this.categories.length;
       },
         (error) => {
-          throw new Error("Error in loadAllCategories().");
+          // throw new Error("Error in loadAllProducts().");
+          let details = error.json().error;
+            console.log(details);
+            return Observable.throw(new Error(details));
         }
       );
   }
 
   loadProductsByCategory(cat) {
+    this.selectedCategory = cat.catName;
+    this.selectedCategoryInfo = cat;
     this.shopService.getAll(`${environment.shopUrl}${environment.getCategoryURI}${cat.catId}${environment.getProductsURI}`)
       .subscribe((res) => {
         this.products = res;
         this.totalProducts = this.products.length;
         this.setPage(1);
-        this.selectedCategory = cat.catName;
       },
         (error) => {
+          
           this.products = [];
           this.totalProducts = 0;
           this.noProduct = 1;
@@ -238,7 +249,9 @@ export class ProductsComponent implements OnInit {
       );
   }
 
-  loadProductsBySubCategory(catId: number, subcatId: number) {
+  loadProductsBySubCategory(catId: number, subcatId: number, cat:any) {
+    this.selectedCategory = cat.catName;
+    this.selectedCategoryInfo = cat;
     this.shopService.getAll(`${environment.shopUrl}${environment.getCategoryURI}${catId}${environment.getSubcategoryURI}${subcatId}`)
       .subscribe((res) => {
         this.products = res;
