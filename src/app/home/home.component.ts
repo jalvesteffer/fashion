@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-// import { DOCUMENT } from '@angular/common';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 import { AuthService } from '../common/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,10 +13,16 @@ export class HomeComponent implements OnInit {
   public loginInvalid: boolean;
   private formSubmitAttempt: boolean;
 
+  //user form
+  registrationForm: FormGroup;
+  private username: string;
+  private password: string;
+  private name: string;
+
   constructor(
     private fb: FormBuilder, 
     private authService: AuthService,
-    // private document: Document,
+    private router: Router
     ) {
   }
 
@@ -27,9 +33,14 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  goToUrl(): void {
-    this.document.location.href = 'https://stackoverflow.com';
-}
+  initializeFormGroup() {
+    this.registrationForm = new FormGroup({
+      username: new FormControl(this.username),
+      password: new FormControl(this.password),
+      name: new FormControl(this.name),
+
+    });
+  }
 
   async onSubmit() {
     this.loginInvalid = false;

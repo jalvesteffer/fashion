@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShopService } from "../../common/services/shop.service";
+import { AuthService } from "../../common/services/auth.service";
 import { PagerService } from "../../common/services/pager.service";
 import { environment } from "../../../environments/environment";
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -16,14 +17,18 @@ export class AccountComponent implements OnInit {
   transactions: any;
   totalTransactions: number;
 
+  //user
+  user: any;
+
   // pagination
   pager: any = {};
   pagedTransaction: any[];
-  pageSize: number = 12;
+  pageSize: number = 2;
 
   constructor(
     private shopService: ShopService,
     private pagerService: PagerService,
+    private authService: AuthService,
     private modalService: NgbModal,
     private fb: FormBuilder
   ) { }
@@ -36,13 +41,19 @@ export class AccountComponent implements OnInit {
     this.shopService.getAll(`${environment.shopUrl}${environment.getUserURI}${1}${environment.getUserTransactionsURI}`)
       .subscribe((res) => {
         this.transactions = res;
+        this.user = res[0].user
         this.totalTransactions = this.transactions.length;
+        console.log(this.transactions);
         this.setPage(1);
       },
         (error) => {
           throw new Error("Error in loadAllProducts().");
         }
       );
+  }
+
+  logout(){
+    return this.authService.logout();
   }
 
   setPage(page: number) {
