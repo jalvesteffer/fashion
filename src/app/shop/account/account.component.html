@@ -21,14 +21,32 @@
   <a routerLink="../../../gcfashions/shop/products" class="w3-bar-item w3-button w3-padding">Shop</a>
 </nav><br>
 
-<!-- Top menu on small screens -->
-<header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
-  <div class="w3-bar-item w3-padding-24 w3-wide">GC FASHION</div>
-  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i
-      class="fa fa-bars"></i></a>
-   
-</header>
-<div class="w3-container w3-text-grey" id="jeans">
-  <div class="w3-left col-lg-4">
-    <p>{{ totalTranactions }} total items</p>
-  </div>
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:250px">
+
+
+  <!-- Push down content on small screens -->
+  <div class="w3-hide-large" style="margin-top:83px"></div>
+
+  <!-- Top header -->
+  <header class="w3-container w3-xlarge">
+    <h1 class="w3-left">Hello!</h1>
+    <br>
+    <br>
+    <h2>Past Orders</h2>
+    <h3>Total Orders: {{totalTransactions}}</h3>
+  </header>
+
+  <ng-container *ngFor="let t of pagedTransaction; let i = index">
+    <!-- <div class="w3-col l3 s6" *ngIf="i % 4 == 0 && i != 0"> -->
+      <div class="w3-container">
+        <div class="w3-display-container">
+          <p>Refernce Number {{i}}</p>
+          <p>{{t.status}}<br><b>{{t.total | currency: $}}</b></p>
+
+        </div> <!-- end div display container -->
+      </div> <!-- end container -->
+    <!-- </div> -->
+  </ng-container>
+</div>
+

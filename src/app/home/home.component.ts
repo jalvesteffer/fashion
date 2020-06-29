@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// import { DOCUMENT } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../common/services/auth.service';
 
@@ -12,7 +13,11 @@ export class HomeComponent implements OnInit {
   public loginInvalid: boolean;
   private formSubmitAttempt: boolean;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(
+    private fb: FormBuilder, 
+    private authService: AuthService,
+    // private document: Document,
+    ) {
   }
 
   ngOnInit() {
@@ -21,6 +26,10 @@ export class HomeComponent implements OnInit {
       password: ['', Validators.required]
     });
   }
+
+  goToUrl(): void {
+    this.document.location.href = 'https://stackoverflow.com';
+}
 
   async onSubmit() {
     this.loginInvalid = false;

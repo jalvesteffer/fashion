@@ -16,6 +16,11 @@ export class AccountComponent implements OnInit {
   transactions: any;
   totalTransactions: number;
 
+  // pagination
+  pager: any = {};
+  pagedTransaction: any[];
+  pageSize: number = 12;
+
   constructor(
     private shopService: ShopService,
     private pagerService: PagerService,
@@ -28,14 +33,26 @@ export class AccountComponent implements OnInit {
   }
 
   loadAllTransactions() {
-    this.shopService.getAll(`${environment.shopUrl}${environment.getTransactionURI}`)
+    this.shopService.getAll(`${environment.shopUrl}${environment.getUserURI}${1}${environment.getUserTransactionsURI}`)
       .subscribe((res) => {
         this.transactions = res;
         this.totalTransactions = this.transactions.length;
+        this.setPage(1);
       },
         (error) => {
           throw new Error("Error in loadAllProducts().");
         }
       );
+  }
+
+  setPage(page: number) {
+    if (page < 1 || page > this.pager.totalTransactions) {
+      return;
+    }
+    this.pager = this.pagerService.getPager(this.totalTransactions, page, this.pageSize);
+    this.pagedTransaction = this.transactions.slice(
+      this.pager.startIndex,
+      this.pager.endIndex + 1
+    );
   }
 }

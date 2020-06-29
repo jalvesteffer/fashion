@@ -1,18 +1,42 @@
-<div class="grid-container">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <div class="sidenav">
+    <div class="login-main-text">
+       <h2 class="w3-jumbo w3-hide-small">GC FASHION</h2>
+       <h2 class="w3-hide-large w3-hide-medium">GC FASHION</h2>
+       <br>
+       <h2 class="w3-hide-small">Login</h2>
+    </div>
+ </div>
+ 
+<!-- <div class="grid-container">
   <div class="grid-x">
     <div class="small-12 medium-10 medium-offset-1 large-8 large-offset-2 cell">
+       -->
+<div class="main">
+  <div class="col-md-6 col-sm-12">
+    <br>
+    <div class="login-form">
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <h2>Log In</h2>
-        <p>Please login to continue</p>
-        <label class="full-width-input">
-          Email
-          <input type="text" placeholder="Username" formControlName="username" required>
-        </label>
-        <label class="full-width-input">
-          Password
-          <input type="password" placeholder="Password" formControlName="password" required>
-        </label>
-        <button class="button">Login</button>
+        <div class="form-group">
+          <label class="full-width-input">
+            Username
+            <input type="text" placeholder="Username" formControlName="username" required>
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="full-width-input">
+            Password
+            <input type="password" placeholder="Password" formControlName="password" required>
+          </label>
+        </div>
+        
+
+        <!-- <button class="button">Login</button> -->
+        <button class="btn btn-danger" >Login</button>
+          
+        
       </form>
       <div class="register-link">
         Not yet registered? <a routerLink="/register">Register Now</a>
@@ -20,3 +44,6 @@
     </div>
   </div>
 </div>
+<!-- <div *ngIf = "loginInvalid == true">
+  
+</div> -->

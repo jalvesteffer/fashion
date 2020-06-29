@@ -13,9 +13,9 @@ export class ShopService {
         return this.http.request('GET', url);
     }
 
-    deleteObj(url) {
-        return this.http.delete(url);
-    }
+    // deleteObj(url) {
+    //     return this.http.delete(url);
+    // }
 
     //   updateObj(url, obj) {
     //     return this.http.put(url, obj);
