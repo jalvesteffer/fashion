@@ -36,6 +36,8 @@ export class PagerService {
     
     console.log("this is startPage" + startPage )
     console.log("this is endPage" + endPage )
+    console.log("this is startIndex" + startIndex )
+    console.log("this is endIndex" + endIndex )
     // create an array of pages to ng-repeat in the pager control
     const pages = Array.from(
       Array(endPage + 1 - startPage),
