@@ -92,7 +92,7 @@
            </tr>
            <tr class="table-active">
              <td>Merchandise</td>
-             <td>{{t.total | currency: $}}</td>
+             <td>{{t.total - t.tax | currency: $}}</td>
            </tr>
            <tr class="table-active">
              <td>Sales Tax</td>
@@ -100,7 +100,7 @@
            </tr>
            <tr class="table-active">
              <td>Order Total</td>
-             <td><b>{{t.total + t.tax | currency: $}}</b></td>
+             <td><b>{{t.total | currency: $}}</b></td>
            </tr>
            <tr>
 
