@@ -4,7 +4,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './home/home.component';
 import { ShopComponent } from './shop/shop.component';
 import { ProductsComponent } from './shop/products/products.component';
-import { CustomerComponent } from './shop/customer/customer.component';
+import { AccountComponent } from './shop/account/account.component';
 
 const routes: Routes = [
   {
@@ -30,7 +30,7 @@ const routes: Routes = [
       },
       {
         path: "gcfashions/shop/myaccount",
-        component: CustomerComponent,
+        component: AccountComponent,
       },
       // {
       //   path: "**",

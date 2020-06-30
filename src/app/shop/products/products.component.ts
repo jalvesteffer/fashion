@@ -213,17 +213,17 @@ export class ProductsComponent implements OnInit {
       );
   }
 
-  removeItem(sku: number) {
+  // removeItem(sku: number) {
 
-    this.shopService.deleteObj(`${environment.salesUrl}${environment.deleteTransactionURI}1/sku/${sku}`)
-      .subscribe((res) => {
-        this.loadCart(1);
-      },
-        (error) => {
-          console.log(error);
-        }
-      );
-  }
+  //   this.shopService.deleteObj(`${environment.salesUrl}${environment.deleteTransactionURI}1/sku/${sku}`)
+  //     .subscribe((res) => {
+  //       this.loadCart(1);
+  //     },
+  //       (error) => {
+  //         console.log(error);
+  //       }
+  //     );
+  // }
 
   addCouponCode(couponCode: number) {
     // create a new transaction with user's coupon code

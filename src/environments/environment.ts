@@ -18,6 +18,7 @@ export const environment = {
   postCouponURI: '/transactions/open/coupon',
   deleteTransactionURI: '/transactions/open/userid/',
   getUserURI: '/account/users/',
+  getUserTransactionsURI: '/transactions',
 };
 
 /*
