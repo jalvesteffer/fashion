@@ -41,7 +41,7 @@ export class AuthService {
             token: this.token,
           };
           localStorage.setItem('user', JSON.stringify(userData));
-          //this.router.navigateByUrl('/profile');
+          this.router.navigateByUrl('/gcfashions/shop/products');
         }
       });
     }
