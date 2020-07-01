@@ -24,3 +24,4 @@ export class ShopService {
     return this.server.request("POST", url, obj);
   }
 }
+
