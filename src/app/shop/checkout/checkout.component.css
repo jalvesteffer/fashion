@@ -1,0 +1,9 @@
+.borderless td,
+.borderless th {
+  border: none;
+}
+
+.borderless thead {
+  border-bottom: 1px dotted;
+  border-color: gray;
+}

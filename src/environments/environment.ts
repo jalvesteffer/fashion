@@ -8,7 +8,8 @@ export const environment = {
   salesUrl: 'http://localhost:8085/gcfashions/sales',
   getProductsURI: '/products',
   getProductsLikeURI: '/products/like/',
-  getCartItemsURI: '/transactions/open/',
+  getOpenTransactionURI: '/transactions/open/userid/',
+  getCartItemsURI: '/transactions/cart/userid/',
   getCategoriesURI: '/categories',
   getCategoryURI: '/categories/',
   getSubcategoryURI: '/subcategories/',
@@ -16,8 +17,12 @@ export const environment = {
   getCouponURI: '/transactions/open/coupon/userid/',
   postTransactionURI: '/transactions',
   postCouponURI: '/transactions/open/coupon',
+  postCheckoutURI: '/checkout',
+  updateTransactionURI: '/checkout',
   deleteTransactionURI: '/transactions/open/userid/',
   getUserURI: '/account/users/',
+  stripePublishKey: 'pk_test_51GxNidEC7SOZT967Mac1f9zlZaY3Habn9hqA07G1Zds5o5m7JL7VrQW6WYRvld7fveYnS3g98oz8gQOZA2hey6W7006MQxUvcV',
+  getUserTransactionsURI: '/transactions',
 };
 
 /*
