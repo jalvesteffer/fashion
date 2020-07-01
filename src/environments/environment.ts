@@ -21,7 +21,7 @@ export const environment = {
   updateTransactionURI: '/checkout',
   deleteTransactionURI: '/transactions/open/userid/',
   getUserURI: '/account/users/',
-//  stripePublishKey: 'pk_test_51GxNidEC7SOZT967Mac1f9zlZaY3Habn9hqA07G1Zds5o5m7JL7VrQW6WYRvld7fveYnS3g98oz8gQOZA2hey6W7006MQxUvcV',
+  stripePublishKey: 'pk_test_51GxNidEC7SOZT967Mac1f9zlZaY3Habn9hqA07G1Zds5o5m7JL7VrQW6WYRvld7fveYnS3g98oz8gQOZA2hey6W7006MQxUvcV',
   getUserTransactionsURI: '/transactions',
 };
 
