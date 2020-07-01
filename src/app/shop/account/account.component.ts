@@ -38,7 +38,8 @@ export class AccountComponent implements OnInit {
   }
 
   loadAllTransactions() {
-    this.shopService.getAll(`${environment.shopUrl}${environment.getUserURI}${1}${environment.getUserTransactionsURI}`)
+    const userData = localStorage.getItem('userId');
+    this.shopService.getAll(`${environment.shopUrl}${environment.getUserURI}${userData}${environment.getUserTransactionsURI}`)
       .subscribe((res) => {
         this.transactions = res;
         this.user = res[0].user
