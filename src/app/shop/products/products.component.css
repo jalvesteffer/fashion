@@ -21,3 +21,19 @@ color: gray;
 cursor: pointer;
 }
 
+#header-color{
+    background-color: black;
+    color: white;
+    /* color: black; */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.menuBar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+.menuBar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
