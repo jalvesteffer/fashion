@@ -16,6 +16,7 @@ import { ShopService } from './common/services/shop.service';
 import { PagerService } from './common/services/pager.service';
 import { ProductSortPipe } from './common/product-sort.pipe';
 import { CustomerComponent } from './shop/customer/customer.component';
+import { CheckoutComponent } from './shop/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { CustomerComponent } from './shop/customer/customer.component';
     ShopComponent,
     ProductsComponent,
     ProductSortPipe,
-    CustomerComponent
+    CustomerComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,
