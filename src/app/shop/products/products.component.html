@@ -354,14 +354,15 @@
              </h5>
              <h5 *ngIf="couponCode && cartNumItems > 0" class="text-right mr-5 text-success">Discount :
                ({{couponDiscount * cartTotal | currency: $}})</h5>
-             <h6 class="text-right mr-5" *ngIf="cartNumItems > 0">Tax :
+             <h6 class="text-right mr-5" *ngIf="cartNumItems > 0">Tax (6%):
                {{ (cartTotal - (couponDiscount * cartTotal)) * taxRate | currency: $ }}</h6>
              <h5 class="text-right mr-5" *ngIf="cartNumItems > 0">Total :
                {{ ((cartTotal - (couponDiscount * cartTotal)) + ((cartTotal - (couponDiscount * cartTotal)) * taxRate)) | currency: $ }}
              </h5>
              <hr>
              <button type="button" class="w3-center w3-wide w3-button w3-red w3-margin-bottom"
-               onclick="document.getElementById('newsletter').style.display='none'"> CHECK OUT</button>
+               (click)="checkout((cartTotal - (couponDiscount * cartTotal)) * taxRate, ((cartTotal - (couponDiscount * cartTotal)) + ((cartTotal - (couponDiscount * cartTotal)) * taxRate)))">
+               CHECK OUT</button>
 
            </div>
          </div>

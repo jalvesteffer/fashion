@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ShopService } from "../../common/services/shop.service";
 import { PagerService } from "../../common/services/pager.service";
 import { environment } from "../../../environments/environment";
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
+import { Router } from '@angular/router';
 import { errorHandler } from '@angular/platform-browser/src/browser';
 import { Observable } from 'rxjs';
 
@@ -65,7 +66,8 @@ export class ProductsComponent implements OnInit {
     private shopService: ShopService,
     private pagerService: PagerService,
     private modalService: NgbModal,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -151,7 +153,6 @@ export class ProductsComponent implements OnInit {
   }
 
   loadCart(userId: number) {
-    console.log("inside load cart");
     this.shopService.getAll(`${environment.salesUrl}${environment.getCartItemsURI}${userId}`)
       .subscribe((res) => {
         this.cartProducts = res;
@@ -249,9 +250,31 @@ export class ProductsComponent implements OnInit {
       );
   }
 
+  checkout(totalTax: number, totalBill: number) {
+    console.log("Checkout method, Tax: " + totalTax.toFixed(2) + ", Total: " + totalBill.toFixed(2));
+
+    const values = {
+      userId: 1,
+      tax: totalTax,
+      total: totalBill
+    }
+
+    this.shopService.updateObj(`${environment.salesUrl}${environment.updateTransactionURI}`, values)
+      .subscribe((res) => {
+        this.modalService.dismissAll();
+        this.router.navigate(['gcfashions/shop/checkout']);
+        //.navigate(['checkout']);
+      },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
   loadProductsBySubCategory(catId: number, subcatId: number, cat:any) {
     this.selectedCategory = cat.catName;
     this.selectedCategoryInfo = cat;
+
     this.shopService.getAll(`${environment.shopUrl}${environment.getCategoryURI}${catId}${environment.getSubcategoryURI}${subcatId}`)
       .subscribe((res) => {
         this.products = res;
@@ -328,7 +351,9 @@ export class ProductsComponent implements OnInit {
 
   showCart(content) {
     this.loadCoupon(1);
+
     this.modalRef = this.modalService.open(content);
+
     this.modalRef.result.then(
       (result) => {
         this.errMsg = "";
