@@ -13,12 +13,12 @@ export class ShopService {
         return this.http.request('GET', url);
     }
 
-    // deleteObj(url) {
-    //     return this.http.delete(url);
-    // }
+    deleteObj(url) {
+        return this.http.request('DELETE', url);
+    }
 
     updateObj(url, obj) {
-        return this.http.put(url, obj);
+        return this.http.request('PUT', url, obj);
     }
 
     postObj(url, obj) {
