@@ -79,7 +79,7 @@ export class CheckoutComponent implements OnInit {
 
   getTransactionDetails() {
     let userId = 1;
-    this.shopService.getAll(`${environment.salesUrl}${environment.getOpenTransactionURI}${userId}`)
+    this.shopService.getAll(`${environment.shopUrl}${environment.getOpenTransactionURI}${userId}`)
       .subscribe((res) => {
         this.openTransaction = res;
         this.name = this.openTransaction.user.fullName;
@@ -102,7 +102,7 @@ export class CheckoutComponent implements OnInit {
       total: this.orderTotal
     }
 
-    this.shopService.postObj(`${environment.salesUrl}${environment.postCheckoutURI}`, transaction)
+    this.shopService.postObj(`${environment.shopUrl}${environment.postCheckoutURI}`, transaction)
       .subscribe((res) => {
         this.clientSecret = res;
 
