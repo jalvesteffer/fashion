@@ -12,6 +12,7 @@ const baseUrl = "http://localhost:8085";
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   private token: string;
+  private userId: string;
 
   get isLoggedIn() {
     return this.loggedIn.asObservable();
@@ -37,12 +38,15 @@ export class AuthService {
       return this.http.post(baseUrl+'/login', user, {observe:'response'}).subscribe((response: any) => {
         if (response.headers.get("Authorization")) {
           this.token = response.headers.get("Authorization");
+          this.userId = response.headers.get("UserId");
+          console.log(this.userId);
           this.server.setLoggedIn(true, this.token);
           this.loggedIn.next(true);
           const userData = {
             token: this.token
           };
           localStorage.setItem('user', JSON.stringify(userData));
+          localStorage.setItem('userId', this.userId);
           this.router.navigate(['/gcfashions/shop/myaccount']);
         }
       });
