@@ -25,7 +25,7 @@ export class AccountComponent implements OnInit {
   // pagination
   pager: any = {};
   pagedTransaction: any[];
-  pageSize: number = 4;
+  pageSize: number = 5;
 
   constructor(
     private shopService: ShopService,
