@@ -41,6 +41,7 @@ export class AccountComponent implements OnInit {
 
   async loadAllTransactions() {
     const userData = localStorage.getItem('userId');
+    
     return this.shopService.getAll(`${environment.baseUrl}${environment.getUserURI}${userData}${environment.getUserTransactionsURI}`)
       .subscribe((res) => {
         this.transactions = res;
@@ -57,7 +58,7 @@ export class AccountComponent implements OnInit {
       );
   }
 
-  logout(){
+  logout() {
     return this.authService.logout();
   }
 

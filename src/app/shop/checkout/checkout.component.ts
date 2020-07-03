@@ -78,7 +78,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   getTransactionDetails() {
-    let userId = 1;
+    let userId = Number(localStorage.getItem('userId'));
     this.shopService.getAll(`${environment.shopUrl}${environment.getOpenTransactionURI}${userId}`)
       .subscribe((res) => {
         this.openTransaction = res;
@@ -98,7 +98,7 @@ export class CheckoutComponent implements OnInit {
 
     // create a new transaction with item user added to cart
     const transaction = {
-      userId: 1,
+      userId: Number(localStorage.getItem('userId')),
       total: this.orderTotal
     }
 

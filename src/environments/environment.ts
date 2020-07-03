@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   shopUrl: 'http://localhost:8085/gcfashions/shop',
+  accountUrl: 'http://localhost:8085/gcfashions',
   salesUrl: 'http://localhost:8085/gcfashions/sales',
   baseUrl: 'http://localhost:8085/gcfashions',
   getProductsURI: '/products',

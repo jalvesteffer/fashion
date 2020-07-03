@@ -73,7 +73,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.loadAllProducts();
     this.loadAllCategories();
-    this.loadCart(1);
+    this.loadCart(Number(localStorage.getItem('userId')));
     this.initializeFormGroup();
   }
 
@@ -182,7 +182,7 @@ export class ProductsComponent implements OnInit {
 
       },
         (error) => {
-          throw new Error("Error in loadCoupon()");
+          console.log("No coupons applied");
         }
       );
   }
@@ -193,7 +193,7 @@ export class ProductsComponent implements OnInit {
     const transaction = {
       storeId: 1,
       paymentId: 123,
-      userId: 1,
+      userId: Number(localStorage.getItem('userId')),
       status: "open",
       inventory: [{
         sku: itemSku
@@ -206,7 +206,7 @@ export class ProductsComponent implements OnInit {
       .subscribe((res) => {
         this.modalService.dismissAll();
 
-        this.loadCart(1);
+        this.loadCart(Number(localStorage.getItem('userId')));
       },
         (error) => {
           console.log(error);
@@ -216,9 +216,9 @@ export class ProductsComponent implements OnInit {
 
   removeItem(sku: number) {
 
-    this.shopService.deleteObj(`${environment.shopUrl}${environment.deleteTransactionURI}1/sku/${sku}`)
+    this.shopService.deleteObj(`${environment.shopUrl}${environment.deleteTransactionURI}${Number(localStorage.getItem('userId'))}/sku/${sku}`)
       .subscribe((res) => {
-        this.loadCart(1);
+        this.loadCart(Number(localStorage.getItem('userId')));
       },
         (error) => {
           console.log(error);
@@ -229,7 +229,7 @@ export class ProductsComponent implements OnInit {
   addCouponCode(couponCode: number) {
     // create a new transaction with user's coupon code
     const transaction = {
-      userId: 1,
+      userId: Number(localStorage.getItem('userId')),
       coupons: [{
         couponId: couponCode
       }]
@@ -240,12 +240,12 @@ export class ProductsComponent implements OnInit {
     this.shopService.postObj(`${environment.shopUrl}${environment.postCouponURI}`, transaction)
       .subscribe((res) => {
 
-        this.loadCoupon(1);
+        this.loadCoupon(Number(localStorage.getItem('userId')));
       },
         (error) => {
           this.couponCode = 0;
           this.couponDiscount = 0;
-          this.loadCoupon(1);
+          this.loadCoupon(Number(localStorage.getItem('userId')));
         }
       );
   }
@@ -254,7 +254,7 @@ export class ProductsComponent implements OnInit {
     console.log("Checkout method, Tax: " + totalTax.toFixed(2) + ", Total: " + totalBill.toFixed(2));
 
     const values = {
-      userId: 1,
+      userId: Number(localStorage.getItem('userId')),
       tax: totalTax,
       total: totalBill
     }
@@ -350,7 +350,7 @@ export class ProductsComponent implements OnInit {
   }
 
   showCart(content) {
-    this.loadCoupon(1);
+    this.loadCoupon(Number(localStorage.getItem('userId')));
 
     this.modalRef = this.modalService.open(content);
 
