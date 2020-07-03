@@ -1,10 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
-// @Injectable({
-//   providedIn: 'root'
-// })
 export class PagerService {
-
   constructor() { }
 
   getPager(totalItems: number, currentPage: number = 1, pageSize: number) {
@@ -18,32 +14,32 @@ export class PagerService {
       endPage = totalPages;
     } else {
       // more than pageSize total pages so calculate start and end pages
-      if (currentPage <= ((pageSize/2) + 1 )) {
+      if (currentPage <= ((pageSize / 2) + 1)) {
         startPage = 1;
         endPage = pageSize;
-      } else if (currentPage + ((pageSize/2) - 1) >= totalPages) {
+      } else if (currentPage + ((pageSize / 2) - 1) >= totalPages) {
         startPage = totalPages - (pageSize - 1);
         endPage = totalPages;
       } else {
-        startPage = currentPage - (pageSize/2);
-        endPage = currentPage + ((pageSize/2) - 1);
+        startPage = currentPage - (pageSize / 2);
+        endPage = currentPage + ((pageSize / 2) - 1);
       }
     }
 
     // calculate start and end item indexes
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
-    
-    console.log("this is startPage" + startPage )
-    console.log("this is endPage" + endPage )
-    console.log("this is startIndex" + startIndex )
-    console.log("this is endIndex" + endIndex )
+
+    console.log("this is startPage" + startPage)
+    console.log("this is endPage" + endPage)
+    console.log("this is startIndex" + startIndex)
+    console.log("this is endIndex" + endIndex)
     // create an array of pages to ng-repeat in the pager control
     const pages = Array.from(
       Array(endPage + 1 - startPage),
       (_, i) => startPage + i
     );
-    console.log("this is pages" + pages )
+    console.log("this is pages" + pages)
     console.log("this is currentPage" + currentPage)
     console.log("this is totalPages" + totalPages)
     // return object with all pager properties required by the view
