@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   shopUrl: 'http://localhost:8085/gcfashions/shop',
   salesUrl: 'http://localhost:8085/gcfashions/sales',
+  baseUrl: 'http://localhost:8085/gcfashions',
   getProductsURI: '/products',
   getProductsLikeURI: '/products/like/',
   getOpenTransactionURI: '/transactions/open/userid/',
