@@ -13,6 +13,7 @@ export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   private token: string;
   private userId: string;
+  private userRole: string;
 
   get isLoggedIn() {
     return this.loggedIn.asObservable();
@@ -23,7 +24,9 @@ export class AuthService {
     const userData = localStorage.getItem('user');
     if (userData) {
       console.log('Logged in from memory');
-      this.router.navigate(['/gcfashions/shop/myaccount']);
+      if(this.userRole == "CUSTOMER"){
+        this.router.navigate(['/gcfashions/shop/myaccount']); 
+      }
       // const user = JSON.parse(userData);
       // this.token = user.token;
       // this.server.setLoggedIn(true, this.token);
@@ -39,6 +42,7 @@ export class AuthService {
         if (response.headers.get("Authorization")) {
           this.token = response.headers.get("Authorization");
           this.userId = response.headers.get("UserId");
+          this.userRole = response.headers.get("UserRole");
           console.log(this.userId);
           this.server.setLoggedIn(true, this.token);
           this.loggedIn.next(true);
@@ -47,7 +51,10 @@ export class AuthService {
           };
           localStorage.setItem('user', JSON.stringify(userData));
           localStorage.setItem('userId', this.userId);
-          this.router.navigate(['/gcfashions/shop/myaccount']);
+          localStorage.setItem('userRole', this.userRole);
+          if(this.userRole == "CUSTOMER"){
+           this.router.navigate(['/gcfashions/shop/myaccount']); 
+          }
           
         }
       });

@@ -67,11 +67,11 @@
        <h2>Order History</h2>
        <h4>Total Orders: {{totalTransactions}}</h4>
 
-       
+
        <table class="table table-sm" *ngFor="let t of pagedTransaction; let i = index">
          <thead class="thead-dark">
            <tr>
-             <th scope="col">Refernce Number: {{i + 1}}</th>
+             <th scope="col">Reference Number: {{t.transactionId}}</th>
              <th scope="col">Status: {{t.status}}</th>
            </tr>
          </thead>
@@ -109,8 +109,8 @@
        </table>
        <!-- pagination -->
        <div class="ds-l-row ds-u-margin-top--3">
-         <div class="pagination justify-content-center">
-           <ngb-pagination [collectionSize]="totalTransactions" [(page)]="pager.currentPage" [maxSize]="5"
+         <div id="two" class="pagination justify-content-center">
+           <ngb-pagination [collectionSize]="totalTransactions*2" [(page)]="pager.currentPage" [maxSize]="5"
              [boundaryLinks]="true" (pageChange)="setPage($event)"></ngb-pagination>
          </div>
        </div>
