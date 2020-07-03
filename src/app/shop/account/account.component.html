@@ -22,7 +22,7 @@
    <!-- Top header -->
    <header class="w3-container w3-xlarge">
      <div>
-       <h1 class="w3-left">{{user.fullName}}'s Account</h1>
+       <h1 class="w3-left">{{fullName}}'s Account</h1>
      </div>
 
      <!-- logout -->
@@ -48,17 +48,17 @@
 
    <div class="w3-main">
      <div class="container">
-       <!-- <h2>{{user.fullName}}'s Account</h2> -->
+       <h2>{{fullName}}'s Account</h2>
        <div class="row">
          <div class="col-sm">
            <p>PROFILE</p>
            <hr>
-           <p>username: {{user.username}}</p>
+           <p>username: {{username}}</p>
          </div>
          <div class="col-sm">
            <p>BILLING ADDRESS</p>
            <hr>
-           <p>{{user.address}}</p>
+           <p>{{address}}</p>
          </div>
        </div>
      </div>

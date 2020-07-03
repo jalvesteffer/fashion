@@ -73,7 +73,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.loadAllProducts();
     this.loadAllCategories();
-    this.loadCart(1);
+    this.loadCart(Number(localStorage.getItem('userId')));
     this.initializeFormGroup();
   }
 
@@ -112,8 +112,8 @@ export class ProductsComponent implements OnInit {
         (error) => {
           // throw new Error("Error in loadAllProducts().");
           let details = error.json().error;
-            console.log(details);
-            return Observable.throw(new Error(details));
+          console.log(details);
+          return Observable.throw(new Error(details));
         }
       );
   }
@@ -127,8 +127,8 @@ export class ProductsComponent implements OnInit {
         (error) => {
           // throw new Error("Error in loadAllProducts().");
           let details = error.json().error;
-            console.log(details);
-            return Observable.throw(new Error(details));
+          console.log(details);
+          return Observable.throw(new Error(details));
         }
       );
   }
@@ -143,7 +143,7 @@ export class ProductsComponent implements OnInit {
         this.setPage(1);
       },
         (error) => {
-          
+
           this.products = [];
           this.totalProducts = 0;
           this.noProduct = 1;
@@ -153,7 +153,7 @@ export class ProductsComponent implements OnInit {
   }
 
   loadCart(userId: number) {
-    this.shopService.getAll(`${environment.salesUrl}${environment.getCartItemsURI}${userId}`)
+    this.shopService.getAll(`${environment.shopUrl}${environment.getCartItemsURI}${userId}`)
       .subscribe((res) => {
         this.cartProducts = res;
         this.cartNumItems = this.cartProducts.length;
@@ -171,7 +171,7 @@ export class ProductsComponent implements OnInit {
   }
 
   loadCoupon(userId: number) {
-    this.shopService.getAll(`${environment.salesUrl}${environment.getCouponURI}${userId}`)
+    this.shopService.getAll(`${environment.shopUrl}${environment.getCouponURI}${userId}`)
       .subscribe((res) => {
         this.couponApplied = res;
         if (this.couponApplied) {
@@ -182,7 +182,7 @@ export class ProductsComponent implements OnInit {
 
       },
         (error) => {
-          throw new Error("Error in loadCoupon()");
+          console.log("No coupons applied");
         }
       );
   }
@@ -193,7 +193,7 @@ export class ProductsComponent implements OnInit {
     const transaction = {
       storeId: 1,
       paymentId: 123,
-      userId: 1,
+      userId: Number(localStorage.getItem('userId')),
       status: "open",
       inventory: [{
         sku: itemSku
@@ -202,11 +202,11 @@ export class ProductsComponent implements OnInit {
 
     // call sales service to create the transaction if no open transaction already exists;
     // otherwise, the existing open transaction will be updated
-    this.shopService.postObj(`${environment.salesUrl}${environment.postTransactionURI}`, transaction)
+    this.shopService.postObj(`${environment.shopUrl}${environment.postTransactionURI}`, transaction)
       .subscribe((res) => {
         this.modalService.dismissAll();
 
-        this.loadCart(1);
+        this.loadCart(Number(localStorage.getItem('userId')));
       },
         (error) => {
           console.log(error);
@@ -214,22 +214,22 @@ export class ProductsComponent implements OnInit {
       );
   }
 
-  // removeItem(sku: number) {
+  removeItem(sku: number) {
 
-  //   this.shopService.deleteObj(`${environment.salesUrl}${environment.deleteTransactionURI}1/sku/${sku}`)
-  //     .subscribe((res) => {
-  //       this.loadCart(1);
-  //     },
-  //       (error) => {
-  //         console.log(error);
-  //       }
-  //     );
-  // }
+    this.shopService.deleteObj(`${environment.shopUrl}${environment.deleteTransactionURI}${Number(localStorage.getItem('userId'))}/sku/${sku}`)
+      .subscribe((res) => {
+        this.loadCart(Number(localStorage.getItem('userId')));
+      },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
 
   addCouponCode(couponCode: number) {
     // create a new transaction with user's coupon code
     const transaction = {
-      userId: 1,
+      userId: Number(localStorage.getItem('userId')),
       coupons: [{
         couponId: couponCode
       }]
@@ -237,15 +237,15 @@ export class ProductsComponent implements OnInit {
 
     // call sales service to create the transaction if no open transaction already exists;
     // otherwise, the existing open transaction will be updated
-    this.shopService.postObj(`${environment.salesUrl}${environment.postCouponURI}`, transaction)
+    this.shopService.postObj(`${environment.shopUrl}${environment.postCouponURI}`, transaction)
       .subscribe((res) => {
 
-        this.loadCoupon(1);
+        this.loadCoupon(Number(localStorage.getItem('userId')));
       },
         (error) => {
           this.couponCode = 0;
           this.couponDiscount = 0;
-          this.loadCoupon(1);
+          this.loadCoupon(Number(localStorage.getItem('userId')));
         }
       );
   }
@@ -254,12 +254,12 @@ export class ProductsComponent implements OnInit {
     console.log("Checkout method, Tax: " + totalTax.toFixed(2) + ", Total: " + totalBill.toFixed(2));
 
     const values = {
-      userId: 1,
+      userId: Number(localStorage.getItem('userId')),
       tax: totalTax,
       total: totalBill
     }
 
-    this.shopService.updateObj(`${environment.salesUrl}${environment.updateTransactionURI}`, values)
+    this.shopService.updateObj(`${environment.shopUrl}${environment.updateTransactionURI}`, values)
       .subscribe((res) => {
         this.modalService.dismissAll();
         this.router.navigate(['gcfashions/shop/checkout']);
@@ -271,7 +271,7 @@ export class ProductsComponent implements OnInit {
       );
   }
 
-  loadProductsBySubCategory(catId: number, subcatId: number, cat:any) {
+  loadProductsBySubCategory(catId: number, subcatId: number, cat: any) {
     this.selectedCategory = cat.catName;
     this.selectedCategoryInfo = cat;
 
@@ -350,7 +350,7 @@ export class ProductsComponent implements OnInit {
   }
 
   showCart(content) {
-    this.loadCoupon(1);
+    this.loadCoupon(Number(localStorage.getItem('userId')));
 
     this.modalRef = this.modalService.open(content);
 

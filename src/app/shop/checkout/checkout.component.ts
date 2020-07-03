@@ -78,8 +78,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   getTransactionDetails() {
-    let userId = 1;
-    this.shopService.getAll(`${environment.salesUrl}${environment.getOpenTransactionURI}${userId}`)
+    let userId = Number(localStorage.getItem('userId'));
+    this.shopService.getAll(`${environment.shopUrl}${environment.getOpenTransactionURI}${userId}`)
       .subscribe((res) => {
         this.openTransaction = res;
         this.name = this.openTransaction.user.fullName;
@@ -98,11 +98,11 @@ export class CheckoutComponent implements OnInit {
 
     // create a new transaction with item user added to cart
     const transaction = {
-      userId: 1,
+      userId: Number(localStorage.getItem('userId')),
       total: this.orderTotal
     }
 
-    this.shopService.postObj(`${environment.salesUrl}${environment.postCheckoutURI}`, transaction)
+    this.shopService.postObj(`${environment.shopUrl}${environment.postCheckoutURI}`, transaction)
       .subscribe((res) => {
         this.clientSecret = res;
 

@@ -31,6 +31,11 @@ export class HomeComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+
+    if (localStorage.getItem('user') != null) {
+      console.log('Logged in from memory');
+      this.router.navigate(['/gcfashions/shop/myaccount']);
+    }
   }
 
   initializeFormGroup() {

@@ -17,8 +17,10 @@ export class AccountComponent implements OnInit {
   transactions: any;
   totalTransactions: number;
 
-  //user
-  user: any;
+  //user data
+  username: string;
+  fullName: string;
+  address: string;
 
   // pagination
   pager: any = {};
@@ -33,17 +35,21 @@ export class AccountComponent implements OnInit {
     private fb: FormBuilder
   ) { }
 
-  ngOnInit() {
-    this.loadAllTransactions();
+  async ngOnInit() {
+    await this.loadAllTransactions();
   }
 
-  loadAllTransactions() {
-    this.shopService.getAll(`${environment.shopUrl}${environment.getUserURI}${1}${environment.getUserTransactionsURI}`)
+  async loadAllTransactions() {
+    const userData = localStorage.getItem('userId');
+    console.log("userData: " + userData);
+    return this.shopService.getAll(`${environment.accountUrl}/account/transactions/users/${userData}`)
       .subscribe((res) => {
         this.transactions = res;
-        this.user = res[0].user
+        let user = this.transactions[0].user;
+        this.username = user.username;
+        this.fullName = user.fullName;
+        this.address = user.address;
         this.totalTransactions = this.transactions.length;
-        console.log(this.transactions);
         this.setPage(1);
       },
         (error) => {
@@ -52,7 +58,7 @@ export class AccountComponent implements OnInit {
       );
   }
 
-  logout(){
+  logout() {
     return this.authService.logout();
   }
 
