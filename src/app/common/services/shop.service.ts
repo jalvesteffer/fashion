@@ -14,7 +14,7 @@ export class ShopService {
     }
 
     deleteObj(url) {
-        return this.http.delete(url);
+       // return this.http.delete(url);
     }
 
     //   updateObj(url, obj) {

@@ -32,10 +32,10 @@ const routes: Routes = [
         path: "gcfashions/shop/myaccount",
         component: CustomerComponent,
       },
-      // {
-      //   path: "**",
-      //   component: LmserrorComponent,
-      // },
+      {
+        path: "gcfashions/dashboard",
+        loadChildren: "./reports/reports.module#ReportsModule",
+      },
     ]
   }
 ];
