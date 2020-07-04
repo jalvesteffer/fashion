@@ -7,6 +7,7 @@ import { ProductsComponent } from './shop/products/products.component';
 //import { CustomerComponent } from './shop/customer/customer.component';
 import { CheckoutComponent } from './shop/checkout/checkout.component';
 import { AccountComponent } from './shop/account/account.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: "gcfashions/shop",
         component: ShopComponent,
+      },
+      {
+        path: "gcfashions/sales",
+        component: RegisterComponent,
       },
       {
         path: "gcfashions/shop/products",
