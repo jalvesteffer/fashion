@@ -18,6 +18,8 @@ import { ProductSortPipe } from './common/product-sort.pipe';
 //import { CustomerComponent } from './shop/customer/customer.component';
 import { CheckoutComponent } from './shop/checkout/checkout.component';
 import { AccountComponent } from './shop/account/account.component';
+import { RegisterComponent } from './register/register.component';
+import { ReturnsComponent } from './register/returns/returns.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { AccountComponent } from './shop/account/account.component';
     ProductSortPipe,
 //    CustomerComponent,
     CheckoutComponent,
-    AccountComponent
+    AccountComponent,
+    RegisterComponent,
+    ReturnsComponent
   ],
   imports: [
     BrowserModule,

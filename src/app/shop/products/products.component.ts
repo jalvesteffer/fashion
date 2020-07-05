@@ -192,7 +192,6 @@ export class ProductsComponent implements OnInit {
     // create a new transaction with item user added to cart
     const transaction = {
       storeId: 1,
-      paymentId: 123,
       userId: Number(localStorage.getItem('userId')),
       status: "open",
       inventory: [{
