@@ -1,0 +1,79 @@
+<header class="w3-container w3-xlarge mt-4">
+  <p class="w3-left">{{headerText}}</p>
+</header>
+
+<!-- Image header -->
+<div class="w3-display-container w3-container">
+  <img src="assets/images/thumbnails/{{headerImage}}.jpg" alt="header2 image" style="width:100%">
+</div>
+
+<div class="w3-container">
+  <!-- message bar -->
+  <div *ngIf="message" class="w3-display-container w3-container">
+    <h4 class="text-center text-success mt-2">{{message}}</h4>
+  </div>
+
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <!-- search bar -->
+  <form [formGroup]="searchForm" class="form-inline d-flex mt-4">
+    <h4>Enter Order Number to Refund: </h4>
+    <input type="text" class="form-control ml-3" formControlName="searchString" (input)="search()" placeholder=""
+      aria-label="Search" />
+  </form>
+</div>
+
+<!-- Transaction details / Credit Card Form -->
+<div class="w3-display-container w3-container mt-4">
+  <table class="table borderless mb-5">
+    <thead>
+      <tr>
+        <th scope="col">
+          <h5>Order #</h5>
+        </th>
+        <th scope="col">
+          <h5>Customer</h5>
+        </th>
+        <th scope="col">
+          <h5>Store</h5>
+        </th>
+        <th scope="col">
+          <h5>Total Paid</h5>
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of pagedTransactions; let i = index">
+        <td>
+          {{t.transactionId}}
+        </td>
+        <td>
+          {{t.user.username}}
+        </td>
+        <td>
+          {{t.store.location}}
+        </td>
+        <td>
+          {{t.total | currency: $}}
+        </td>
+        <td>
+          <button type=" button" class="btn btn-outline-dark btn-block" (click)="refund(t)">Refund</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- pagination -->
+  <div class="ds-l-row ds-u-margin-top--3">
+    <div class="pagination justify-content-center">
+      <ngb-pagination [collectionSize]="totalTransactions" [(page)]="pager.currentPage" [pageSize]="pageSize"
+        [maxSize]="5" [boundaryLinks]="true" (pageChange)="setPage($event)"></ngb-pagination>
+    </div>
+  </div>
+</div>
