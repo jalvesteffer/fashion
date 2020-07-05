@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { ReportsRoutingModule } from './reports-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MetricComponent } from './metric/metric.component';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, MetricComponent, BarChartComponent],
   imports: [
     CommonModule,
     ReportsRoutingModule
