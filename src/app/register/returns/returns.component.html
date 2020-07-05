@@ -9,15 +9,11 @@
 
 <div class="w3-container">
   <!-- message bar -->
-  <div *ngIf="message" class="w3-display-container w3-container">
-    <h4 class="text-center text-success mt-2">{{message}}</h4>
-  </div>
-
-  <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <div #alert class="alert alert-success alert-dismissible fade show" role="alert">
+    <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
       <span aria-hidden="true">&times;</span>
     </button>
+    {{message}}
   </div>
 
   <!-- search bar -->
