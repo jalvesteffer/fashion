@@ -15,7 +15,10 @@ import { ProductsComponent } from './shop/products/products.component';
 import { ShopService } from './common/services/shop.service';
 import { PagerService } from './common/services/pager.service';
 import { ProductSortPipe } from './common/product-sort.pipe';
-import { CustomerComponent } from './shop/customer/customer.component';
+//import { CustomerComponent } from './shop/customer/customer.component';
+import { CheckoutComponent } from './shop/checkout/checkout.component';
+import { AccountComponent } from './shop/account/account.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { CustomerComponent } from './shop/customer/customer.component';
     ShopComponent,
     ProductsComponent,
     ProductSortPipe,
-    CustomerComponent
+//    CustomerComponent,
+    CheckoutComponent,
+    AccountComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

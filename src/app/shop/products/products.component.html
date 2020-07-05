@@ -18,7 +18,7 @@
    <a href="#footer" class="w3-bar-item w3-button w3-padding-80">Contact</a>
    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding"
      onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a>
-   <a routerLink="../../../gcfashions/shop/myaccount" class="w3-bar-item w3-button w3-padding">My Account</a>
+   <a routerLink="../../../gcfashions/home" class="w3-bar-item w3-button w3-padding">My Account</a>
  </nav><br>
 
  <!-- Top menu on small screens -->
@@ -26,19 +26,8 @@
    <div class="w3-bar-item w3-padding-24 w3-wide">GC FASHION</div>
    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i
        class="fa fa-bars"></i></a>
-    
- </header>
 
- <script>
-  function myFunction() {
-    var x = document.getElementById("myLinks");
-    if (x.style.display === "block") {
-      x.style.display = "none";
-    } else {
-      x.style.display = "block";
-    }
-  }
-  </script>
+ </header>
 
  <!-- Overlay effect when opening sidebar on small screens -->
  <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu"
@@ -67,23 +56,24 @@
 
    <!-- Image header -->
    <div class="w3-display-container w3-container" *ngIf="selectedCategory != 'All Products'">
-    <img src="assets/images/thumbnails/header/{{selectedCategoryInfo.catName}}.jpg" alt="{{selectedCategoryInfo.catName}}" style="width:100%">
-    <div class="w3-display-topleft w3-text-white" style="padding:24px 48px">
-      <h1 id='header-color' class="w3-jumbo w3-hide-small">{{selectedCategoryInfo.catDesc}}</h1>
-      <h1 class="w3-hide-large w3-hide-medium">{{selectedCategoryInfo.catDesc}}</h1>
-      <!-- <p><a href="/gcfashions/shop/products" class="w3-button w3-black w3-padding-large w3-large">SHOP NOW</a></p> -->
-    </div>
-  </div><br>
-<!-- Image header -->
-  <div class="w3-display-container w3-container" *ngIf="selectedCategory == 'All Products'">
-   <img src="assets/images/thumbnails/header/jeans.jpg" alt="Jeans" style="width:100%">
-   <div class="w3-display-topleft w3-text-white" style="padding:24px 48px">
-     <h1 class="w3-jumbo w3-hide-small">New arrivals</h1>
-     <h1 class="w3-hide-large w3-hide-medium">New arrivals</h1>
-     <h1 class="w3-hide-small">COLLECTION 2020</h1>
-     <p><a href="/gcfashions/shop/products" class="w3-button w3-black w3-padding-large w3-large">SHOP NOW</a></p>
-   </div>
- </div><br>
+     <img src="assets/images/thumbnails/header/{{selectedCategoryInfo.catName}}.jpg"
+       alt="{{selectedCategoryInfo.catName}}" style="width:100%">
+     <div class="w3-display-topleft w3-text-white" style="padding:24px 48px">
+       <h1 id='header-color' class="w3-jumbo w3-hide-small">{{selectedCategoryInfo.catDesc}}</h1>
+       <h1 class="w3-hide-large w3-hide-medium">{{selectedCategoryInfo.catDesc}}</h1>
+       <!-- <p><a href="/gcfashions/shop/products" class="w3-button w3-black w3-padding-large w3-large">SHOP NOW</a></p> -->
+     </div>
+   </div><br>
+   <!-- Image header -->
+   <div class="w3-display-container w3-container" *ngIf="selectedCategory == 'All Products'">
+     <img src="assets/images/thumbnails/header/jeans.jpg" alt="Jeans" style="width:100%">
+     <div class="w3-display-topleft w3-text-white" style="padding:24px 48px">
+       <h1 class="w3-jumbo w3-hide-small">New arrivals</h1>
+       <h1 class="w3-hide-large w3-hide-medium">New arrivals</h1>
+       <h1 class="w3-hide-small">COLLECTION 2020</h1>
+       <p><a href="/gcfashions/shop/products" class="w3-button w3-black w3-padding-large w3-large">SHOP NOW</a></p>
+     </div>
+   </div><br>
 
 
    <div class="w3-container w3-text-grey" id="jeans">
@@ -364,14 +354,15 @@
              </h5>
              <h5 *ngIf="couponCode && cartNumItems > 0" class="text-right mr-5 text-success">Discount :
                ({{couponDiscount * cartTotal | currency: $}})</h5>
-             <h6 class="text-right mr-5" *ngIf="cartNumItems > 0">Tax :
+             <h6 class="text-right mr-5" *ngIf="cartNumItems > 0">Tax (6%):
                {{ (cartTotal - (couponDiscount * cartTotal)) * taxRate | currency: $ }}</h6>
              <h5 class="text-right mr-5" *ngIf="cartNumItems > 0">Total :
                {{ ((cartTotal - (couponDiscount * cartTotal)) + ((cartTotal - (couponDiscount * cartTotal)) * taxRate)) | currency: $ }}
              </h5>
              <hr>
              <button type="button" class="w3-center w3-wide w3-button w3-red w3-margin-bottom"
-               onclick="document.getElementById('newsletter').style.display='none'"> CHECK OUT</button>
+               (click)="checkout((cartTotal - (couponDiscount * cartTotal)) * taxRate, ((cartTotal - (couponDiscount * cartTotal)) + ((cartTotal - (couponDiscount * cartTotal)) * taxRate)))">
+               CHECK OUT</button>
 
            </div>
          </div>

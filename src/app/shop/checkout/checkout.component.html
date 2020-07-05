@@ -1,0 +1,60 @@
+<header class="w3-container w3-xlarge mt-4">
+  <p class="w3-left">{{headerText}}</p>
+</header>
+
+<!-- Image header -->
+<div class="w3-display-container w3-container">
+  <img src="assets/images/thumbnails/{{headerImage}}.jpg" alt="header image" style="width:100%">
+</div>
+
+<!-- Transaction details / Credit Card Form -->
+<div class="w3-display-container w3-container mt-4">
+  <table class="table borderless">
+    <thead>
+      <tr>
+        <th scope="col">
+          <h5>{{name}}</h5>
+        </th>
+        <th scope="col">
+          <h5>Credit Card Information:</h5>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          Order Number: {{orderNum}}<br>
+          Address: {{address}}<br>
+          Total Due: {{orderTotal | currency: $}}
+        </td>
+        <td>
+          <form [formGroup]="checkoutForm">
+            <!-- Credit card info goes here -->
+            <div>
+              <div id="card-element"></div>
+            </div>
+
+            <!-- Errors will show here -->
+            <div id="card-errors" role="alert"></div>
+
+            <!-- Submit button -->
+            <div class="mt-4">
+              <button id="submit" (click)="submit()">Pay Now</button>
+            </div>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr *ngIf="message">
+
+  <div class="w3-display-container w3-container">
+    <h3 class="text-center text-success mt-2">{{message}}</h3>
+  </div>
+
+  <div class="w3-display-container w3-container">
+    <p class="text-center mt-2"><a href="/gcfashions/shop/products">{{linkText}}</a></p>
+  </div>
+
+</div>

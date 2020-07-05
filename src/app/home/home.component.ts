@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 import { AuthService } from '../common/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -12,13 +13,37 @@ export class HomeComponent implements OnInit {
   public loginInvalid: boolean;
   private formSubmitAttempt: boolean;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  //user form
+  registrationForm: FormGroup;
+  private username: string;
+  private password: string;
+  private name: string;
+
+  constructor(
+    private fb: FormBuilder, 
+    private authService: AuthService,
+    private router: Router
+    ) {
   }
 
   ngOnInit() {
     this.form = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
+    });
+
+    if (localStorage.getItem('user') != null) {
+      console.log('Logged in from memory');
+      this.router.navigate(['/gcfashions/shop/myaccount']);
+    }
+  }
+
+  initializeFormGroup() {
+    this.registrationForm = new FormGroup({
+      username: new FormControl(this.username),
+      password: new FormControl(this.password),
+      name: new FormControl(this.name),
+
     });
   }
 
