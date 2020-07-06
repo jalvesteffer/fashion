@@ -30,18 +30,12 @@ export class PagerService {
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
 
-    console.log("this is startPage" + startPage)
-    console.log("this is endPage" + endPage)
-    console.log("this is startIndex" + startIndex)
-    console.log("this is endIndex" + endIndex)
     // create an array of pages to ng-repeat in the pager control
     const pages = Array.from(
       Array(endPage + 1 - startPage),
       (_, i) => startPage + i
     );
-    console.log("this is pages" + pages)
-    console.log("this is currentPage" + currentPage)
-    console.log("this is totalPages" + totalPages)
+    
     // return object with all pager properties required by the view
     return {
       totalItems: totalItems,

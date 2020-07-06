@@ -34,11 +34,6 @@
   <div class="w3-display-container w3-container">
     <img src="assets/images/thumbnails/sales.jpg" style="width:100%">
     <div class="w3-display-topleft w3-text-white" style="padding:24px 48px">
-      <!-- <h1 class="w3-jumbo w3-hide-small">New arrivals</h1>
-   <h1 class="w3-hide-large w3-hide-medium">New arrivals</h1>
-   <h1 class="w3-hide-small">COLLECTION 2020</h1>
-   <p><a href="/gcfashions/shop/products" class="w3-button w3-black w3-padding-large w3-large">SHOP NOW</a></p>
-  -->
     </div>
   </div><br>
 
@@ -53,12 +48,106 @@
               (input)="searchInventory()" placeholder="Search" aria-label="Search" />
           </form>
         </div>
+        <br>
         <!-- results -->
-        <a>{{sku}} hi</a>
+        <div *ngIf = "sku != null">
+          <a>SKU: {{sku}}  </a>
+          <button type="button" class="btn btn-secondary" (click)="addToCart(sku)">Add</button>
+        </div>
       </div>
-      <div>
-
+      <br>
+      <!-- table -->
+      <div *ngFor="let p of cartProducts">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">SKU</th>
+              <th scope="col">Product</th>
+              <th scope="col">Size</th>
+              <th scope="col">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">{{p.inventory[0].sku}}</th>
+              <td>{{p.productName}}</td>
+              <td>{{p.inventory[0].size | uppercase}}</td>
+              <td>{{p.price | currency: $}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
+    <br>
   </div>
+
+  <ng-template #cartDetailsModal let-c="close" let-d="dismiss">
+    <form [formGroup]="cartDetailsForm">
+      <div class="modal-dialog" style="padding:32px" role="document">
+        <div class="modal-content w3-white w3-center">
+          <div class="modal-header">
+            <h2 class="modal-title w3-center  w3-wide">YOUR CART</h2>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+ 
+              <div class="w3-row" *ngFor="let p of cartProducts">
+                <!-- <div class="col-lg-5" > -->
+                <img class="w3-left" src="assets/images/thumbnails/{{p.photo}}.jpg" style="height: 10%; width:20%">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="w3-left">{{p.productName}}</h5><br>
+                  </div>
+                </div>
+ 
+                <div class="row">
+                  <div class="col">
+                    <p class="w3-left">Size: {{p.inventory[0].size | uppercase}}</p>
+                  </div>
+                  <div class="col">
+                    <p class="w3-left"><button type="button" class="btn btn-warning btn-sm"
+                        (click)="removeItem(p.inventory[0].sku)">Remove</button></p>
+                  </div>
+ 
+                </div>
+                <h4 class="w3-center"><b>{{p.price | currency: $}}</b></h4>
+                <hr>
+ 
+ 
+              </div>
+              <p *ngIf="cartNumItems > 0">Total Items: {{ cartNumItems }}</p>
+              <hr>
+ 
+              <!-- Coupon code section -->
+              Enter a coupon code:
+              <input class="form-control" id="couponCode" formControlName="couponCode"><button type="button"
+                class="btn btn-danger btn-sm"
+                (click)="addCouponCode(cartDetailsForm.controls.couponCode.value)">Submit</button>
+              <p *ngIf="couponCode && couponDiscount > 0" class="mt-3 text-success">Coupon code '{{couponCode}}'
+                applied<br>{{couponDescription}}</p>
+              <p *ngIf="couponCode == 0" class="mt-3 text-danger">Coupon code is not valid</p>
+              <hr>
+ 
+              <!-- Price calculations -->
+              <h5 class="text-right mr-5" *ngIf="cartNumItems > 0">Subtotal : {{ cartTotal | currency: $ }}
+              </h5>
+              <h5 *ngIf="couponCode && cartNumItems > 0" class="text-right mr-5 text-success">Discount :
+                ({{couponDiscount * cartTotal | currency: $}})</h5>
+              <h6 class="text-right mr-5" *ngIf="cartNumItems > 0">Tax (6%):
+                {{ (cartTotal - (couponDiscount * cartTotal)) * taxRate | currency: $ }}</h6>
+              <h5 class="text-right mr-5" *ngIf="cartNumItems > 0">Total :
+                {{ ((cartTotal - (couponDiscount * cartTotal)) + ((cartTotal - (couponDiscount * cartTotal)) * taxRate)) | currency: $ }}
+              </h5>
+              <hr>
+              <button type="button" class="w3-center w3-wide w3-button w3-red w3-margin-bottom"
+                (click)="checkout((cartTotal - (couponDiscount * cartTotal)) * taxRate, ((cartTotal - (couponDiscount * cartTotal)) + ((cartTotal - (couponDiscount * cartTotal)) * taxRate)))">
+                CHECK OUT</button>
+ 
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
 </div>

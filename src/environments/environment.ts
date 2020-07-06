@@ -17,6 +17,7 @@ export const environment = {
   getSubcategoryURI: '/subcategories/',
   getTransactionURI: '/transactions/',
   getInventoryURI: '/inventory/',
+  getProductURI: '/products/',
   getCouponURI: '/transactions/open/coupon/userid/',
   postTransactionURI: '/transactions',
   postCouponURI: '/transactions/open/coupon',
