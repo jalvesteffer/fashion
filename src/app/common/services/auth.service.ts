@@ -23,6 +23,11 @@ export class AuthService {
     console.log('Auth Service');
     const userData = localStorage.getItem('user');
     if (userData) {
+      const user = JSON.parse(userData);
+      this.token = user.token;
+      this.server.setLoggedIn(true, this.token);
+      this.loggedIn.next(true);
+
       console.log('Logged in from memory');
       if(this.userRole == "CUSTOMER"){
         this.router.navigate(['/gcfashions/shop/myaccount']); 
