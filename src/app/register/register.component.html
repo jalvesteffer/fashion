@@ -6,7 +6,7 @@
   </div>
   <br><br>
 
-  <a href="#footer" class="w3-bar-item w3-button w3-padding-80">Returns</a>
+  <a routerLink="../../gcfashions/sales/returns" class="w3-bar-item w3-button w3-padding-80">Returns</a>
   <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding"
     onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a>
 </nav>
@@ -60,7 +60,7 @@
           <div class="w3-center col-6">
             <br>
             <form [formGroup]="searchInventoryForm">
-              <h4>Enter Sku: </h4>
+              <h4>Enter Sku:  </h4>
               <br>
               <input type="text" class="form-control form-control" formControlName="searchString"
                 (input)="searchInventory()" placeholder="SKU" aria-label="Search" />
@@ -95,6 +95,7 @@
             </tbody>
           </table>
         </div>
+        <form [formGroup]="cartDetailsForm">
         <div class="w3-white w3-center">
           <p *ngIf="cartNumItems > 0">Total Items: {{ cartNumItems }}</p>
 
@@ -124,6 +125,7 @@
             (click)="checkout((cartTotal - (couponDiscount * cartTotal)) * taxRate, ((cartTotal - (couponDiscount * cartTotal)) + ((cartTotal - (couponDiscount * cartTotal)) * taxRate)))">
             CHECK OUT</button>
         </div>
+      </form>
       </div>
     </div>
     <br>
