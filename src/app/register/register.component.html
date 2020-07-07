@@ -1,5 +1,5 @@
- <!-- Sidebar/menu -->
- <nav class="menuBar w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
+<!-- Sidebar/menu -->
+<nav class="menuBar w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
   <div class="w3-container w3-display-container w3-padding-16">
     <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
     <h3 class="w3-wide"><b>GC Fashion</b></h3>
@@ -18,7 +18,7 @@
   <!-- Top header -->
   <header class="w3-container w3-xlarge">
     <div>
-      <h1 class="w3-left">Hello!</h1>
+      <h1 class="w3-left">REGISTER</h1>
     </div>
 
     <!-- logout -->
@@ -34,31 +34,99 @@
   <div class="w3-display-container w3-container">
     <img src="assets/images/thumbnails/sales.jpg" style="width:100%">
     <div class="w3-display-topleft w3-text-white" style="padding:24px 48px">
-      <!-- <h1 class="w3-jumbo w3-hide-small">New arrivals</h1>
-   <h1 class="w3-hide-large w3-hide-medium">New arrivals</h1>
-   <h1 class="w3-hide-small">COLLECTION 2020</h1>
-   <p><a href="/gcfashions/shop/products" class="w3-button w3-black w3-padding-large w3-large">SHOP NOW</a></p>
-  -->
     </div>
   </div><br>
 
   <div class="w3-main">
     <div class="container">
+      <!-- table -->
       <div>
-        <!-- search bar -->
-        <div class="w3-right col-lg-4">
-          <form [formGroup]="searchInventoryForm" class="form-inline d-flex justify-content-center md-form form-sm mt-0">
-            <i class="fa fa-search"></i>
-            <input type="text" class="form-control form-control-sm ml-3 w-75" formControlName="searchString"
-              (input)="searchInventory()" placeholder="Search" aria-label="Search" />
-          </form>
+        <!-- title -->
+        <!-- <div class="modal-header">
+          <h2 class="modal-title w3-center  w3-wide">REGISTER</h2>
+        </div> -->
+        <div class="row">
+          <!-- results -->
+          <div class="w3-center col-6">
+            <br>
+            <h3 *ngIf="sku != null"class="w3-white w3-wide">RESULTS</h3>
+            <hr *ngIf="sku != null">
+            <a *ngIf="sku != null && sku != 'No SKU Matching Found.'">SKU: </a> <a>{{sku}} </a>
+            <a *ngIf="sku != null && sku != 'No SKU Matching Found.'"><button type="button" class="btn btn-secondary" (click)="addToCart(sku)">Add</button>
+            </a>
+            <br>
+          </div>
+          <!-- search bar -->
+          <div class="w3-center col-6">
+            <br>
+            <form [formGroup]="searchInventoryForm">
+              <h4>Enter Sku: </h4>
+              <br>
+              <input type="text" class="form-control form-control" formControlName="searchString"
+                (input)="searchInventory()" placeholder="SKU" aria-label="Search" />
+            </form>
+          </div>
         </div>
-        <!-- results -->
-        <a>{{sku}} hi</a>
-      </div>
-      <div>
+        <br>
+        <div class="modal-body">
+          <h3 class="w3-white w3-wide">CART</h3>
+          <br>
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">SKU</th>
+                <th scope="col">Product</th>
+                <th scope="col">Size</th>
+                <th scope="col">Price</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let p of cartProducts">
+              <tr>
+                <th scope="row">{{p.inventory[0].sku}}</th>
+                <td>{{p.productName}}</td>
+                <td>{{p.inventory[0].size | uppercase}}</td>
+                <td>{{p.price | currency: $}}</td>
+                <td>
+                  <p class="w3-left"><button type="button" class="btn btn-warning btn-sm"
+                      (click)="removeItem(p.inventory[0].sku)">Remove</button></p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="w3-white w3-center">
+          <p *ngIf="cartNumItems > 0">Total Items: {{ cartNumItems }}</p>
 
+          <!-- Coupon code section -->
+          Enter a coupon code:
+          <input class="form-control form-control-lg" id="couponCode" formControlName="couponCode">
+          <br>
+          <button type="button" class="btn btn-secondary"
+            (click)="addCouponCode(cartDetailsForm.controls.couponCode.value)">APPLY COUPON</button>
+          <p *ngIf="couponCode && couponDiscount > 0" class="mt-3 text-success">Coupon code '{{couponCode}}'
+            applied<br>{{couponDescription}}</p>
+          <p *ngIf="couponCode == 0" class="mt-3 text-danger">Coupon code is not valid</p>
+          <hr>
+
+          <!-- Price calculations -->
+          <h5 class="text-right mr-5" *ngIf="cartNumItems > 0">Subtotal : {{ cartTotal | currency: $ }}
+          </h5>
+          <h5 *ngIf="couponCode && cartNumItems > 0" class="text-right mr-5 text-success">Discount :
+            ({{couponDiscount * cartTotal | currency: $}})</h5>
+          <h6 class="text-right mr-5" *ngIf="cartNumItems > 0">Tax (6%):
+            {{ (cartTotal - (couponDiscount * cartTotal)) * taxRate | currency: $ }}</h6>
+          <h5 class="text-right mr-5" *ngIf="cartNumItems > 0">Total :
+            {{ ((cartTotal - (couponDiscount * cartTotal)) + ((cartTotal - (couponDiscount * cartTotal)) * taxRate)) | currency: $ }}
+          </h5>
+          <hr>
+          <button type="button" class="btn btn-danger w3-center w3-wide w3-margin-bottom"
+            (click)="checkout((cartTotal - (couponDiscount * cartTotal)) * taxRate, ((cartTotal - (couponDiscount * cartTotal)) + ((cartTotal - (couponDiscount * cartTotal)) * taxRate)))">
+            CHECK OUT</button>
+        </div>
       </div>
     </div>
+    <br>
   </div>
+
 </div>
