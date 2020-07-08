@@ -40,7 +40,7 @@ import { RegisterComponent } from './register/register.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule,
+    NgbModule
   ],
   providers: [ShopService, PagerService],
   bootstrap: [AppComponent]

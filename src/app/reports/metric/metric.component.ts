@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from "@angular/core";
 
 @Component({
-  selector: 'app-metric',
-  templateUrl: './metric.component.html',
-  styleUrls: ['./metric.component.css']
+  selector: "app-metric",
+  templateUrl: "./metric.component.html",
+  styleUrls: ["./metric.component.css"],
 })
-export class MetricComponent implements OnInit {
+export class MetricComponent {
+  @Input()
+  private report;
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  constructor() {}
 
 }

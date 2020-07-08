@@ -2,32 +2,32 @@ import { Component, OnInit } from '@angular/core';
 import { ReportService } from "../../common/services/report.service";
 
 @Component({
-  selector: 'app-bar-chart',
-  templateUrl: './bar-chart.component.html',
-  styleUrls: ['./bar-chart.component.css']
+  selector: 'app-tax-report',
+  templateUrl: './tax-report.component.html',
+  styleUrls: ['./tax-report.component.css']
 })
-export class BarChartComponent implements OnInit {
+export class TaxReportComponent implements OnInit {
 
   constructor(private reportService: ReportService) {}
 
   public barChartOptions = {
-    scaleShowVerticalLines: true,
+    scaleShowVerticalLines: false,
     responsive: true,
   };
   public title;
   public barChartLabels = [];
   public barChartType = 'bar';
   public barChartLegend = true;
-  public series1 = { data: [], label: 'Total Sales' };
+  public series1 = { data: [], label: 'Monthly Sales' };
   public barChartData = [];
   public barColors=[
     {
-      backgroundColor: 'rgba(46, 204, 113, 1)'
+      backgroundColor: 'rgba(211, 84, 0, 1)'
     }
   ];
 
   showConfig() {
-    this.reportService.salesReport().subscribe((data: any) => {
+    this.reportService.taxReport().subscribe((data: any) => {
       console.log(data)
       this.title = data.reportName;
       data.reportData.forEach((element) => {

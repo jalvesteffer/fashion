@@ -24,16 +24,16 @@ export class AuthService {
     const userData = localStorage.getItem('user');
     if (userData) {
       console.log('Logged in from memory');
+
+      const user = JSON.parse(userData);
+      this.token = user.token;
+      this.server.setLoggedIn(true, this.token);
+      this.loggedIn.next(true);
       if(this.userRole == "CUSTOMER"){
         this.router.navigate(['/gcfashions/shop/myaccount']); 
       } else if(this.userRole == "SALES"){
         this.router.navigate(['/gcfashions/sales']); 
       }
-      // const user = JSON.parse(userData);
-      // this.token = user.token;
-      // this.server.setLoggedIn(true, this.token);
-      // this.loggedIn.next(true);
-      // this.router.navigate(['/gcfashions/shop/myaccount']);
     }
   }
 
@@ -71,7 +71,7 @@ export class AuthService {
 
     this.loggedIn.next(false);
     localStorage.clear();
-    this.router.navigate(['/gcfashions/shop/products']);
+    this.router.navigate(['/gcfashions/home']);
   }
 
 }

@@ -1,5 +1,23 @@
-<p>
-  dashboard works!
-</p>
-<app-metric></app-metric>
-<app-bar-chart></app-bar-chart>
+<nav class="site-header sticky-top py-1 mb-4">
+  <div class="container d-flex flex-column flex-md-row justify-content-between">
+    <a class="py-2 d-none d-md-inline-block" href="#">Shop</a>
+    <a class="py-2 d-none d-md-inline-block" href="#">Logout</a>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 mb-4">
+    <div class="col"><app-metric [report] = "report1"></app-metric></div>
+    <div class="col"><app-metric [report] = "report2"></app-metric></div>
+    <div class="col"><app-metric [report] = "report3"></app-metric></div>
+    <div class="col"><app-metric [report] = "report4"></app-metric></div>
+  </div>
+  <div class="row row-cols-1 row-cols-sm-2 mb-4">
+    <div class="col"><app-bar-chart></app-bar-chart></div>
+    <div class="col"><app-pie-chart></app-pie-chart></div>
+  </div>
+  <div class="row row-cols-1 row-cols-sm-2 mb-4">
+    <div class="col"><app-tax-report></app-tax-report></div>
+    <div class="col"><app-pie2-chart></app-pie2-chart></div>
+  </div>
+</div>
