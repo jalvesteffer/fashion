@@ -1,10 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ShopService } from "../../common/services/shop.service";
 import { environment } from "../../../environments/environment";
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
-import { Router } from '@angular/router';
-import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-checkout',
@@ -37,7 +34,6 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private shopService: ShopService,
-    private router: Router,
   ) { }
 
   ngOnInit() {

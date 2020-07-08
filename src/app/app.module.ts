@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -43,6 +44,7 @@ import { ReturnsComponent } from './register/returns/returns.component';
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
+    Router,
   ],
   providers: [ShopService, PagerService],
   bootstrap: [AppComponent]

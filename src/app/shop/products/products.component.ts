@@ -5,7 +5,6 @@ import { environment } from "../../../environments/environment";
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
-import { errorHandler } from '@angular/platform-browser/src/browser';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -14,6 +13,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
+  routers: Router;
 
   // header
   selectedCategory: string = "All Products";
@@ -67,7 +67,7 @@ export class ProductsComponent implements OnInit {
     private pagerService: PagerService,
     private modalService: NgbModal,
     private fb: FormBuilder,
-    private router: Router,
+    // private router: Router,
   ) { }
 
   ngOnInit() {
@@ -262,7 +262,7 @@ export class ProductsComponent implements OnInit {
     this.shopService.updateObj(`${environment.shopUrl}${environment.updateTransactionURI}`, values)
       .subscribe((res) => {
         this.modalService.dismissAll();
-        this.router.navigate(['gcfashions/shop/checkout']);
+        this.routers.navigate(['gcfashions/shop/checkout']);
         //.navigate(['checkout']);
       },
         (error) => {

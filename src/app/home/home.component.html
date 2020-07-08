@@ -20,6 +20,7 @@
     <div class="login-form">
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="form-group">
+          <p *ngIf="loginInvalid == true" style="color:danger;"> Username and/or password is invalid.</p>
           <label class="full-width-input">
             Username
             <input type="text" placeholder="Username" formControlName="username" required>

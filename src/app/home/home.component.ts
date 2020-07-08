@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   form: FormGroup;
   public loginInvalid: boolean;
-  private formSubmitAttempt: boolean;
+  public formSubmitAttempt: boolean;
 
   //user form
   registrationForm: FormGroup;
@@ -27,10 +27,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
+    this.initializeFormGroup()
 
     if (localStorage.getItem('user') != null) {
       console.log('Logged in from memory');
@@ -39,12 +36,17 @@ export class HomeComponent implements OnInit {
   }
 
   initializeFormGroup() {
-    this.registrationForm = new FormGroup({
-      username: new FormControl(this.username),
-      password: new FormControl(this.password),
-      name: new FormControl(this.name),
-
+    this.form = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
+
+    // this.registrationForm = new FormGroup({
+    //   username: new FormControl(this.username),
+    //   password: new FormControl(this.password),
+    //   name: new FormControl(this.name),
+
+    // });
   }
 
   async onSubmit() {
@@ -55,6 +57,7 @@ export class HomeComponent implements OnInit {
         await this.authService.login(this.form.value);      
       } catch (err) {
         this.loginInvalid = true;
+        console.log("this" + this.loginInvalid);
       }
     } else {
       this.formSubmitAttempt = true;

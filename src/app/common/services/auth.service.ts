@@ -43,14 +43,12 @@ export class AuthService {
   }
 
   login(user) {
-    console.log(user, user.username)
     if (user.username !== '' && user.password !== '' ) {
       return this.http.post(baseUrl+'/login', user, {observe:'response'}).subscribe((response: any) => {
         if (response.headers.get("Authorization")) {
           this.token = response.headers.get("Authorization");
           this.userId = response.headers.get("UserId");
           this.userRole = response.headers.get("UserRole");
-          console.log(this.userId);
           this.server.setLoggedIn(true, this.token);
           this.loggedIn.next(true);
           const userData = {
