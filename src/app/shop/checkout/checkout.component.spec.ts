@@ -51,8 +51,6 @@ describe('CheckoutComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CheckoutComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   // it('should create', () => {

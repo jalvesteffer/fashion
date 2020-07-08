@@ -36,6 +36,9 @@ describe('ProductsComponent', () => {
   let modalService: NgbModal;
   let fb: FormBuilder;
   let router: Router;
+  let mockRouter = {
+    navigate: jasmine.createSpy('navigate')
+  };
   let mockModalRef: MockNgbModalRef = new MockNgbModalRef();
 
 
@@ -50,7 +53,9 @@ describe('ProductsComponent', () => {
         HttpClientTestingModule
       ],
       providers: [
-        ShopService, PagerService
+        ShopService, 
+        PagerService,
+        { provide: Router, useValue: mockRouter },
       ]
     })
     .compileComponents();
@@ -59,13 +64,11 @@ describe('ProductsComponent', () => {
     fb = new FormBuilder();
     modalService = TestBed.get(NgbModal);
 
-    component = new ProductsComponent(service, pagerService, modalService, fb);
+    component = new ProductsComponent(service, pagerService, modalService, fb, router);
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

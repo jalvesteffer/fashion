@@ -57,7 +57,7 @@ describe('AccountComponent', () => {
     })
     .compileComponents();
     service = new ShopService(null);
-    serviceAuth = new AuthService(null, null, http);
+    serviceAuth = new AuthService(router, null, http);
     pagerService = new PagerService();
     fb = new FormBuilder();
     modalService = TestBed.get(NgbModal);
@@ -71,5 +71,13 @@ describe('AccountComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it("should load components and call life cycle methods", () => {
+    spyOn(component, "loadAllTransactions");
+    component.ngOnInit();
+    tick();
+
+    expect(component.loadAllTransactions).toHaveBeenCalled;
   });
 });

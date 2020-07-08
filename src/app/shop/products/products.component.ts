@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
-  routers: Router;
+  // routers: Router;
 
   // header
   selectedCategory: string = "All Products";
@@ -67,7 +67,7 @@ export class ProductsComponent implements OnInit {
     private pagerService: PagerService,
     private modalService: NgbModal,
     private fb: FormBuilder,
-    // private router: Router,
+    private router: Router,
   ) { }
 
   ngOnInit() {
