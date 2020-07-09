@@ -29,6 +29,11 @@ export class AuthService {
       this.loggedIn.next(true);
 
       console.log('Logged in from memory');
+
+      const user = JSON.parse(userData);
+      this.token = user.token;
+      this.server.setLoggedIn(true, this.token);
+      this.loggedIn.next(true);
       if(this.userRole == "CUSTOMER"){
         this.router.navigate(['/gcfashions/shop/myaccount']); 
       } else if(this.userRole == "SALES"){
@@ -69,7 +74,7 @@ export class AuthService {
 
     this.loggedIn.next(false);
     localStorage.clear();
-    this.router.navigate(['/gcfashions/shop/products']);
+    this.router.navigate(['/gcfashions/home']);
   }
 
 }

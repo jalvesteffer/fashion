@@ -43,8 +43,7 @@ import { ReturnsComponent } from './register/returns/returns.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule,
-    Router,
+    NgbModule
   ],
   providers: [ShopService, PagerService],
   bootstrap: [AppComponent]
