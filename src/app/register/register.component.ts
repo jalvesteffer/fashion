@@ -75,7 +75,7 @@ export class RegisterComponent implements OnInit {
         }
       },
         (error) => {
-          throw new Error("Error in loadCart()");
+          console.log("Error in loading Cart.");
         }
       );
   }

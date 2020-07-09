@@ -84,7 +84,7 @@ export class CheckoutComponent implements OnInit {
         this.address = this.openTransaction.user.address;
       },
         (error) => {
-          throw new Error("Error in getTransactionDetails()");
+          console.log("Error in getting Transaction details.");
         }
       );
   }

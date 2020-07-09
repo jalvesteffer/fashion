@@ -110,10 +110,7 @@ export class ProductsComponent implements OnInit {
         this.setPage(1);
       },
         (error) => {
-          // throw new Error("Error in loadAllProducts().");
-          let details = error.json().error;
-          console.log(details);
-          return Observable.throw(new Error(details));
+          console.log("Error in loading All Products.");
         }
       );
   }
@@ -125,10 +122,7 @@ export class ProductsComponent implements OnInit {
         this.totalCategories = this.categories.length;
       },
         (error) => {
-          // throw new Error("Error in loadAllProducts().");
-          let details = error.json().error;
-          console.log(details);
-          return Observable.throw(new Error(details));
+          console.log("Error in loading All Categories.");
         }
       );
   }
@@ -165,7 +159,7 @@ export class ProductsComponent implements OnInit {
         }
       },
         (error) => {
-          throw new Error("Error in loadCart()");
+          console.log("Error in ehn loading Cart.");
         }
       );
   }
@@ -262,7 +256,7 @@ export class ProductsComponent implements OnInit {
     this.shopService.updateObj(`${environment.shopUrl}${environment.updateTransactionURI}`, values)
       .subscribe((res) => {
         this.modalService.dismissAll();
-        this.routers.navigate(['gcfashions/shop/checkout']);
+        this.router.navigate(['gcfashions/shop/checkout']);
         //.navigate(['checkout']);
       },
         (error) => {
@@ -292,9 +286,8 @@ export class ProductsComponent implements OnInit {
 
   searchProducts() {
     let searchString = this.searchProductForm.value.searchString;
-    console.log(searchString);
     let dash = "/";
-    if (searchString.length != "") {
+    if (searchString.length != 0) {
       this.shopService
         .getAll(
           `${environment.shopUrl}${environment.getProductsLikeURI}${searchString}`

@@ -27,9 +27,6 @@ describe('HomeComponent', () => {
   let fb: FormBuilder;
   let form: FormGroup;
   let http: HttpClient;
-  let mockRouter = {
-    navigate: jasmine.createSpy('navigate')
-  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -41,7 +38,7 @@ describe('HomeComponent', () => {
       ],
       providers: [
         AuthService,
-        { provide: Router, useValue: mockRouter },
+        { provide: Router, useValue: {urls: "/path"} },
       ]
     })
     .compileComponents();
@@ -100,5 +97,6 @@ describe('HomeComponent', () => {
     tick();
     expect(component.formSubmitAttempt).toBeTruthy;
   }));
+  
   
 });
