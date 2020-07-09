@@ -34,11 +34,6 @@ export class AuthService {
       } else if(this.userRole == "SALES"){
         this.router.navigate(['/gcfashions/sales']); 
       }
-      // const user = JSON.parse(userData);
-      // this.token = user.token;
-      // this.server.setLoggedIn(true, this.token);
-      // this.loggedIn.next(true);
-      // this.router.navigate(['/gcfashions/shop/myaccount']);
     }
   }
 
