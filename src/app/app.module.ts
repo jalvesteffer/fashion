@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ElementRef } from '@angular/core';
 import { ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -21,6 +22,7 @@ import { CheckoutComponent } from './shop/checkout/checkout.component';
 import { AccountComponent } from './shop/account/account.component';
 import { RegisterComponent } from './register/register.component';
 import { ReturnsComponent } from './register/returns/returns.component';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -43,8 +45,7 @@ import { ReturnsComponent } from './register/returns/returns.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule,
-    Router,
+    NgbModule
   ],
   providers: [ShopService, PagerService],
   bootstrap: [AppComponent]

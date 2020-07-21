@@ -5,21 +5,33 @@
   !*** ./src/$$_lazy_route_resource lazy namespace object ***!
   \**********************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-function webpackEmptyAsyncContext(req) {
-	// Here Promise.resolve().then() is used instead of new Promise() to prevent
-	// uncaught exception popping up in devtools
-	return Promise.resolve().then(function() {
-		var e = new Error("Cannot find module '" + req + "'");
-		e.code = 'MODULE_NOT_FOUND';
-		throw e;
+var map = {
+	"./reports/reports.module": [
+		"./src/app/reports/reports.module.ts",
+		"reports-reports-module"
+	]
+};
+function webpackAsyncContext(req) {
+	var ids = map[req];
+	if(!ids) {
+		return Promise.resolve().then(function() {
+			var e = new Error("Cannot find module '" + req + "'");
+			e.code = 'MODULE_NOT_FOUND';
+			throw e;
+		});
+	}
+	return __webpack_require__.e(ids[1]).then(function() {
+		var id = ids[0];
+		return __webpack_require__(id);
 	});
 }
-webpackEmptyAsyncContext.keys = function() { return []; };
-webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
-module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
+webpackAsyncContext.keys = function webpackAsyncContextKeys() {
+	return Object.keys(map);
+};
+webpackAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
+module.exports = webpackAsyncContext;
 
 /***/ }),
 
@@ -94,6 +106,10 @@ var routes = [
                 path: "gcfashions/shop/checkout",
                 component: _shop_checkout_checkout_component__WEBPACK_IMPORTED_MODULE_7__["CheckoutComponent"],
             },
+            {
+                path: "gcfashions/dashboard",
+                loadChildren: "./reports/reports.module#ReportsModule",
+            },
         ]
     }
 ];
@@ -131,7 +147,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<router-outlet></router-outlet>\r\n"
+module.exports = "<router-outlet></router-outlet>"
 
 /***/ }),
 
@@ -217,6 +233,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 //import { CustomerComponent } from './shop/customer/customer.component';
 
 
@@ -249,6 +266,7 @@ var AppModule = /** @class */ (function () {
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
                 _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["NgbModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
+                _angular_core__WEBPACK_IMPORTED_MODULE_2__["ElementRef"]
             ],
             providers: [_common_services_shop_service__WEBPACK_IMPORTED_MODULE_15__["ShopService"], _common_services_pager_service__WEBPACK_IMPORTED_MODULE_16__["PagerService"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
@@ -342,11 +360,6 @@ var AuthService = /** @class */ (function () {
             else if (this.userRole == "SALES") {
                 this.router.navigate(['/gcfashions/sales']);
             }
-            // const user = JSON.parse(userData);
-            // this.token = user.token;
-            // this.server.setLoggedIn(true, this.token);
-            // this.loggedIn.next(true);
-            // this.router.navigate(['/gcfashions/shop/myaccount']);
         }
     }
     Object.defineProperty(AuthService.prototype, "isLoggedIn", {
@@ -387,7 +400,7 @@ var AuthService = /** @class */ (function () {
         delete this.token;
         this.loggedIn.next(false);
         localStorage.clear();
-        this.router.navigate(['/gcfashions/shop/products']);
+        this.router.navigate(['/gcfashions/home']);
     };
     AuthService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -497,6 +510,7 @@ var ServerService = /** @class */ (function () {
             return this.get(route, data);
         }
         var header = (this.loggedIn) ? { Authorization: "" + this.token } : undefined;
+        console.log(header, "" + this.token);
         return this.http.request(method, baseUrl + route, {
             body: data,
             responseType: 'json',
@@ -506,6 +520,7 @@ var ServerService = /** @class */ (function () {
     };
     ServerService.prototype.get = function (route, data) {
         var header = (this.loggedIn) ? { Authorization: "" + this.token } : undefined;
+        console.log(header, "" + this.token);
         var params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]();
         if (data !== undefined) {
             Object.getOwnPropertyNames(data).forEach(function (key) {
@@ -595,7 +610,7 @@ module.exports = "body {\r\n    font-family: \"Montserrat\", sans-serif;\r\n    
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<link href=\"//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\" rel=\"stylesheet\" id=\"bootstrap-css\">\r\n  <script src=\"//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js\"></script>\r\n  <script src=\"//code.jquery.com/jquery-1.11.1.min.js\"></script>\r\n  <div class=\"sidenav\">\r\n    <div class=\"login-main-text\">\r\n       <h2 class=\"w3-jumbo w3-hide-small\">GC FASHION</h2>\r\n       <h2 class=\"w3-hide-large w3-hide-medium\">GC FASHION</h2>\r\n       <br>\r\n       <h2 class=\"w3-hide-small\">Login</h2>\r\n    </div>\r\n </div>\r\n \r\n<!-- <div class=\"grid-container\">\r\n  <div class=\"grid-x\">\r\n    <div class=\"small-12 medium-10 medium-offset-1 large-8 large-offset-2 cell\">\r\n       -->\r\n<div class=\"main\">\r\n  <div class=\"col-md-6 col-sm-12\">\r\n    <br>\r\n    <div class=\"login-form\">\r\n      <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\">\r\n        <div class=\"form-group\">\r\n          <p *ngIf=\"loginInvalid == true\" style=\"color:danger;\"> Username and/or password is invalid.</p>\r\n          <label class=\"full-width-input\">\r\n            Username\r\n            <input type=\"text\" placeholder=\"Username\" formControlName=\"username\" required>\r\n          </label>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <label class=\"full-width-input\">\r\n            Password\r\n            <input type=\"password\" placeholder=\"Password\" formControlName=\"password\" required>\r\n          </label>\r\n        </div>\r\n        \r\n\r\n        <!-- <button class=\"button\">Login</button> -->\r\n        <button class=\"btn btn-danger\" >Login</button>\r\n          \r\n        \r\n      </form>\r\n      <div class=\"register-link\">\r\n        Not yet registered?\r\n        <a href=\"javascript:void(0)\" class=\"w3-bar-item w3-button w3-padding\"\r\n     onclick=\"document.getElementById('register').style.display='block'\">Register Now</a>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!-- Register Modal -->\r\n<div id=\"register\" class=\"w3-modal\">\r\n  <div class=\"w3-modal-content w3-animate-zoom\" style=\"padding:32px\">\r\n    <div class=\"w3-container w3-white w3-center\">\r\n      <i onclick=\"document.getElementById('register').style.display='none'\"\r\n        class=\"fa fa-remove w3-right w3-button w3-transparent w3-xxlarge\"></i>\r\n      <h2 class=\"w3-wide\">REGISTER</h2>\r\n      <p><input class=\"w3-input w3-border\" type=\"text\" placeholder=\"Enter Full Name\"></p>\r\n      <p><input class=\"w3-input w3-border\" type=\"text\" placeholder=\"Create username\"></p>\r\n      <p><input class=\"w3-input w3-border\" type=\"password\" placeholder=\"Create password\"></p>\r\n      <button type=\"button\" class=\"w3-button w3-padding-large w3-red w3-margin-bottom\"\r\n        onclick=\"document.getElementById('register').style.display='none'\">Register</button>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n"
+module.exports = "<link href=\"//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\" rel=\"stylesheet\" id=\"bootstrap-css\">\r\n  <script src=\"//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js\"></script>\r\n  <script src=\"//code.jquery.com/jquery-1.11.1.min.js\"></script>\r\n  <div class=\"sidenav\">\r\n    <div class=\"login-main-text\">\r\n       <h2 class=\"w3-jumbo w3-hide-small\">GC FASHION</h2>\r\n       <h2 class=\"w3-hide-large w3-hide-medium\">GC FASHION</h2>\r\n       <br>\r\n       <h2 class=\"w3-hide-small\">Login</h2>\r\n    </div>\r\n </div>\r\n \r\n<!-- <div class=\"grid-container\">\r\n  <div class=\"grid-x\">\r\n    <div class=\"small-12 medium-10 medium-offset-1 large-8 large-offset-2 cell\">\r\n       -->\r\n<div class=\"main\">\r\n  \r\n\r\n  <div class=\"col-md-6 col-sm-12\">\r\n    <!-- message bar -->\r\n  <div #alert class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">\r\n    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"closeAlert()\">\r\n      <span aria-hidden=\"true\">&times;</span>\r\n    </button>\r\n    {{message}}\r\n  </div>\r\n    <br>\r\n    <div class=\"login-form\">\r\n      <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\">\r\n        <div class=\"form-group\">\r\n          <p *ngIf=\"loginInvalid == true\" style=\"color:danger;\"> Username and/or password is invalid.</p>\r\n          <label class=\"full-width-input\">\r\n            Username\r\n            <input type=\"text\" placeholder=\"Username\" formControlName=\"username\" required>\r\n          </label>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <label class=\"full-width-input\">\r\n            Password\r\n            <input type=\"password\" placeholder=\"Password\" formControlName=\"password\" required>\r\n          </label>\r\n        </div>\r\n        \r\n\r\n        <!-- <button class=\"button\">Login</button> -->\r\n        <button class=\"btn btn-danger\" >Login</button>\r\n          \r\n        \r\n      </form>\r\n      <div class=\"register-link\">\r\n        Not yet registered?\r\n        <a href=\"javascript:void(0)\" class=\"w3-bar-item w3-button w3-padding\"\r\n     onclick=\"document.getElementById('register').style.display='block'\">Register Now</a>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!-- Register Modal -->\r\n<div id=\"register\" class=\"w3-modal\">\r\n  <div class=\"w3-modal-content w3-animate-zoom\" style=\"padding:32px\">\r\n    <div class=\"w3-container w3-white w3-center\">\r\n      <i onclick=\"document.getElementById('register').style.display='none'\"\r\n        class=\"fa fa-remove w3-right w3-button w3-transparent w3-xxlarge\"></i>\r\n      <h2 class=\"w3-wide\">REGISTER</h2>\r\n      <p><input class=\"w3-input w3-border\" type=\"text\" placeholder=\"Enter Full Name\"></p>\r\n      <p><input class=\"w3-input w3-border\" type=\"text\" placeholder=\"Create username\"></p>\r\n      <p><input class=\"w3-input w3-border\" type=\"password\" placeholder=\"Create password\"></p>\r\n      <button type=\"button\" class=\"w3-button w3-padding-large w3-red w3-margin-bottom\"\r\n        onclick=\"document.getElementById('register').style.display='none'\">Register</button>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -624,9 +639,11 @@ var HomeComponent = /** @class */ (function () {
         this.fb = fb;
         this.authService = authService;
         this.router = router;
+        this.message = "No Message";
     }
     HomeComponent.prototype.ngOnInit = function () {
         this.initializeFormGroup();
+        this.closeAlert();
         if (localStorage.getItem('user') != null) {
             console.log('Logged in from memory');
             this.router.navigate(['/gcfashions/shop/myaccount']);
@@ -642,6 +659,12 @@ var HomeComponent = /** @class */ (function () {
         //   password: new FormControl(this.password),
         //   name: new FormControl(this.name),
         // });
+    };
+    HomeComponent.prototype.closeAlert = function () {
+        this.alert.nativeElement.classList.remove('show');
+    };
+    HomeComponent.prototype.openAlert = function () {
+        this.alert.nativeElement.classList.add('show');
     };
     HomeComponent.prototype.onSubmit = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
@@ -662,7 +685,8 @@ var HomeComponent = /** @class */ (function () {
                     case 3:
                         err_1 = _a.sent();
                         this.loginInvalid = true;
-                        console.log("this" + this.loginInvalid);
+                        this.message = "Username or Password is invaild";
+                        this.openAlert();
                         return [3 /*break*/, 4];
                     case 4: return [3 /*break*/, 6];
                     case 5:
@@ -673,6 +697,10 @@ var HomeComponent = /** @class */ (function () {
             });
         });
     };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('alert', {}),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
+    ], HomeComponent.prototype, "alert", void 0);
     HomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-home',
@@ -947,7 +975,7 @@ var RegisterComponent = /** @class */ (function () {
                 _this.cartTotal += p.price;
             }
         }, function (error) {
-            throw new Error("Error in loadCart()");
+            console.log("Error in loading Cart.");
         });
     };
     RegisterComponent.prototype.loadCoupon = function (userId) {
@@ -1320,7 +1348,7 @@ var AccountComponent = /** @class */ (function () {
                         _this.totalTransactions = _this.transactions.length;
                         _this.setPage(1);
                     }, function (error) {
-                        throw new Error("Error in loadAllProducts().");
+                        console.log("Error when loading All Products.");
                     })];
             });
         });
@@ -1445,7 +1473,7 @@ var CheckoutComponent = /** @class */ (function () {
             _this.orderTotal = _this.openTransaction.total;
             _this.address = _this.openTransaction.user.address;
         }, function (error) {
-            throw new Error("Error in getTransactionDetails()");
+            console.log("Error in getting Transaction details.");
         });
     };
     CheckoutComponent.prototype.submit = function () {
@@ -1549,7 +1577,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 
 
 
@@ -1559,11 +1587,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ProductsComponent = /** @class */ (function () {
-    function ProductsComponent(shopService, pagerService, modalService, fb) {
+    function ProductsComponent(shopService, pagerService, modalService, fb, router) {
         this.shopService = shopService;
         this.pagerService = pagerService;
         this.modalService = modalService;
         this.fb = fb;
+        this.router = router;
+        // routers: Router;
         // header
         this.selectedCategory = "All Products";
         // product data
@@ -1611,10 +1641,7 @@ var ProductsComponent = /** @class */ (function () {
             _this.totalProducts = _this.products.length;
             _this.setPage(1);
         }, function (error) {
-            // throw new Error("Error in loadAllProducts().");
-            var details = error.json().error;
-            console.log(details);
-            return rxjs__WEBPACK_IMPORTED_MODULE_7__["Observable"].throw(new Error(details));
+            console.log("Error in loading All Products.");
         });
     };
     ProductsComponent.prototype.loadAllCategories = function () {
@@ -1624,10 +1651,7 @@ var ProductsComponent = /** @class */ (function () {
             _this.categories = res;
             _this.totalCategories = _this.categories.length;
         }, function (error) {
-            // throw new Error("Error in loadAllProducts().");
-            var details = error.json().error;
-            console.log(details);
-            return rxjs__WEBPACK_IMPORTED_MODULE_7__["Observable"].throw(new Error(details));
+            console.log("Error in loading All Categories.");
         });
     };
     ProductsComponent.prototype.loadProductsByCategory = function (cat) {
@@ -1659,7 +1683,7 @@ var ProductsComponent = /** @class */ (function () {
                 _this.cartTotal += p.price;
             }
         }, function (error) {
-            throw new Error("Error in loadCart()");
+            console.log("Error in ehn loading Cart.");
         });
     };
     ProductsComponent.prototype.loadCoupon = function (userId) {
@@ -1738,7 +1762,7 @@ var ProductsComponent = /** @class */ (function () {
         this.shopService.updateObj("" + _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].shopUrl + _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].updateTransactionURI, values)
             .subscribe(function (res) {
             _this.modalService.dismissAll();
-            _this.routers.navigate(['gcfashions/shop/checkout']);
+            _this.router.navigate(['gcfashions/shop/checkout']);
             //.navigate(['checkout']);
         }, function (error) {
             console.log(error);
@@ -1763,9 +1787,8 @@ var ProductsComponent = /** @class */ (function () {
     ProductsComponent.prototype.searchProducts = function () {
         var _this = this;
         var searchString = this.searchProductForm.value.searchString;
-        console.log(searchString);
         var dash = "/";
-        if (searchString.length != "") {
+        if (searchString.length != 0) {
             this.shopService
                 .getAll("" + _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].shopUrl + _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].getProductsLikeURI + searchString)
                 .subscribe(function (res) {
@@ -1837,7 +1860,8 @@ var ProductsComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_common_services_shop_service__WEBPACK_IMPORTED_MODULE_2__["ShopService"],
             _common_services_pager_service__WEBPACK_IMPORTED_MODULE_3__["PagerService"],
             _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["NgbModal"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormBuilder"]])
+            _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormBuilder"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"]])
     ], ProductsComponent);
     return ProductsComponent;
 }());
@@ -1899,7 +1923,7 @@ var ShopComponent = /** @class */ (function () {
             .subscribe(function (res) {
             _this.products = res;
         }, function (error) {
-            throw new Error("Error in loadAllProducts().");
+            console.log("Error in load when loading products.");
         });
     };
     ShopComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

@@ -76,6 +76,17 @@ export class ProductsComponent implements OnInit {
     this.loadCart(Number(localStorage.getItem('userId')));
     this.initializeFormGroup();
   }
+  
+  w3_open() {
+    console.log("here");
+    document.getElementById("mySidebar").style.width = "100%";
+    document.getElementById("mySidebar").style.display = "block";
+    console.log("here");
+  }
+
+  w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+  }
 
   initializeFormGroup() {
     this.productDetailsForm = new FormGroup({

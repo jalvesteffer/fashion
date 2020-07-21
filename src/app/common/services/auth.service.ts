@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, throwError } from 'rxjs';
 import { ServerService } from './server.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -39,7 +39,7 @@ export class AuthService {
 
   login(user) {
     if (user.username !== '' && user.password !== '' ) {
-      return this.http.post(baseUrl+'/login', user, {observe:'response'}).subscribe((response: any) => {
+      let res = this.http.post(baseUrl+'/login', user, {observe:'response'}).subscribe((response: any) => {
         if (response.headers.get("Authorization")) {
           this.token = response.headers.get("Authorization");
           this.userId = response.headers.get("UserId");
@@ -57,9 +57,13 @@ export class AuthService {
           } else if(this.userRole == "SALES"){
             this.router.navigate(['/gcfashions/sales']); 
            }
-          
+           return res;
+        }else{
+          return new Error(status);
         }
       });
+    }else{
+      return new Error;
     }
   }
 
@@ -69,7 +73,7 @@ export class AuthService {
 
     this.loggedIn.next(false);
     localStorage.clear();
-    this.router.navigate(['/gcfashions/shop/products']);
+    this.router.navigate(['/gcfashions/home']);
   }
 
 }

@@ -24,6 +24,7 @@ export class ServerService {
     }
 
     const header = (this.loggedIn) ? { Authorization: `${this.token}` } : undefined;
+    console.log(header, `${this.token}`)
 
     return this.http.request(method, baseUrl + route, {
       body: data,
@@ -35,6 +36,7 @@ export class ServerService {
 
   get(route: string, data?: any) {
     const header = (this.loggedIn) ? { Authorization: `${this.token}` } : undefined;
+    console.log(header, `${this.token}`)
 
     let params = new HttpParams();
     if (data !== undefined) {
