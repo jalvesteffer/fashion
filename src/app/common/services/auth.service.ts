@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, throwError } from 'rxjs';
 import { ServerService } from './server.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -29,24 +29,21 @@ export class AuthService {
       this.loggedIn.next(true);
 
       console.log('Logged in from memory');
-
-      if (this.userRole == "CUSTOMER") {
-        this.router.navigate(['/gcfashions/shop/myaccount']);
-      } else if (this.userRole == "SALES") {
-        this.router.navigate(['/gcfashions/sales']);
+      if(this.userRole == "CUSTOMER"){
+        this.router.navigate(['/gcfashions/shop/myaccount']); 
+      } else if(this.userRole == "SALES"){
+        this.router.navigate(['/gcfashions/sales']); 
       }
     }
   }
 
   login(user) {
-    console.log(user, user.username)
-    if (user.username !== '' && user.password !== '') {
-      return this.http.post(baseUrl + '/login', user, { observe: 'response' }).subscribe((response: any) => {
+    if (user.username !== '' && user.password !== '' ) {
+      let res = this.http.post(baseUrl+'/login', user, {observe:'response'}).subscribe((response: any) => {
         if (response.headers.get("Authorization")) {
           this.token = response.headers.get("Authorization");
           this.userId = response.headers.get("UserId");
           this.userRole = response.headers.get("UserRole");
-          console.log(this.userId);
           this.server.setLoggedIn(true, this.token);
           this.loggedIn.next(true);
           const userData = {
@@ -55,14 +52,18 @@ export class AuthService {
           localStorage.setItem('user', JSON.stringify(userData));
           localStorage.setItem('userId', this.userId);
           localStorage.setItem('userRole', this.userRole);
-          if (this.userRole == "CUSTOMER") {
-            this.router.navigate(['/gcfashions/shop/myaccount']);
-          } else if (this.userRole == "SALES") {
-            this.router.navigate(['/gcfashions/sales']);
-          }
-
+          if(this.userRole == "CUSTOMER"){
+           this.router.navigate(['/gcfashions/shop/myaccount']); 
+          } else if(this.userRole == "SALES"){
+            this.router.navigate(['/gcfashions/sales']); 
+           }
+           return res;
+        }else{
+          return new Error(status);
         }
       });
+    }else{
+      return new Error;
     }
   }
 

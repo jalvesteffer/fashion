@@ -53,7 +53,7 @@ export class AccountComponent implements OnInit {
         this.setPage(1);
       },
         (error) => {
-          throw new Error("Error in loadAllProducts().");
+          console.log("Error when loading All Products.");
         }
       );
   }

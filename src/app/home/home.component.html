@@ -15,11 +15,21 @@
     <div class="small-12 medium-10 medium-offset-1 large-8 large-offset-2 cell">
        -->
 <div class="main">
+  
+
   <div class="col-md-6 col-sm-12">
+    <!-- message bar -->
+  <div #alert class="alert alert-danger alert-dismissible fade show" role="alert">
+    <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{message}}
+  </div>
     <br>
     <div class="login-form">
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="form-group">
+          <p *ngIf="loginInvalid == true" style="color:danger;"> Username and/or password is invalid.</p>
           <label class="full-width-input">
             Username
             <input type="text" placeholder="Username" formControlName="username" required>
