@@ -4,7 +4,7 @@ import { BehaviorSubject, throwError } from 'rxjs';
 import { ServerService } from './server.service';
 import { HttpClient } from '@angular/common/http';
 
-const baseUrl = "http://localhost:8085";
+const baseUrl = "http://ec2-3-19-141-180.us-east-2.compute.amazonaws.com:8085";
 
 @Injectable({
   providedIn: 'root'
@@ -29,17 +29,17 @@ export class AuthService {
       this.loggedIn.next(true);
 
       console.log('Logged in from memory');
-      if(this.userRole == "CUSTOMER"){
-        this.router.navigate(['/gcfashions/shop/myaccount']); 
-      } else if(this.userRole == "SALES"){
-        this.router.navigate(['/gcfashions/sales']); 
+      if (this.userRole == "CUSTOMER") {
+        this.router.navigate(['/gcfashions/shop/myaccount']);
+      } else if (this.userRole == "SALES") {
+        this.router.navigate(['/gcfashions/sales']);
       }
     }
   }
 
   login(user) {
-    if (user.username !== '' && user.password !== '' ) {
-      let res = this.http.post(baseUrl+'/login', user, {observe:'response'}).subscribe((response: any) => {
+    if (user.username !== '' && user.password !== '') {
+      let res = this.http.post(baseUrl + '/login', user, { observe: 'response' }).subscribe((response: any) => {
         if (response.headers.get("Authorization")) {
           this.token = response.headers.get("Authorization");
           this.userId = response.headers.get("UserId");
@@ -52,17 +52,17 @@ export class AuthService {
           localStorage.setItem('user', JSON.stringify(userData));
           localStorage.setItem('userId', this.userId);
           localStorage.setItem('userRole', this.userRole);
-          if(this.userRole == "CUSTOMER"){
-           this.router.navigate(['/gcfashions/shop/myaccount']); 
-          } else if(this.userRole == "SALES"){
-            this.router.navigate(['/gcfashions/sales']); 
-           }
-           return res;
-        }else{
+          if (this.userRole == "CUSTOMER") {
+            this.router.navigate(['/gcfashions/shop/myaccount']);
+          } else if (this.userRole == "SALES") {
+            this.router.navigate(['/gcfashions/sales']);
+          }
+          return res;
+        } else {
           return new Error(status);
         }
       });
-    }else{
+    } else {
       return new Error;
     }
   }
