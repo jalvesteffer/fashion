@@ -212,7 +212,7 @@
    <!-- pagination -->
    <div class="ds-l-row ds-u-margin-top--3">
      <div class="pagination justify-content-center">
-       <ngb-pagination [collectionSize]="totalProducts" [(page)]="pager.currentPage" [maxSize]="5"
+       <ngb-pagination [collectionSize]="totalProducts" [(page)]="pager.currentPage" [pageSize]="pageSize" [maxSize]="5"
          [boundaryLinks]="true" (pageChange)="setPage($event)"></ngb-pagination>
      </div>
    </div>
