@@ -4,10 +4,10 @@
      <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
      <h3 class="w3-wide"><b>GC Fashion</b></h3>
    </div>
-   <div class="w3-padding-30 w3-large w3-text-grey" style="font-weight:bold" *ngFor="let c of categories">
+   <div class="w3-padding-30 w3-large w3-text-grey" style="font-weight:bold" *ngFor="let c of categories | categorySort">
      <!-- *ngIf="c.products.length"  -->
      <a (click)="loadProductsByCategory(c)" class="w3-bar-item w3-button">{{c.catName}}</a>
-     <div *ngFor="let sc of c.subcategories">
+     <div *ngFor="let sc of c.subcategories | subcategorySort">
        <!-- *ngIf="sc.products.length"  -->
        <a class="small w3-button"
          (click)="loadProductsBySubCategory(sc.catId, sc.subcatId,c)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{sc.subcatName}}</a>
@@ -33,7 +33,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
       
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02" [ngbCollapse]="isCollapsed" *ngFor="let c of categories; let sc of c.subcategories">
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02" [ngbCollapse]="isCollapsed" *ngFor="let c of categories | categorySort; let sc of c.subcategories">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
               <a (click)="loadProductsByCategory(c)" data-toggle="collapse" data-target=".navbar-collapse.show" class="w3-bar-item w3-button" >{{c.catName}}</a>
@@ -133,7 +133,7 @@
        <img src="assets/images/thumbnails/noProduct.PNG" style="width:100%">
      </div>
 
-     <ng-container *ngFor="let p of pagedProduct; let i = index">
+     <ng-container *ngFor="let p of pagedProduct | productSort; let i = index">
        <div class="w3-col l3 s6" *ngIf="i % 4 == 0 && i != 0">
          <div class="w3-container">
            <div class="w3-display-container">
