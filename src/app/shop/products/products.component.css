@@ -37,3 +37,8 @@ cursor: pointer;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
+
+.navbar-collapse {
+  max-height: 280px;
+  overflow-y: auto;
+}
