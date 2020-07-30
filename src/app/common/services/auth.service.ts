@@ -56,7 +56,10 @@ export class AuthService {
             this.router.navigate(['/gcfashions/shop/myaccount']);
           } else if (this.userRole == "SALES") {
             this.router.navigate(['/gcfashions/sales']);
+          } else if (this.userRole == "MANAGEMENT") {
+            this.router.navigate(['/gcfashions/dashboard']);
           }
+
           return res;
         } else {
           return new Error(status);
