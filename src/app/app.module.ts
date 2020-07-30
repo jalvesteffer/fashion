@@ -23,6 +23,8 @@ import { AccountComponent } from './shop/account/account.component';
 import { RegisterComponent } from './register/register.component';
 import { ReturnsComponent } from './register/returns/returns.component';
 import { from } from 'rxjs';
+import { CategorySortPipe } from './common/category-sort.pipe';
+import { SubcategorySortPipe } from './common/subcategory-sort.pipe';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { from } from 'rxjs';
     CheckoutComponent,
     AccountComponent,
     RegisterComponent,
-    ReturnsComponent
+    ReturnsComponent,
+    CategorySortPipe,
+    SubcategorySortPipe
   ],
   imports: [
     BrowserModule,

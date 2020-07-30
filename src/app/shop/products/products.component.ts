@@ -5,6 +5,7 @@ import { environment } from "../../../environments/environment";
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
+import { CategorySortPipe} from "../../common/category-sort.pipe"
 
 import { AuthService } from '../../common/services/auth.service';
 import { errorHandler } from '@angular/platform-browser/src/browser';
