@@ -12,6 +12,33 @@
    <a routerLink="../../../gcfashions/shop/products" class="w3-bar-item w3-button w3-padding">Shop</a>
  </nav><br>
 
+ <!-- Top menu on small screens -->
+ <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
+  <!-- <div class="w3-bar-item w3-padding-24 w3-wide">GC FASHION</div> -->
+  <!-- <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" (onclick)="w3_open()"><i
+      class="fa fa-bars"></i></a> -->
+
+     <nav class="navbar mr-auto navbar-expand-lg navbar-light bg-dark">
+       <div class="w3-bar-item w3-padding-24 w3-wide">GC FASHION</div>
+       <button class="navbar-toggler w3-button w3-padding-24 w3-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"  aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarTogglerDemo02">
+         <span class="navbar-toggler-icon"></span>
+       </button>
+
+       <div class="collapse navbar-collapse" id="navbarTogglerDemo02" [ngbCollapse]="isCollapsed">
+       <ul class="navbar-nav w3-left mr-auto mt-2 mt-lg-0">
+         <!-- <li class="nav-item active"> -->
+           <a href="#footer" class="w3-bar-item w3-button w3-padding-80">Contact</a>
+           <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding"
+           onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a>
+           <a routerLink="../../../gcfashions/shop/products" class="w3-bar-item w3-button w3-padding">Shop</a>
+         
+           <!-- </li> -->
+       </ul>
+     </div>
+       </nav>
+
+</header>
+
  <!-- !PAGE CONTENT! -->
  <div class="w3-main" style="margin-left:250px">
    <!-- Push down content on small screens -->
@@ -19,6 +46,7 @@
 
    <!-- Top header -->
    <header class="w3-container w3-xlarge">
+
      <div>
        <h1 class="w3-left">{{fullName}}'s Account</h1>
      </div>
