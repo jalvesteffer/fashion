@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ElementRef } from '@angular/core';
 import { ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +22,9 @@ import { CheckoutComponent } from './shop/checkout/checkout.component';
 import { AccountComponent } from './shop/account/account.component';
 import { RegisterComponent } from './register/register.component';
 import { ReturnsComponent } from './register/returns/returns.component';
+import { from } from 'rxjs';
+import { CategorySortPipe } from './common/category-sort.pipe';
+import { SubcategorySortPipe } from './common/subcategory-sort.pipe';
 
 @NgModule({
   declarations: [
@@ -35,7 +40,9 @@ import { ReturnsComponent } from './register/returns/returns.component';
     CheckoutComponent,
     AccountComponent,
     RegisterComponent,
-    ReturnsComponent
+    ReturnsComponent,
+    CategorySortPipe,
+    SubcategorySortPipe
   ],
   imports: [
     BrowserModule,

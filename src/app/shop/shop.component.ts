@@ -25,7 +25,7 @@ export class ShopComponent implements OnInit {
         this.products = res;
       },
         (error) => {
-          throw new Error("Error in loadAllProducts().");
+          console.log("Error in load when loading products.");
         }
       );
   }

@@ -3,6 +3,7 @@ import { ShopService } from "../../common/services/shop.service";
 import { environment } from "../../../environments/environment";
 import { PagerService } from "../../common/services/pager.service";
 import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
+import { AuthService } from '../../common/services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -34,6 +35,7 @@ export class ReturnsComponent implements OnInit {
     private shopService: ShopService,
     private pagerService: PagerService,
     private fb: FormBuilder,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {

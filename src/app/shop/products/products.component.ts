@@ -5,7 +5,11 @@ import { environment } from "../../../environments/environment";
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
+import { CategorySortPipe} from "../../common/category-sort.pipe"
+
+import { AuthService } from '../../common/services/auth.service';
 import { errorHandler } from '@angular/platform-browser/src/browser';
+
 import { Observable } from 'rxjs';
 
 @Component({
@@ -14,6 +18,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
+  // routers: Router;
 
   // header
   selectedCategory: string = "All Products";
@@ -68,6 +73,7 @@ export class ProductsComponent implements OnInit {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private router: Router,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
@@ -75,6 +81,17 @@ export class ProductsComponent implements OnInit {
     this.loadAllCategories();
     this.loadCart(Number(localStorage.getItem('userId')));
     this.initializeFormGroup();
+  }
+  
+  w3_open() {
+    console.log("here");
+    document.getElementById("mySidebar").style.width = "100%";
+    document.getElementById("mySidebar").style.display = "block";
+    console.log("here");
+  }
+
+  w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
   }
 
   initializeFormGroup() {
@@ -110,10 +127,7 @@ export class ProductsComponent implements OnInit {
         this.setPage(1);
       },
         (error) => {
-          // throw new Error("Error in loadAllProducts().");
-          let details = error.json().error;
-          console.log(details);
-          return Observable.throw(new Error(details));
+          console.log("Error in loading All Products.");
         }
       );
   }
@@ -125,10 +139,7 @@ export class ProductsComponent implements OnInit {
         this.totalCategories = this.categories.length;
       },
         (error) => {
-          // throw new Error("Error in loadAllProducts().");
-          let details = error.json().error;
-          console.log(details);
-          return Observable.throw(new Error(details));
+          console.log("Error in loading All Categories.");
         }
       );
   }
@@ -165,7 +176,7 @@ export class ProductsComponent implements OnInit {
         }
       },
         (error) => {
-          throw new Error("Error in loadCart()");
+          console.log("Error in ehn loading Cart.");
         }
       );
   }
@@ -292,9 +303,8 @@ export class ProductsComponent implements OnInit {
 
   searchProducts() {
     let searchString = this.searchProductForm.value.searchString;
-    console.log(searchString);
     let dash = "/";
-    if (searchString.length != "") {
+    if (searchString.length != 0) {
       this.shopService
         .getAll(
           `${environment.shopUrl}${environment.getProductsLikeURI}${searchString}`
