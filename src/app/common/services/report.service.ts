@@ -1,42 +1,47 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ServerService } from './server.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private server: ServerService) { }
 
   salesReport() {
-    return this.http.get("http://localhost:8083/gcfashions/accountant/reports/sales");
+    return this.requestReport("http://localhost:8083/gcfashions/accountant/reports/sales");
   }
 
   taxReport() {
-    return this.http.get("http://localhost:8083/gcfashions/accountant/reports/taxes");
+    return this.requestReport("http://localhost:8083/gcfashions/accountant/reports/taxes");
   }
 
   salesByCatReport() {
-    return this.http.get("http://localhost:8083/gcfashions/accountant/reports/salesbycat");
+    return this.requestReport("http://localhost:8083/gcfashions/accountant/reports/salesbycat");
   }
 
   totalSalesReport() {
-    return this.http.get("http://localhost:8083/gcfashions/accountant/reports/totalsales");
+    return this.requestReport("http://localhost:8083/gcfashions/accountant/reports/totalsales");
   }
 
   totalTaxReport() {
-    return this.http.get("http://localhost:8083/gcfashions/accountant/reports/totaltaxes");
+    return this.requestReport("http://localhost:8083/gcfashions/accountant/reports/totaltaxes");
   }
 
   avgSalesPerDay() {
-    return this.http.get("http://localhost:8083/gcfashions/accountant/reports/salesperday");
+    return this.requestReport("http://localhost:8083/gcfashions/accountant/reports/salesperday");
   }
 
   avgSalesPerTrans() {
-    return this.http.get("http://localhost:8083/gcfashions/accountant/reports/salespertrans");
+    return this.requestReport("http://localhost:8083/gcfashions/accountant/reports/salespertrans");
   }
 
   volPerLoc() {
-    return this.http.get("http://localhost:8083/gcfashions/accountant/reports/volperloc");
+    return this.requestReport("http://localhost:8083/gcfashions/accountant/reports/volperloc");
   }
+
+  requestReport(url){
+    return this.server.request("GET", url)
+  }
+
 }

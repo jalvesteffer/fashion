@@ -18,14 +18,12 @@ export class ServerService {
   }
 
   request(method: string, route: string, data?: any) {
+    //console.log("REQUEST:", (this.loggedIn) ? { Authorization: `${this.token}` } : "not logged in");
     if (method === 'GET') {
-      console.log("get", route, data);
       return this.get(route, data);
     }
 
     const header = (this.loggedIn) ? { Authorization: `${this.token}` } : undefined;
-    console.log(header, `${this.token}`)
-
     return this.http.request(method, baseUrl + route, {
       body: data,
       responseType: 'json',
@@ -36,8 +34,6 @@ export class ServerService {
 
   get(route: string, data?: any) {
     const header = (this.loggedIn) ? { Authorization: `${this.token}` } : undefined;
-    console.log(header, `${this.token}`)
-
     let params = new HttpParams();
     if (data !== undefined) {
       Object.getOwnPropertyNames(data).forEach(key => {
@@ -45,7 +41,6 @@ export class ServerService {
       });
     }
 
-    console.log("http get", baseUrl + route)
     return this.http.get(baseUrl + route, {
       responseType: 'json',
       headers: header,
