@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  shopUrl: 'http://ec2-3-19-141-180.us-east-2.compute.amazonaws.com:8085/gcfashions/shop',
-  accountUrl: 'http://ec2-3-19-141-180.us-east-2.compute.amazonaws.com:8085/gcfashions',
-  salesUrl: 'http://ec2-3-19-141-180.us-east-2.compute.amazonaws.com:8085/gcfashions/sales',
-  baseUrl: 'http://ec2-3-19-141-180.us-east-2.compute.amazonaws.com:8085/gcfashions',
+  shopUrl: '/shop',
+  accountUrl: '',
+  salesUrl: '/sales',
+  baseUrl: 'http://localhost:8085/gcfashions',
   getProductsURI: '/products',
   getProductsLikeURI: '/products/like/',
   getOpenTransactionURI: '/transactions/open/userid/',

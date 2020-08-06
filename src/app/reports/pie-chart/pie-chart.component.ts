@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ReportService } from "../../common/services/report.service";
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-pie-chart',
@@ -7,40 +6,33 @@ import { ReportService } from "../../common/services/report.service";
   styleUrls: ['./pie-chart.component.css']
 })
 export class PieChartComponent implements OnInit {
+  @Input() colors: any = "";
+  @Input() set report(report: any) {
+    this.populateChartData(report);
+  }
 
-  public doughnutChartLabels = [];
-  public doughnutChartData = [];
-  public doughnutChartType = 'doughnut';
-  public title;
-
-  public donutColors=[
+  public chartTitle;
+  public chartColors = [
     {
-      backgroundColor: [
-        'rgba(41, 128, 185, 1)',
-        'rgba(31, 97, 141, 1)',
-        'rgba(108, 52, 131, 1)',
-        'rgba(116, 68, 138, 1)',
-        'rgba(146, 33, 113, 1)',
-        'rgba(149, 165, 166, 1)',
-        'rgba(46, 204, 113, 1)',
-    ]
-    }
+      backgroundColor: "",
+    },
   ];
 
-  constructor(private reportService: ReportService) { }
+  public chartLabels = [];
+  public chartData = [];
 
-  showConfig() {
-    this.reportService.volPerLoc().subscribe((data: any) => {
-      this.title = data.reportName;
-      data.reportData.forEach((element) => {
-        this.doughnutChartLabels.push(element.label);
-        this.doughnutChartData.push(element.value);
-      });
+  constructor() {}
+
+  ngOnInit() {}
+
+  public populateChartData(report) {
+    this.chartTitle = report.reportName;
+    this.chartColors.forEach(series => {
+      series.backgroundColor = this.colors;
+    });    
+    report.reportData.forEach((element) => {
+      this.chartLabels.push(element.label);
+      this.chartData.push(element.value);
     });
   }
-
-  ngOnInit() {
-    this.showConfig();
-  }
-
 }

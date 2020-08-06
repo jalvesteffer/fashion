@@ -8,16 +8,16 @@
 <div class="container">
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 mb-4">
     <div class="col"><div *ngIf="report1"><app-metric [report] = "report1"></app-metric></div></div>
-    <div class="col"><div *ngIf="report1"><app-metric [report] = "report1"></app-metric></div></div>
-    <div class="col"><div *ngIf="report1"><app-metric [report] = "report1"></app-metric></div></div>
-    <div class="col"><div *ngIf="report1"><app-metric [report] = "report1"></app-metric></div></div>
+    <div class="col"><div *ngIf="report2"><app-metric [report] = "report2"></app-metric></div></div>
+    <div class="col"><div *ngIf="report3"><app-metric [report] = "report3"></app-metric></div></div>
+    <div class="col"><div *ngIf="report4"><app-metric [report] = "report4"></app-metric></div></div>
   </div>
   <div class="row row-cols-1 row-cols-sm-2 mb-4">
-    <div class="col"><app-bar-chart></app-bar-chart></div>
-    <div class="col"><app-pie-chart></app-pie-chart></div>
+    <div class="col"><div *ngIf="report5"><app-bar-chart [colors] = "lightColors" prefix = "$" [report] = "report5"></app-bar-chart></div></div>
+    <div class="col"><div *ngIf="report6"><app-pie-chart [colors] = "lightColors" [report] = "report6"></app-pie-chart></div></div>
   </div>
   <div class="row row-cols-1 row-cols-sm-2 mb-4">
-    <div class="col"><app-tax-report></app-tax-report></div>
-    <div class="col"><app-pie2-chart></app-pie2-chart></div>
+    <div class="col"><div *ngIf="report7"><app-bar-chart [colors] = "darkColors[1]" prefix = "$" [report] = "report7"></app-bar-chart></div></div>
+    <div class="col"><div *ngIf="report8"><app-pie-chart [colors] = "darkColors" [report] = "report8"></app-pie-chart></div></div>
   </div>
 </div>
