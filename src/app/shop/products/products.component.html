@@ -27,12 +27,12 @@
    <!-- <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" (onclick)="w3_open()"><i
        class="fa fa-bars"></i></a> -->
 
-      <nav class="navbar mr-auto navbar-expand-lg navbar-light bg-dark">
+      <nav class="navbar mr-auto navbar-expand-lg navbar-light bg-dark" id="topMenu">
         <div class="w3-bar-item w3-padding-24 w3-wide">GC FASHION</div>
-        <button class="navbar-toggler w3-button w3-padding-24 w3-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"  aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarTogglerDemo02">
+        <button class="navbar-toggler w3-button w3-button w3-display-topright" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"  aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarTogglerDemo02">
           <span class="navbar-toggler-icon"></span>
         </button>
-      
+        
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02" [ngbCollapse]="isCollapsed" *ngFor="let c of categories | categorySort; let sc of c.subcategories">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
@@ -49,7 +49,7 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02" [ngbCollapse]="isCollapsed">
         <ul class="navbar-nav w3-left mr-auto mt-2 mt-lg-0">
           <!-- <li class="nav-item active"> -->
-            <a href="#footer" class="w3-bar-item w3-button w3-padding-80">Contact</a>
+            <br>
             <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding"
             onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a>
             <a routerLink="../../../gcfashions/home" class="w3-bar-item w3-button w3-padding">My Account</a>
@@ -210,15 +210,23 @@
 
 
    <!-- pagination -->
-   <div class="ds-l-row ds-u-margin-top--3">
-     <div class="pagination justify-content-center">
+   <!-- <div class="ds-l-row ds-u-margin-top--3">
+     <div class="pagination justify-content-center" id="pagination">
        <ngb-pagination [collectionSize]="totalProducts" [(page)]="pager.currentPage" [pageSize]="pageSize" [maxSize]="5"
          [boundaryLinks]="true" (pageChange)="setPage($event)"></ngb-pagination>
      </div>
-   </div>
+   </div> -->
+
+   <div class="row ds-u-margin-top--3">
+    <div class="w3-col"></div>
+    <div class="w3-col justify-content-center pagination" id="pagination">
+      <ngb-pagination [collectionSize]="totalProducts" [(page)]="pager.currentPage" [pageSize]="pageSize" [maxSize]="5"
+        [boundaryLinks]="true" (pageChange)="setPage($event)"></ngb-pagination>
+    </div>
+  </div>
 
 
-
+  <br><br><br><br>
 
 
    <!-- Subscribe section -->
