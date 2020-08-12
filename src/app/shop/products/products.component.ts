@@ -145,14 +145,6 @@ export class ProductsComponent implements OnInit {
   }
 
   loadProductsByCategory(cat) {
-    // close the mobile sidebar if it is shown
-    // currently, the if condition is incorrect.
-    if (document.getElementById("navbarTogglerDemo02").hidden == false) {
-      console.log("toggle code")
-      document.getElementById("toggleButton").click();
-    }
-
-
     this.selectedCategory = cat.catName;
     this.selectedCategoryInfo = cat;
     this.shopService.getAll(`${environment.shopUrl}${environment.getCategoryURI}${cat.catId}${environment.getProductsURI}`)
