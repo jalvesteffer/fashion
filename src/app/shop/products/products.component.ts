@@ -5,7 +5,7 @@ import { environment } from "../../../environments/environment";
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
-import { CategorySortPipe} from "../../common/category-sort.pipe"
+import { CategorySortPipe } from "../../common/category-sort.pipe"
 
 import { AuthService } from '../../common/services/auth.service';
 import { errorHandler } from '@angular/platform-browser/src/browser';
@@ -82,7 +82,7 @@ export class ProductsComponent implements OnInit {
     this.loadCart(Number(localStorage.getItem('userId')));
     this.initializeFormGroup();
   }
-  
+
   w3_open() {
     console.log("here");
     document.getElementById("mySidebar").style.width = "100%";
@@ -145,6 +145,14 @@ export class ProductsComponent implements OnInit {
   }
 
   loadProductsByCategory(cat) {
+    // close the mobile sidebar if it is shown
+    // currently, the if condition is incorrect.
+    if (document.getElementById("navbarTogglerDemo02").hidden == false) {
+      console.log("toggle code")
+      document.getElementById("toggleButton").click();
+    }
+
+
     this.selectedCategory = cat.catName;
     this.selectedCategoryInfo = cat;
     this.shopService.getAll(`${environment.shopUrl}${environment.getCategoryURI}${cat.catId}${environment.getProductsURI}`)
