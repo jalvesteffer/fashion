@@ -23,7 +23,7 @@
  </nav><br>
 
  <!-- Top menu on small screens -->
- <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
+ <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge" id="testBar">
    <!-- <div class="w3-bar-item w3-padding-24 w3-wide">GC FASHION</div> -->
    <!-- <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" (onclick)="w3_open()"><i
        class="fa fa-bars"></i></a> -->
@@ -32,36 +32,29 @@
      <div class="w3-bar-item w3-padding-24 w3-wide">GC FASHION</div>
      <button id="toggleButton" class="navbar-toggler w3-button w3-button w3-display-topright" type="button"
        data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"
-       (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarTogglerDemo02">
+       (click)="isCollapsed = !isCollapsed" (click)="topMenuFocus()" [attr.aria-expanded]="!isCollapsed"
+       aria-controls="navbarTogglerDemo02">
        <span class="navbar-toggler-icon"></span>
      </button>
 
-     <div class="collapse navbar-collapse" id="navbarTogglerDemo02" [ngbCollapse]="isCollapsed"
-       *ngFor="let c of categories | categorySort; let sc of c.subcategories">
-       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-         <li class="nav-item active">
+     <div class="collapse navbar-collapse" id="navbarTogglerDemo02" [ngbCollapse]="isCollapsed">
+       <ul class="navbar-nav mr-auto mt-2">
+         <li class="nav-item" *ngFor="let c of categories | categorySort">
            <a (click)="loadProductsByCategory(c)" (click)="isCollapsed = !isCollapsed"
-             class="w3-bar-item w3-button">{{c.catName}}</a>
-           <!-- <div class="btn-group-vertical">
-                <a class="small w3-button" (click)="loadProductsBySubCategory(sc.catId, sc.subcatId,c)">{{sc.subcatName}}</a>
-              </div> -->
+             class="w3-bar-item w3-button w3-large">{{c.catName}}</a>
+           <!-- <p class="nav-item active" *ngFor="let sc of c.subcategories">
+             <a class="small w3-button"
+               (click)="loadProductsBySubCategory(sc.catId, sc.subcatId,c)">{{sc.subcatName}}</a>
+           </p> -->
          </li>
        </ul>
-     </div>
-
-     <br><br>
-
-     <div class="collapse navbar-collapse" id="navbarTogglerDemo02" [ngbCollapse]="isCollapsed">
-       <ul class="navbar-nav w3-left mr-auto mt-2 mt-lg-0">
-         <!-- <li class="nav-item active"> -->
-         <br>
-         <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding"
-           onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a>
-         <a routerLink="../../../gcfashions/home" class="w3-bar-item w3-button w3-padding">My Account</a>
-
-         <!-- </li> -->
+       <ul class="navbar-nav w3-left mr-auto mt-5">
+         <li><a href="javascript:void(0)" class="w3-bar-item w3-button w3-large"
+             onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a></li>
+         <li><a routerLink="../../../gcfashions/home" class="w3-bar-item w3-button w3-large">My Account</a></li>
        </ul>
      </div>
+
    </nav>
 
  </header>
