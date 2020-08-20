@@ -13,11 +13,11 @@
     <div class="col"><div *ngIf="report4"><app-metric [report] = "report4"></app-metric></div></div>
   </div>
   <div class="row row-cols-1 row-cols-sm-2 mb-4">
-    <div class="col"><div *ngIf="report5"><app-bar-chart [colors] = "lightColors" prefix = "$" [report] = "report5"></app-bar-chart></div></div>
+    <div class="col"><div *ngIf="report7"><app-bar-chart [colors] = "lightColors[0]" prefix = "$" [report] = "report7"></app-bar-chart></div></div>
     <div class="col"><div *ngIf="report6"><app-pie-chart [colors] = "lightColors" [report] = "report6"></app-pie-chart></div></div>
   </div>
   <div class="row row-cols-1 row-cols-sm-2 mb-4">
-    <div class="col"><div *ngIf="report7"><app-bar-chart [colors] = "darkColors[1]" prefix = "$" [report] = "report7"></app-bar-chart></div></div>
+    <div class="col"><div *ngIf="report5"><app-bar-chart [colors] = "darkColors[1]" prefix = "$" [report] = "report5"></app-bar-chart></div></div>
     <div class="col"><div *ngIf="report8"><app-pie-chart [colors] = "darkColors" [report] = "report8"></app-pie-chart></div></div>
   </div>
 </div>
