@@ -1,14 +1,18 @@
 import { ProductsComponent } from './products.component';
 import { ShopService } from "../../common/services/shop.service";
 import { PagerService } from "../../common/services/pager.service";
+import { AuthService } from '../../common/services/auth.service';
 import { environment } from "../../../environments/environment";
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
+import { Pipe, PipeTransform } from "@angular/core";
+import { HomeComponent } from "../../home/home.component"
 
 import {
   async,
@@ -25,6 +29,27 @@ import { resolve } from 'url';
 import { NOTFOUND } from 'dns';
 import { variable } from '@angular/compiler/src/output/output_ast';
 
+
+@Pipe({
+  name: 'categorySort'
+})
+export class MockCategorySortPipe implements PipeTransform {
+  transform(input: any[]): any {}
+}
+
+@Pipe({
+  name: 'subcategorySort'
+})
+export class MockSubcategorySortPipe implements PipeTransform {
+  transform(input: any[]): any {}
+}
+
+@Pipe({
+  name: 'productSort'
+})
+export class MockProductSortPipe implements PipeTransform {
+  transform(input: any[]): any {}
+}
 // mock modal reference class
 export class MockNgbModalRef {
   result: Promise<any> = new Promise((resolve, reject) => resolve("x"));
@@ -35,6 +60,7 @@ describe('ProductsComponent', () => {
   let fixture: ComponentFixture<ProductsComponent>;
   let service: ShopService;
   let pagerService: PagerService;
+  let authService: AuthService;
   let modalService: NgbModal;
   let fb: FormBuilder;
   let router: Router;
@@ -43,8 +69,9 @@ describe('ProductsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProductsComponent ],
+      declarations: [ ProductsComponent, MockCategorySortPipe, MockSubcategorySortPipe, MockProductSortPipe ],
       imports: [
+        RouterTestingModule,
         NgbModule,
         ReactiveFormsModule,
         HttpClientModule,
@@ -53,7 +80,7 @@ describe('ProductsComponent', () => {
       providers: [
         ShopService, 
         PagerService,
-        { provide: Router, useValue: {urls: "/path"} },
+        // { provide: Router, useValue: {urls: "/path"} },
       ]
     })
     .compileComponents();
@@ -62,7 +89,7 @@ describe('ProductsComponent', () => {
     fb = new FormBuilder();
     modalService = TestBed.get(NgbModal);
 
-    component = new ProductsComponent(service, pagerService, modalService, fb, router);
+    component = new ProductsComponent(service, pagerService, modalService, fb, router,authService);
   }));
 
   beforeEach(() => {
