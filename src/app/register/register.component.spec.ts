@@ -6,6 +6,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import {
   async,
   ComponentFixture,
@@ -41,6 +42,7 @@ describe('RegisterComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ RegisterComponent ],
       imports: [
+        RouterTestingModule,
         NgbModule,
         ReactiveFormsModule,
         HttpClientModule,
@@ -48,7 +50,7 @@ describe('RegisterComponent', () => {
       ],
       providers: [
         ShopService,
-        { provide: Router, useValue: {urls: "/path"} },
+        // { provide: Router, useValue: {urls: "/path"} },
       ]
     })
     .compileComponents();
