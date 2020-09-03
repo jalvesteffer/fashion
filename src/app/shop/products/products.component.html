@@ -4,7 +4,8 @@
      <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
      <h3 class="w3-wide"><b>GC Fashion</b></h3>
    </div>
-   <div class="w3-padding-30 w3-large w3-text-grey" style="font-weight:bold" *ngFor="let c of categories | categorySort">
+   <div class="w3-padding-30 w3-large w3-text-grey" style="font-weight:bold"
+     *ngFor="let c of categories | categorySort">
      <!-- *ngIf="c.products.length"  -->
      <a (click)="loadProductsByCategory(c)" class="w3-bar-item w3-button">{{c.catName}}</a>
      <div *ngFor="let sc of c.subcategories | subcategorySort">
@@ -22,42 +23,38 @@
  </nav><br>
 
  <!-- Top menu on small screens -->
- <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
+ <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge" id="testBar">
    <!-- <div class="w3-bar-item w3-padding-24 w3-wide">GC FASHION</div> -->
    <!-- <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" (onclick)="w3_open()"><i
        class="fa fa-bars"></i></a> -->
 
-      <nav class="navbar mr-auto navbar-expand-lg navbar-light bg-dark">
-        <div class="w3-bar-item w3-padding-24 w3-wide">GC FASHION</div>
-        <button class="navbar-toggler w3-button w3-padding-24 w3-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"  aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarTogglerDemo02">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02" [ngbCollapse]="isCollapsed" *ngFor="let c of categories | categorySort; let sc of c.subcategories">
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-              <a (click)="loadProductsByCategory(c)" data-toggle="collapse" data-target=".navbar-collapse.show" class="w3-bar-item w3-button" >{{c.catName}}</a>
-              <!-- <div class="btn-group-vertical">
-                <a class="small w3-button" (click)="loadProductsBySubCategory(sc.catId, sc.subcatId,c)">{{sc.subcatName}}</a>
-              </div> -->
-            </li>
-          </ul>
-        </div>
-        
-        <br><br>
+   <nav class="navbar mr-auto navbar-expand-lg navbar-light bg-dark" id="topMenu">
+     <div class="w3-bar-item w3-padding-24 w3-wide">GC FASHION</div>
+     <button id="toggleButton" class="navbar-toggler w3-button w3-button w3-display-topright" type="button"
+       data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"
+       (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarTogglerDemo02">
+       <span class="navbar-toggler-icon"></span>
+     </button>
 
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02" [ngbCollapse]="isCollapsed">
-        <ul class="navbar-nav w3-left mr-auto mt-2 mt-lg-0">
-          <!-- <li class="nav-item active"> -->
-            <a href="#footer" class="w3-bar-item w3-button w3-padding-80">Contact</a>
-            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding"
-            onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a>
-            <a routerLink="../../../gcfashions/home" class="w3-bar-item w3-button w3-padding">My Account</a>
-          
-            <!-- </li> -->
-        </ul>
-      </div>
-        </nav>
+     <div class="collapse navbar-collapse" id="navbarTogglerDemo02" [ngbCollapse]="isCollapsed">
+       <ul class="navbar-nav mr-auto mt-2">
+         <li class="nav-item" *ngFor="let c of categories | categorySort">
+           <a (click)="loadProductsByCategory(c)" (click)="isCollapsed = !isCollapsed"
+             class="w3-bar-item w3-button w3-large">{{c.catName}}</a>
+           <!-- <p class="nav-item active" *ngFor="let sc of c.subcategories">
+             <a class="small w3-button"
+               (click)="loadProductsBySubCategory(sc.catId, sc.subcatId,c)">{{sc.subcatName}}</a>
+           </p> -->
+         </li>
+       </ul>
+       <ul class="navbar-nav w3-left mr-auto mt-5">
+         <li><a href="javascript:void(0)" class="w3-bar-item w3-button w3-large"
+             onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a></li>
+         <li><a routerLink="../../../gcfashions/home" class="w3-bar-item w3-button w3-large">My Account</a></li>
+       </ul>
+     </div>
+
+   </nav>
 
  </header>
 
@@ -103,7 +100,9 @@
        <h1 class="w3-jumbo w3-hide-small">New arrivals</h1>
        <h1 class="w3-hide-large w3-hide-medium">New arrivals</h1>
        <h1 class="w3-hide-small">COLLECTION 2020</h1>
-       <p><a href="/gcfashions/shop/products" class="w3-button w3-black w3-padding-large w3-large">SHOP NOW</a></p>
+       <p><a routerLink="/gcfashions/shop/products" class="w3-button w3-black w3-padding-large w3-large">SHOP
+           NOW</a>
+       </p>
      </div>
    </div><br>
 
@@ -210,15 +209,23 @@
 
 
    <!-- pagination -->
-   <div class="ds-l-row ds-u-margin-top--3">
-     <div class="pagination justify-content-center">
+   <!-- <div class="ds-l-row ds-u-margin-top--3">
+     <div class="pagination justify-content-center" id="pagination">
+       <ngb-pagination [collectionSize]="totalProducts" [(page)]="pager.currentPage" [pageSize]="pageSize" [maxSize]="5"
+         [boundaryLinks]="true" (pageChange)="setPage($event)"></ngb-pagination>
+     </div>
+   </div> -->
+
+   <div class="row ds-u-margin-top--3">
+     <div class="w3-col"></div>
+     <div class="w3-col justify-content-center pagination" id="pagination">
        <ngb-pagination [collectionSize]="totalProducts" [(page)]="pager.currentPage" [pageSize]="pageSize" [maxSize]="5"
          [boundaryLinks]="true" (pageChange)="setPage($event)"></ngb-pagination>
      </div>
    </div>
 
 
-
+   <br><br><br><br>
 
 
    <!-- Subscribe section -->
