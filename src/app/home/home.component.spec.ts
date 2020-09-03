@@ -1,7 +1,6 @@
 import { HomeComponent } from './home.component';
 import { FormBuilder, FormGroup, FormControl, FormsModule, Validators, ReactiveFormsModule } from "@angular/forms";
 import { AuthService } from '../common/services/auth.service';
-
 import {
   async,
   ComponentFixture,

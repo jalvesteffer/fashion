@@ -1,39 +1,56 @@
-#cart .p1[data-count]:after{
-position:absolute;
-right:10%;
-top:8%;
-content: attr(data-count);
-font-size:40%;
-padding:.2em;
-border-radius:10px;
-line-height:1em;
-color: white;
-background:#6394F8;
-text-align:center;
-min-width: 1em;
+#cart .p1[data-count]:after {
+  position: absolute;
+  right: 10%;
+  top: 8%;
+  content: attr(data-count);
+  font-size: 40%;
+  padding: .2em;
+  border-radius: 10px;
+  line-height: 1em;
+  color: white;
+  background: #6394F8;
+  text-align: center;
+  min-width: 1em;
 }
 
-#cart .p3:hover{
-color: gray;  
+#cart .p3:hover {
+  color: gray;
 }
 
 #cart {
-cursor: pointer;
+  cursor: pointer;
 }
 
-#header-color{
-    background-color: black;
-    color: white;
-    /* color: black; */
+#header-color {
+  background-color: black;
+  color: white;
+  /* color: black; */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .menuBar::-webkit-scrollbar {
-    display: none;
-  }
-  
-  /* Hide scrollbar for IE, Edge and Firefox */
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
 .menuBar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.pagination {
+  /*z-index:90;  or more than your image */
+  /* position: relative; */
+  position: absolute;
+  z-index: 0;
+  align-items: center;
+  color: #000;
+  padding: 50px, 100px;
+}
+
+#navbarTogglerDemo02 {
+  height: 400px;
+  overflow-y: scroll;
+}

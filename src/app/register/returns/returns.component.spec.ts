@@ -1,15 +1,16 @@
 import { ShopService } from '../../common/services/shop.service';
 import { PagerService } from '../../common/services/pager.service';
-import { Observable, from, of, observable, throwError } from "rxjs";
+import { AuthService } from '../../common/services/auth.service';
+import { of, throwError } from "rxjs";
 import { ReturnsComponent } from './returns.component';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup, FormControl, Validators, NgModel } from "@angular/forms";
+import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder} from "@angular/forms";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from "@angular/forms";
-import { Pipe, PipeTransform } from '@angular/core';
 import { HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
 import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import {
   async,
   ComponentFixture,
@@ -19,7 +20,6 @@ import {
 } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
-  HttpTestingController,
 } from "@angular/common/http/testing";
 import { resolve } from 'url';
 
@@ -32,6 +32,7 @@ describe('ReturnsComponent', () => {
   let component: ReturnsComponent;
   let fixture: ComponentFixture<ReturnsComponent>;
   let service: ShopService;
+  let authService: AuthService;
   let pagerService: PagerService;
   let modalService: NgbModal;
   let fb: FormBuilder;
@@ -41,6 +42,7 @@ describe('ReturnsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ReturnsComponent ],
       imports: [
+        RouterTestingModule,
         NgbModule,
         ReactiveFormsModule,
         HttpClientModule,
@@ -57,7 +59,7 @@ describe('ReturnsComponent', () => {
     fb = new FormBuilder();
     modalService = TestBed.get(NgbModal);
 
-    component = new ReturnsComponent(service, pagerService, fb);
+    component = new ReturnsComponent(service, pagerService, fb, authService);
 
   }));
 
