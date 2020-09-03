@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ShopService } from "../../common/services/shop.service";
 import { environment } from "../../../environments/environment";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+declare var Stripe: any;
 
 @Component({
   selector: 'app-checkout',

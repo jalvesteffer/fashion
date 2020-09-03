@@ -9,7 +9,7 @@ export class ReportService {
   constructor(private server: ServerService) { }
   
   requestReport(url){
-    return this.server.request("GET", "/accountant/reports/" + url)
+    return this.server.request("GET", "/reports/" + url)
   }
 
 }
