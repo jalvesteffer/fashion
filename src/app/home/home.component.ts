@@ -12,7 +12,7 @@ import { throwError } from 'rxjs';
 export class HomeComponent implements OnInit {
   @ViewChild('alert', {}) alert: ElementRef;
   message: string = "No Message";
-  
+
   form: FormGroup;
   public loginInvalid: boolean;
   public formSubmitAttempt: boolean;
@@ -24,15 +24,23 @@ export class HomeComponent implements OnInit {
   private name: string;
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private authService: AuthService,
     private router: Router
-    ) {
+  ) {
   }
 
   ngOnInit() {
     this.initializeFormGroup();
     this.closeAlert();
+
+    // subscribe to login failure events so that an error alert
+    // can be displayed
+    this.authService.messageEvent.subscribe(res => {
+      this.loginInvalid = true;
+      this.openAlert();
+      this.message = res;
+    });
 
     if (localStorage.getItem('user') != null) {
       console.log('Logged in from memory');
@@ -45,13 +53,6 @@ export class HomeComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-
-    // this.registrationForm = new FormGroup({
-    //   username: new FormControl(this.username),
-    //   password: new FormControl(this.password),
-    //   name: new FormControl(this.name),
-
-    // });
   }
 
   closeAlert() {
@@ -65,19 +66,18 @@ export class HomeComponent implements OnInit {
   async onSubmit() {
     this.loginInvalid = false;
     this.formSubmitAttempt = false;
-    if (this.form.valid) {
-      if (this.authService.login(this.form.value)){
 
-      }else{
-        this.loginInvalid = true;
-        this.message = "Username or Password is incorrect";
-        this.openAlert();
-      }
-    } else {
+    // make sure username and password fields are not blank
+    if (this.form.valid) {
+      // call login service with object containing username/password as argument
+      this.authService.login(this.form.value);
+    }
+    // otherwise, display an error alert
+    else {
       this.formSubmitAttempt = true;
       this.loginInvalid = true;
-        this.message = "Username and Password can not be blank.";
-        this.openAlert();
+      this.message = "Username and Password can not be blank.";
+      this.openAlert();
     }
   }
 }
