@@ -8,7 +8,7 @@ import { EventEmitter } from '@angular/core'
 const baseUrl = "http://ec2-3-19-141-180.us-east-2.compute.amazonaws.com:8085";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
@@ -22,21 +22,17 @@ export class AuthService {
     return this.loggedIn.asObservable();
   }
 
-  constructor(private router: Router, private server: ServerService, private http: HttpClient) {
-    console.log('Auth Service');
-    const userData = localStorage.getItem('user');
+  constructor(
+    private router: Router,
+    private server: ServerService,
+    private http: HttpClient
+  ) {
+    const userData = localStorage.getItem("user");
     if (userData) {
       const user = JSON.parse(userData);
       this.token = user.token;
       this.server.setLoggedIn(true, this.token);
       this.loggedIn.next(true);
-
-      console.log('Logged in from memory');
-      if (this.userRole == "CUSTOMER") {
-        this.router.navigate(['/gcfashions/shop/myaccount']);
-      } else if (this.userRole == "SALES") {
-        this.router.navigate(['/gcfashions/sales']);
-      }
     }
   }
 
@@ -76,10 +72,8 @@ export class AuthService {
   logout() {
     this.server.setLoggedIn(false);
     delete this.token;
-
     this.loggedIn.next(false);
     localStorage.clear();
-    this.router.navigate(['/gcfashions/home']);
+    this.router.navigate(["/gcfashions/home"]);
   }
-
 }
