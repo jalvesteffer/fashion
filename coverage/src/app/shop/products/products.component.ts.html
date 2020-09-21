@@ -22,9 +22,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.59% </span>
+                <span class="strong">68.94% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>108/153</span>
+                <span class='fraction'>111/161</span>
             </div>
         
             
@@ -36,16 +36,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.09% </span>
+                <span class="strong">56.52% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>26/44</span>
+                <span class='fraction'>26/46</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.74% </span>
+                <span class="strong">69.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>99/138</span>
+                <span class='fraction'>102/146</span>
             </div>
         
             
@@ -429,7 +429,25 @@
 <a name='L371'></a><a href='#L371'>371</a>
 <a name='L372'></a><a href='#L372'>372</a>
 <a name='L373'></a><a href='#L373'>373</a>
-<a name='L374'></a><a href='#L374'>374</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L374'></a><a href='#L374'>374</a>
+<a name='L375'></a><a href='#L375'>375</a>
+<a name='L376'></a><a href='#L376'>376</a>
+<a name='L377'></a><a href='#L377'>377</a>
+<a name='L378'></a><a href='#L378'>378</a>
+<a name='L379'></a><a href='#L379'>379</a>
+<a name='L380'></a><a href='#L380'>380</a>
+<a name='L381'></a><a href='#L381'>381</a>
+<a name='L382'></a><a href='#L382'>382</a>
+<a name='L383'></a><a href='#L383'>383</a>
+<a name='L384'></a><a href='#L384'>384</a>
+<a name='L385'></a><a href='#L385'>385</a>
+<a name='L386'></a><a href='#L386'>386</a>
+<a name='L387'></a><a href='#L387'>387</a>
+<a name='L388'></a><a href='#L388'>388</a>
+<a name='L389'></a><a href='#L389'>389</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -499,6 +517,7 @@
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -506,6 +525,17 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -809,6 +839,9 @@ import { environment } from "../../../environments/environment";
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
+import { AuthService } from '../../common/services/auth.service';
+import { errorHandler } from '@angular/platform-browser/src/browser';
+&nbsp;
 import { Observable } from 'rxjs';
 &nbsp;
 @Component({
@@ -872,6 +905,7 @@ export class ProductsComponent implements OnInit {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private router: Router,
+    private authService: AuthService,
   ) { }
 &nbsp;
   ngOnInit() {
@@ -879,6 +913,17 @@ export class ProductsComponent implements OnInit {
     this.loadAllCategories();
     this.loadCart(Number(localStorage.getItem('userId')));
     this.initializeFormGroup();
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  w3_open(</span>) {
+<span class="cstat-no" title="statement not covered" >    console.log("here");</span>
+<span class="cstat-no" title="statement not covered" >    document.getElementById("mySidebar").style.width = "100%";</span>
+<span class="cstat-no" title="statement not covered" >    document.getElementById("mySidebar").style.display = "block";</span>
+<span class="cstat-no" title="statement not covered" >    console.log("here");</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  w3_close(</span>) {
+<span class="cstat-no" title="statement not covered" >    document.getElementById("mySidebar").style.display = "none";</span>
   }
 &nbsp;
   initializeFormGroup() {
@@ -1182,7 +1227,7 @@ export class ProductsComponent implements OnInit {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 09 2020 02:23:26 GMT-0700 (Pacific Daylight Time)
+                at Mon Sep 21 2020 10:40:58 GMT-0400 (Eastern Daylight Time)
             </div>
         </div>
         <script src="..\..\..\..\prettify.js"></script>

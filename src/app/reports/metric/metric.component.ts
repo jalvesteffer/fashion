@@ -7,7 +7,7 @@ import { Component, Input } from "@angular/core";
 })
 export class MetricComponent {
   @Input()
-  private report;
+  report;
 
   constructor() {}
 

@@ -22,9 +22,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.13% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/23</span>
+                <span class='fraction'>8/20</span>
             </div>
         
             
@@ -43,9 +43,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.36% </span>
+                <span class="strong">36.84% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/22</span>
+                <span class='fraction'>7/19</span>
             </div>
         
             
@@ -112,7 +112,6 @@
 <a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -129,12 +128,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,6 +147,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -154,7 +155,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -162,13 +162,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-&nbsp;
-const baseUrl = "";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Injectable } from "@angular/core";
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { environment } from "../../../environments/environment";
 &nbsp;
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ServerService {
   private loggedIn = false;
@@ -182,36 +181,37 @@ export class ServerService {
   }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  request(</span>method: string, route: string, data?: any) {
-<span class="cstat-no" title="statement not covered" >    if (method === 'GET') {</span>
-<span class="cstat-no" title="statement not covered" >      console.log("get", route, data);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (method === "GET") {</span>
 <span class="cstat-no" title="statement not covered" >      return this.get(route, data);</span>
     }
 &nbsp;
-    const header = <span class="cstat-no" title="statement not covered" >(this.loggedIn) ? { Authorization: `${this.token}` } : undefined;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    return this.http.request(method, baseUrl + route, {</span>
+    const header = <span class="cstat-no" title="statement not covered" >this.loggedIn</span>
+      ? { Authorization: `${this.token}` }
+      : undefined;
+<span class="cstat-no" title="statement not covered" >    return this.http.request(method, `${environment.baseUrl}${route}`, {</span>
       body: data,
-      responseType: 'json',
-      observe: 'body',
-      headers: header
+      responseType: "json",
+      observe: "body",
+      headers: header,
     });
   }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  get(</span>route: string, data?: any) {
-    const header = <span class="cstat-no" title="statement not covered" >(this.loggedIn) ? { Authorization: `${this.token}` } : undefined;</span>
-&nbsp;
+    const header = <span class="cstat-no" title="statement not covered" >this.loggedIn</span>
+      ? { Authorization: `${this.token}` }
+      : undefined;
     let params = <span class="cstat-no" title="statement not covered" >new HttpParams();</span>
 <span class="cstat-no" title="statement not covered" >    if (data !== undefined) {</span>
-<span class="cstat-no" title="statement not covered" >      Object.getOwnPropertyNames(data).forEach(<span class="fstat-no" title="function not covered" >key </span>=&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      Object.getOwnPropertyNames(data).forEach(<span class="fstat-no" title="function not covered" >(k</span>ey) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        params = params.set(key, data[key]);</span>
       });
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    console.log("http get", baseUrl + route)</span>
-<span class="cstat-no" title="statement not covered" >    return this.http.get(baseUrl + route, {</span>
-      responseType: 'json',
+<span class="cstat-no" title="statement not covered" >    return this.http.get(`${environment.baseUrl}${route}`, {</span>
+      responseType: "json",
       headers: header,
-      params
+      params,
     });
   }
 }
@@ -222,7 +222,7 @@ export class ServerService {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 09 2020 02:23:26 GMT-0700 (Pacific Daylight Time)
+                at Mon Sep 21 2020 10:40:58 GMT-0400 (Eastern Daylight Time)
             </div>
         </div>
         <script src="..\..\..\..\prettify.js"></script>
