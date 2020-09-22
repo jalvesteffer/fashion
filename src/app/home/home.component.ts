@@ -32,13 +32,13 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.initializeFormGroup();
-    this.closeAlert();
+    // this.closeAlert();
 
     // subscribe to login failure events so that an error alert
     // can be displayed
     this.authService.messageEvent.subscribe(res => {
       this.loginInvalid = true;
-      this.openAlert();
+      // this.openAlert();
       this.message = res;
     });
 
@@ -55,13 +55,13 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  closeAlert() {
-    this.alert.nativeElement.classList.remove('show');
-  }
+  // closeAlert() {
+  //   this.alert.nativeElement.classList.remove('show');
+  // }
 
-  openAlert() {
-    this.alert.nativeElement.classList.add('show');
-  }
+  // openAlert() {
+  //   this.alert.nativeElement.classList.add('show');
+  // }
 
   async onSubmit() {
     this.loginInvalid = false;
@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit {
       this.formSubmitAttempt = true;
       this.loginInvalid = true;
       this.message = "Username and Password can not be blank.";
-      this.openAlert();
+      // this.openAlert();
     }
   }
 }
