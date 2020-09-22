@@ -16,5 +16,9 @@ describe("BarChartComponent", () => {
       ],
     };
 
+    expect(chart.chartTitle).toEqual("No Data");
+    expect(chart.chartLabels[0]).toEqual("No Data");
+    expect(chart.series1.data[0]).toEqual(0);    
+
   })
 });

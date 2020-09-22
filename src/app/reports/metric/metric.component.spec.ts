@@ -15,5 +15,7 @@ describe('MetricComponent', () => {
       ],
     };
 
+    expect(chart.report).toBeTruthy();
+
   })
 });

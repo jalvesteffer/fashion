@@ -15,5 +15,9 @@ describe('PieChartComponent', () => {
       ],
     };
 
+    expect(chart.chartTitle).toEqual("No Data");
+    expect(chart.chartLabels[0]).toEqual("No Data");
+    expect(chart.chartData[0]).toEqual(0); 
+
   })
 });
