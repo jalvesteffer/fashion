@@ -23,7 +23,7 @@ describe('HomeComponent', () => {
 
   let service: AuthService;
   let serviceSer: ServerService;
-  let fb: FormBuilder;
+  let fb: FormBuilder
   let form: FormGroup;
   let http: HttpClient;
 
